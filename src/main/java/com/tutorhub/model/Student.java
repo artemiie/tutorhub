@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class Student extends User {
 
-    private List<CourseInfo> coursesInfo;
+    private List<StudentCourseInfo> coursesInfo;
 
     public Student() {
         this.role = "ROLE_STUDENT";

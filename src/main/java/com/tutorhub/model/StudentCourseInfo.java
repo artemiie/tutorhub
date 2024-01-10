@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document("courses_info")
 @Getter
 @Setter
-public class CourseInfo {
+public class StudentCourseInfo {
 
     @Id
     private ObjectId id;
