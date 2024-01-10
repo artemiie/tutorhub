@@ -9,4 +9,6 @@
     <suppress checks="HideUtilityClassConstructor"/>
     <suppress checks="HiddenField"/>
     <suppress checks="MemberName"/>
+    <suppress checks="VisibilityModifier"/>
+    <suppress checks="MagicNumber"/>
 </suppressions>
