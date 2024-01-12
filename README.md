@@ -11,7 +11,7 @@
 # JWT tokens settings
 
 **JWT_SECRET** = Secret key for signing format tokens base64<br>
-**JWT_ACCESS_DURATION** = Access token duration (in minutes)<br>
-**JWT_ACTIVATION_DURATION** = Activation token duration (in minutes)<br>
-**JWT_REFRESH_DURATION** = Refresh token duration (in days)<br>
-**JWT_RESTORE_DURATION** = Restore token duration (in minutes)<br>
+**JWT_ACCESS_DURATION** = Access token duration (in seconds)<br>
+**JWT_ACTIVATION_DURATION** = Activation token duration (in seconds)<br>
+**JWT_REFRESH_DURATION** = Refresh token duration (in seconds)<br>
+**JWT_RESTORE_DURATION** = Restore token duration (in seconds)<br>
