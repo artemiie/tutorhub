@@ -23,44 +23,51 @@ public class MailServiceImpl implements MailService {
   private final JavaMailSender mailSender;
 
   @Override
-  public void sendEmail(final User user, final MailType type, final Properties params) {
-    switch (type) {
-      case REGISTRATION -> sendRegistrationEmail(user, params);
-      case LOGIN -> sendLoginEmail(user, params);
-      case RESTORE -> sendRestoreEmail(user, params);
-      default -> { }
-    }
-  }
-
   @SneakyThrows
-  private void sendRegistrationEmail(final User user, final Properties params) {
+  public void sendEmail(final User user, final MailType type, final Properties params) {
     MimeMessage mimeMessage = mailSender.createMimeMessage();
     MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
-    helper.setSubject("Thank you for registration, " + user.getFullName());
-    String emailContext = getRegistrationEmailContext(user, params);
+
+    String emailContext =
+        switch (type) {
+          case REGISTRATION -> buildRegistrationEmailContext(helper, user, params);
+          case LOGIN -> buildLoginEmailContext(helper, user, params);
+          case RESTORE -> buildRestoreEmailContext(helper, user, params);
+        };
+
     helper.setText(emailContext, true);
     helper.setTo(user.getUsername());
     mailSender.send(mimeMessage);
   }
 
   @SneakyThrows
-  private void sendLoginEmail(final User user, final Properties params) {
-    MimeMessage mimeMessage = mailSender.createMimeMessage();
-    MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
-    helper.setSubject("Login Information");
-    String emailContext = getLoginEmailContext(user, params);
-    helper.setText(emailContext, true);
-    mailSender.send(mimeMessage);
+  private String buildRegistrationEmailContext(
+      final MimeMessageHelper helper,
+      final User user,
+      final Properties params
+  ) {
+    helper.setSubject("Thank you for registration, " + user.getFullName());
+    return getRegistrationEmailContext(user, params);
   }
 
   @SneakyThrows
-  private void sendRestoreEmail(final User user, final Properties params) {
-    MimeMessage mimeMessage = mailSender.createMimeMessage();
-    MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
+  private String buildLoginEmailContext(
+      final MimeMessageHelper helper,
+      final User user,
+      final Properties params
+  ) {
+    helper.setSubject("Login Information");
+    return getLoginEmailContext(user, params);
+  }
+
+  @SneakyThrows
+  private String buildRestoreEmailContext(
+      final MimeMessageHelper helper,
+      final User user,
+      final Properties params
+  ) {
     helper.setSubject("Password Restoration");
-    String emailContext = getRestoreEmailContext(user, params);
-    helper.setText(emailContext, true);
-    mailSender.send(mimeMessage);
+    return getRestoreEmailContext(user, params);
   }
 
   @SneakyThrows
