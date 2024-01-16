@@ -1,8 +1,8 @@
 package com.tutorhub.service.impl;
 
 import com.tutorhub.model.Tutor;
+import com.tutorhub.repository.TutorRepository;
 import com.tutorhub.service.TutorService;
-import com.tutorhub.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class TutorServiceImpl implements TutorService {
-  private final UserService userService;
+  private final TutorRepository tutorRepository;
 
   @Override
   public Tutor getById(final ObjectId id) {
@@ -21,7 +21,7 @@ public class TutorServiceImpl implements TutorService {
 
   @Override
   public Page<Tutor> getAll(final Pageable page) {
-    return userService.getAll(page).map(user -> (Tutor) user);
+    return tutorRepository.findAll(page);
   }
 
   @Override
