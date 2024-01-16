@@ -4,9 +4,9 @@ import com.tutorhub.model.User;
 import com.tutorhub.model.exception.ResourceNotFoundException;
 import com.tutorhub.repository.UserRepository;
 import com.tutorhub.service.UserService;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -33,11 +33,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAll(
+    public Page<User> getAll(
             final Pageable page
     ) {
-        //TODO implement
-        return null;
+       return userRepository.findAll(page);
     }
 
     @Override

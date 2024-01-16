@@ -1,14 +1,14 @@
 package com.tutorhub.service;
 
-import java.util.List;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface CrudService<C> {
 
     C getById(ObjectId id);
 
-    List<C> getAll(Pageable page);
+    Page<C> getAll(Pageable page);
 
     C create(C entity);
 
