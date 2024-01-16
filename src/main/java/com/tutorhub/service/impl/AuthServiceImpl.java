@@ -132,7 +132,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public boolean checkToken(String token) {
+    public boolean checkToken(final String token) {
         if (!jwtService.isValid(token, TokenType.ACTIVATION)) {
             throw new InvalidTokenException();
         }
