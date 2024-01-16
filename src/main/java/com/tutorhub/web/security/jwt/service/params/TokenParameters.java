@@ -59,6 +59,7 @@ public class TokenParameters {
                 final TokenType type
         ) {
             this.type = type;
+            field("type",type);
             return this;
         }
 
@@ -66,6 +67,7 @@ public class TokenParameters {
                 final Date issuedAt
         ) {
             this.issuedAt = issuedAt;
+            field("issuedAt",issuedAt);
             return this;
         }
 
@@ -73,6 +75,7 @@ public class TokenParameters {
                 final Date expiredAt
         ) {
             this.expiredAt = expiredAt;
+            field("expiredAt",expiredAt);
             return this;
         }
 
@@ -80,6 +83,7 @@ public class TokenParameters {
                 final String subject
         ) {
             this.subject = subject;
+            field("subject",subject);
             return this;
         }
 
