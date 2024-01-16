@@ -53,6 +53,7 @@ public class AuthServiceImpl implements AuthService {
                                 user.getUsername(),
                                 jwtProperties.getActivation()
                         )
+                        .type(TokenType.ACTIVATION)
                         .build()
         );
 
@@ -128,6 +129,14 @@ public class AuthServiceImpl implements AuthService {
                 passwordEncoder.encode(request.getPassword())
         );
         userService.update(user);
+    }
+
+    @Override
+    public boolean checkToken(String token) {
+        if (!jwtService.isValid(token, TokenType.ACTIVATION)) {
+            throw new InvalidTokenException();
+        }
+        return true;
     }
 
 }

@@ -15,4 +15,5 @@ public interface AuthService {
 
     void reset(RestoreRequest request);
 
+    boolean checkToken(String token);
 }
