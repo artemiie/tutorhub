@@ -22,8 +22,8 @@ public class TutorController {
 
   @GetMapping()
   public Page<TutorDTO> getAllPaged(
-      @RequestParam final int pageNumber,
-      @RequestParam final int pageSize,
+      @RequestParam(name = "page") final int pageNumber,
+      @RequestParam(name = "size") final int pageSize,
       @RequestParam final String sortBy
   ) {
     return tutorService
