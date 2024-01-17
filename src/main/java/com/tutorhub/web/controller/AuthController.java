@@ -12,9 +12,11 @@ import com.tutorhub.web.security.jwt.RestoreRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,47 +25,41 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final UserMapper userMapper;
+  private final UserMapper userMapper;
 
-    private final AuthService authService;
+  private final AuthService authService;
 
-    @PostMapping("/register/tutor")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void registerTutor(
-            @RequestBody @Validated(OnCreate.class) final TutorDTO tutorDTO
-    ) {
-        User user = userMapper.fromDto(tutorDTO);
-        authService.register(user);
-    }
+  @PostMapping("/register/tutor")
+  @ResponseStatus(HttpStatus.CREATED)
+  public void registerTutor(@RequestBody @Validated(OnCreate.class) final TutorDTO tutorDTO) {
+    User user = userMapper.fromDto(tutorDTO);
+    authService.register(user);
+  }
 
-    @PostMapping("/register/student")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void registerStudent(
-            @RequestBody @Validated(OnCreate.class) final StudentDTO studentDTO
-    ) {
-        User user = userMapper.fromDto(studentDTO);
-        authService.register(user);
-    }
+  @PostMapping("/register/student")
+  @ResponseStatus(HttpStatus.CREATED)
+  public void registerStudent(@RequestBody @Validated(OnCreate.class) final StudentDTO studentDTO) {
+    User user = userMapper.fromDto(studentDTO);
+    authService.register(user);
+  }
 
-    @PostMapping("/login")
-    public AuthResponse login(
-            @RequestBody @Validated final AuthRequest request
-    ) {
-        return authService.login(request);
-    }
+  @PostMapping("/login")
+  public AuthResponse login(@RequestBody @Validated final AuthRequest request) {
+    return authService.login(request);
+  }
 
-    @PostMapping("/restore")
-    public void restore(
-            @RequestBody final String username
-    ) {
-        authService.restore(username);
-    }
+  @PostMapping("/restore")
+  public void restore(@RequestBody final String username) {
+    authService.restore(username);
+  }
 
-    @PostMapping("/reset")
-    public void reset(
-            @RequestBody final RestoreRequest request
-    ) {
-        authService.reset(request);
-    }
+  @PostMapping("/reset")
+  public void reset(@RequestBody final RestoreRequest request) {
+    authService.reset(request);
+  }
 
+  @GetMapping("/confirm")
+  public void confirm(@RequestParam("token") final String token) {
+    authService.checkToken(token);
+  }
 }
