@@ -12,9 +12,9 @@ public class RestoreRequest {
 
     @Schema(
             description = "Restore token",
-            example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
-                      "eyJzdWIiOiJleDMiLCJpYXQiOjE1MTYyMzkwMjJ9." +
-                      "zF8AzhvONcMUiy_JnC-tFrxzYJixuIApxfqOzLrHlBc"
+            example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9."
+                      + "eyJzdWIiOiJleDMiLCJpYXQiOjE1MTYyMzkwMjJ9."
+                      + "zF8AzhvONcMUiy_JnC-tFrxzYJixuIApxfqOzLrHlBc"
     )
     @NotNull(message = "Token must be not null.")
     @NotEmpty(message = "Token must be not empty.")
