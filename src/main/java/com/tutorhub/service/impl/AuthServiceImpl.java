@@ -3,6 +3,7 @@ package com.tutorhub.service.impl;
 import com.tutorhub.model.User;
 import com.tutorhub.model.exception.ResourceAlreadyExistsException;
 import com.tutorhub.service.AuthService;
+import com.tutorhub.service.MailService;
 import com.tutorhub.service.UserService;
 import com.tutorhub.web.security.jwt.AuthRequest;
 import com.tutorhub.web.security.jwt.AuthResponse;
@@ -13,12 +14,16 @@ import com.tutorhub.web.security.jwt.service.JwtService;
 import com.tutorhub.web.security.jwt.service.params.JwtProperties;
 import com.tutorhub.web.security.jwt.service.params.TokenParameters;
 import java.util.Map;
+import java.util.Properties;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.tutorhub.model.MailType.REGISTRATION;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +35,7 @@ public class AuthServiceImpl implements AuthService {
     private final JwtProperties jwtProperties;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final MailService mailService;
 
     @Override
     public void register(
@@ -47,9 +53,14 @@ public class AuthServiceImpl implements AuthService {
                                 user.getUsername(),
                                 jwtProperties.getActivation()
                         )
+                        .type(TokenType.ACTIVATION)
                         .build()
         );
-        //TODO send email with activation token
+
+        Properties properties = new Properties();
+        properties.setProperty("token", token);
+
+        mailService.sendEmail(user, REGISTRATION, properties);
     }
 
     @Override
@@ -118,6 +129,14 @@ public class AuthServiceImpl implements AuthService {
                 passwordEncoder.encode(request.getPassword())
         );
         userService.update(user);
+    }
+
+    @Override
+    public boolean checkToken(final String token) {
+        if (!jwtService.isValid(token, TokenType.ACTIVATION)) {
+            throw new InvalidTokenException();
+        }
+        return true;
     }
 
 }
