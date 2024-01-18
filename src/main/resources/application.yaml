@@ -1,14 +1,8 @@
-springdoc:
-  swagger-ui.path: /openapi/swagger-ui.html
-  api-docs.path: /openapi/v3/api-docs
-  packagesToScan: com.tutorhub
-  pathsToMatch: /**
-  override-with-generic-response: false
-
-
 spring:
   config:
-    import: optional:file:.env[.properties]
+    import:
+      - optional:file:.env[.properties]
+      - classpath:swagger/swagger-config.yaml
   data:
     mongodb:
       host: ${MONGO_HOST}
@@ -38,83 +32,3 @@ security:
     activation: ${JWT_ACTIVATION_DURATION}
     refresh: ${JWT_REFRESH_DURATION}
     restore: ${JWT_RESTORE_DURATION}
-
-api:
-  common:
-    version: 1.0.0
-    title: TutorHub API
-    description: List of TutorHub endpoints
-    contact:
-      name: Miroslav
-      email: miroslavkosiuk@gmail.com
-
-  responseCodes:
-    ok.description: OK
-    create.description: Entity was create
-    unauthorized.description: Some of the Tokens were invalid
-    forbidden.description: This action forbidden
-    badCredentials.description: Users do not have proper authentication credentials or are using incorrect credentials.
-    badRequest.description: Bad Request, invalid format of the request. See response message for more information
-    notFound.description: Not found, the specified id does not exist
-    unprocessableEntity.description: Unprocessable entity, input parameters caused the processing to fail. See response message for more information
-
-  auth:
-    registration:
-      tutor-description: Create a Tutor account
-      student-description: Create a Student account
-      notes: | 
-        # Normal response
-        (**Tutor**|**Student**) account data pasted in the API
-        will be saved and an email will be sent
-        to the **username - email** of the user to confirm registration
-        # Expected error responses
-        1. If a **User** with the same **username** as specified in the
-        posted information already exists, an **422 - Unprocessable
-        Entity** error with a "Already exists." error message will be
-        Returned 
-
-    login:
-      description: Login to User account
-      notes: |
-        # Normal response
-        The **User** logs into the application, a set
-        of two tokens (**access**, **refresh**) is returned to him,
-        and his an **id**
-        # Expected error responses
-        1. If the **User** has provided an incorrect **username** (email address)
-        or password he received the response **401 - Unauthorized**
-        error with the error message "Authentication Failed." error message will be
-        Returned
-
-    restore:
-      description: Restore User's password
-      notes: |
-        # Normal response
-        The **User** sends his **username** (email address), 
-        to which he receives a password recovery email.
-        # Expected error responses
-        1. If a **User** with the same username as specified in the
-        posted information doesn't exists, an **404 - Unprocessable
-        Entity** error with a "Not Found." error message will be
-        Returned 
-
-    reset:
-      description: Reset User's password
-      notes: |
-        # Normal response
-        The **User** pasted a new **password** and **token** of type **RESTORE**. 
-        His old password is overwritten and his can login in system.
-        # Expected error responses
-        1. If the **Token** that came in the request is invalid
-        he received the response **403 - Forbidden**
-        error with the error message "Forbidden." error message will be
-        Returned
-
-    confirm:
-      description: Confirm User account
-      notes: |
-        # Normal response
-        ...
-        # Expected error responses
-        1. ...
-

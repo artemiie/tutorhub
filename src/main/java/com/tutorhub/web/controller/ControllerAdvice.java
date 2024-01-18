@@ -33,9 +33,15 @@ public class ControllerAdvice {
     }
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    @ExceptionHandler({InvalidTokenException.class, org.springframework.security.access.AccessDeniedException.class})
+    @ExceptionHandler({org.springframework.security.access.AccessDeniedException.class})
     public String handleAccessDenied() {
         return "Forbidden.";
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({InvalidTokenException.class})
+    public String handleInvalidToken() {
+        return "Bad request params.";
     }
 
     @ExceptionHandler

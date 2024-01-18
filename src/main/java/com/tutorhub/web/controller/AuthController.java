@@ -29,12 +29,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-@Tag(name = "AuthController", description = "REST API for AuthController.")
+@Tag(name = "${api.auth.name}", description = "${api.auth.description}")
 public class AuthController {
 
-  private final UserMapper userMapper;
+    private final UserMapper userMapper;
 
-  private final AuthService authService;
+    private final AuthService authService;
 
     @PostMapping("/register/tutor")
     @ResponseStatus(HttpStatus.CREATED)
@@ -114,7 +114,7 @@ public class AuthController {
     )
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "${api.responseCodes.ok.description}"),
-            @ApiResponse(responseCode = "403", description = "${api.responseCodes.forbidden.description}",
+            @ApiResponse(responseCode = "403", description = "${api.responseCodes.badRequest.description}",
                     content = {@Content(schema = @Schema(implementation = Void.class))}
             )
     })
@@ -125,8 +125,18 @@ public class AuthController {
         authService.reset(request);
     }
 
-  @GetMapping("/confirm")
-  public void confirm(@RequestParam("token") final String token) {
-    authService.checkToken(token);
-  }
+    @Operation(
+            summary = "${api.auth.confirm.description}",
+            description = "${api.auth.confirm.notes}"
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "${api.responseCodes.ok.description}"),
+            @ApiResponse(responseCode = "400", description = "${api.responseCodes.badRequest.description}",
+                    content = {@Content(schema = @Schema(implementation = Void.class))}
+            )
+    })
+    @GetMapping("/confirm")
+    public void confirm(@RequestParam("token") final String token) {
+        authService.checkToken(token);
+    }
 }
