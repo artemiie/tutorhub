@@ -100,6 +100,12 @@ public class AuthServiceImpl implements AuthService {
                                 .build()
                 )
         );
+
+        User userOnDb = userService.getByUsername(request.getUsername());
+
+        mailService.sendEmail(
+                request.getUsername(), userOnDb.getFullName(), MailType.LOGIN, new Properties());
+
         return response;
     }
 
