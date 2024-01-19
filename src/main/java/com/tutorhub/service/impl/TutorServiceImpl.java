@@ -45,7 +45,6 @@ public class TutorServiceImpl implements TutorService {
 
     entity.setId(tutorOnDb.getId());
     entity.setUsername(tutorOnDb.getUsername());
-    entity.setPassword(passwordEncoder.encode(tutorOnDb.getPassword()));
     entity.setRole(tutorOnDb.getRole());
 
     return tutorRepository.save(entity);
