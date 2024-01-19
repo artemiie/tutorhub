@@ -8,13 +8,15 @@ import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
+  private final UserRepository userRepository;
+  private final PasswordEncoder passwordEncoder;
 
     @Override
     public User getById(
@@ -49,13 +51,23 @@ public class UserServiceImpl implements UserService {
         return entity;
     }
 
-    @Override
-    public User update(
-            final User entity
-    ) {
-        //TODO implement
-        return null;
-    }
+  @Override
+  public User update(final User entity) {
+    User userOnDb =
+        userRepository
+            .findByUsername(entity.getUsername())
+            .orElseThrow(
+                () ->
+                    new ResourceNotFoundException(
+                        "User with id[" + entity.getId() + "] not found."));
+
+    entity.setId(userOnDb.getId());
+    entity.setUsername(userOnDb.getUsername());
+    entity.setPassword(passwordEncoder.encode(userOnDb.getPassword()));
+    entity.setRole(userOnDb.getRole());
+
+    return userRepository.save(entity);
+  }
 
     @Override
     public boolean existsById(
