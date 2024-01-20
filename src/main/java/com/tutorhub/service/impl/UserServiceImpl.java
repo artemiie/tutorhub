@@ -53,8 +53,7 @@ public class UserServiceImpl implements UserService {
     public User update(
             final User entity
     ) {
-        //TODO implement
-        return null;
+        return userRepository.save(entity);
     }
 
     @Override

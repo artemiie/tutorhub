@@ -49,8 +49,8 @@ public class AuthController {
   }
 
   @PostMapping("/restore")
-  public void restore(@RequestBody final String username) {
-    authService.restore(username);
+  public void restore(@RequestBody @Validated final RestoreRequest request) {
+    authService.restore(request.getUsername());
   }
 
   @PostMapping("/reset")

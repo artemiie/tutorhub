@@ -2,6 +2,7 @@ package com.tutorhub.service.impl;
 
 import com.tutorhub.model.User;
 import com.tutorhub.model.exception.ResourceAlreadyExistsException;
+import com.tutorhub.model.exception.ResourceNotFoundException;
 import com.tutorhub.service.AuthService;
 import com.tutorhub.service.MailService;
 import com.tutorhub.service.UserService;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.tutorhub.model.MailType.REGISTRATION;
+import static com.tutorhub.model.MailType.RESTORE;
 
 @Service
 @RequiredArgsConstructor
@@ -98,20 +100,23 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void restore(
-            final String username
-    ) {
-        if (userService.existsByUsername(username)) {
-            String token = jwtService.generate(
-                    TokenParameters.builder(
-                                    username,
-                                    jwtProperties.getRestore()
-                            )
-                            .type(TokenType.RESTORE)
-                            .build()
-            );
-            //TODO send email with token
+    public void restore(final String username) {
+        User user = userService.getByUsername(username);
+        if (user == null) {
+            throw new ResourceNotFoundException();
         }
+
+        String token = jwtService.generate(
+                TokenParameters.builder(user.getUsername(), jwtProperties.getRestore())
+                        .type(TokenType.RESTORE)
+                        .build()
+        );
+
+        Properties properties = new Properties();
+        properties.setProperty("token", token);
+        properties.setProperty("username", username);
+
+        mailService.sendEmail(user, RESTORE, properties);
     }
 
     @Override

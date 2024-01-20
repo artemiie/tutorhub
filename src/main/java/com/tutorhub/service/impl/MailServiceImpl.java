@@ -93,7 +93,10 @@ public class MailServiceImpl implements MailService {
   @SneakyThrows
   private String getRestoreEmailContext(final User user, final Properties properties) {
     StringWriter writer = new StringWriter();
-    // TODO reset password logic
+    Map<String, Object> model = new HashMap<>();
+    model.put("username", properties.get("username"));
+    model.put("token", properties.get("token"));
+    configuration.getTemplate("restore.ftlh").process(model, writer);
     return writer.getBuffer().toString();
   }
 }
