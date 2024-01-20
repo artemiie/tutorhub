@@ -14,7 +14,7 @@ public class ControllerAdvice {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ExceptionBody resourceNotFound(ResourceNotFoundException exception) {
+    public ExceptionBody resourceNotFound(final ResourceNotFoundException exception) {
         return new ExceptionBody(exception.getMessage());
     }
 
