@@ -1,6 +1,7 @@
 package com.tutorhub.service.impl;
 
 import com.tutorhub.model.Tutor;
+import com.tutorhub.model.exception.ResourceNotFoundException;
 import com.tutorhub.repository.TutorRepository;
 import com.tutorhub.service.TutorService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,9 @@ public class TutorServiceImpl implements TutorService {
 
   @Override
   public Tutor getById(final ObjectId id) {
-    return null;
+    return tutorRepository
+        .findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Tutor with id[" + id + "] not found."));
   }
 
   @Override
