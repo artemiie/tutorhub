@@ -1,6 +1,8 @@
 package com.tutorhub.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
@@ -21,6 +23,7 @@ public abstract class UserDTO {
             message = "Id must be null.",
             groups = OnCreate.class
     )
+    @JsonSerialize(using = ToStringSerializer.class)
     protected ObjectId id;
 
     @NotNull(
