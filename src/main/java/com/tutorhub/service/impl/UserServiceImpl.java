@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
-  private final PasswordEncoder passwordEncoder;
 
     @Override
     public User getById(
@@ -55,7 +53,7 @@ public class UserServiceImpl implements UserService {
   public User update(final User entity) {
     User userOnDb =
         userRepository
-            .findByUsername(entity.getUsername())
+            .findById(entity.getId())
             .orElseThrow(
                 () ->
                     new ResourceNotFoundException(
