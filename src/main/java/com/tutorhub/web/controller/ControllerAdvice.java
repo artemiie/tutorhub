@@ -1,17 +1,21 @@
 package com.tutorhub.web.controller;
 
+import com.tutorhub.model.exception.ExceptionBody;
 import com.tutorhub.model.exception.ResourceAlreadyExistsException;
 import com.tutorhub.model.exception.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ControllerAdvice {
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public String resourceNotFound() {
-        return "Not found.";
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ExceptionBody resourceNotFound(ResourceNotFoundException exception) {
+        return new ExceptionBody(exception.getMessage());
     }
 
     @ExceptionHandler(ResourceAlreadyExistsException.class)
