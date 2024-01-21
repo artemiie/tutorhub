@@ -1,5 +1,6 @@
 package com.tutorhub.web.controller;
 
+import com.tutorhub.model.exception.ExceptionBody;
 import com.tutorhub.model.exception.ResourceAlreadyExistsException;
 import com.tutorhub.model.exception.ResourceNotFoundException;
 import com.tutorhub.web.security.jwt.exception.InvalidTokenException;
@@ -14,22 +15,23 @@ import javax.naming.AuthenticationException;
 @RestControllerAdvice
 public class ControllerAdvice {
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String resourceNotFound() {
-        return "Not found.";
-    }
 
-    @ExceptionHandler(ResourceAlreadyExistsException.class)
-    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    public String resourceAlreadyExists() {
-        return "Already exists.";
-    }
+  @ExceptionHandler(ResourceNotFoundException.class)
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  public ExceptionBody resourceNotFound(final ResourceNotFoundException exception) {
+    return new ExceptionBody(exception.getMessage());
+  }
 
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+  @ExceptionHandler(ResourceAlreadyExistsException.class)
+  @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+  public ExceptionBody resourceAlreadyExists(final ResourceAlreadyExistsException exception) {
+    return new ExceptionBody(exception.getMessage());
+  }
+
     @ExceptionHandler({AuthenticationException.class, InternalAuthenticationServiceException.class})
-    public String internalAuthentication() {
-        return "Authentication failed.";
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ExceptionBody internalAuthentication() {
+      return new ExceptionBody("Authentication failed.");
     }
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
