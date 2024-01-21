@@ -40,7 +40,19 @@ public class TutorServiceImpl implements TutorService {
 
   @Override
   public Tutor update(final Tutor entity) {
-    return null;
+    Tutor tutorOnDb =
+        tutorRepository
+            .findById(entity.getId())
+            .orElseThrow(
+                () ->
+                    new ResourceNotFoundException(
+                        "Tutor with username[" + entity.getUsername() + "] not found."));
+
+    entity.setId(tutorOnDb.getId());
+    entity.setUsername(tutorOnDb.getUsername());
+    entity.setRole(tutorOnDb.getRole());
+
+    return tutorRepository.save(entity);
   }
 
   @Override
