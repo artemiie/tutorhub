@@ -1,6 +1,8 @@
 spring:
   config:
-    import: optional:file:.env[.properties]
+    import:
+      - optional:file:.env[.properties]
+      - classpath:swagger/swagger-config.yaml
   data:
     mongodb:
       host: ${MONGO_HOST}
