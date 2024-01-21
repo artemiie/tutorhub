@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ControllerAdvice {
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ExceptionBody resourceNotFound(final ResourceNotFoundException exception) {
-        return new ExceptionBody(exception.getMessage());
-    }
+  @ExceptionHandler(ResourceNotFoundException.class)
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  public ExceptionBody resourceNotFound(final ResourceNotFoundException exception) {
+    return new ExceptionBody(exception.getMessage());
+  }
 
-    @ExceptionHandler(ResourceAlreadyExistsException.class)
-    public String resourceAlreadyExists() {
-        return "Already exists.";
-    }
+  @ExceptionHandler(ResourceAlreadyExistsException.class)
+  public ExceptionBody resourceAlreadyExists(final ResourceAlreadyExistsException exception) {
+    return new ExceptionBody(exception.getMessage());
+  }
 
     @ExceptionHandler(InternalAuthenticationServiceException.class)
-    public String internalAuthentication() {
-        return "Authentication failed.";
+    public ExceptionBody internalAuthentication(final InternalAuthenticationServiceException exception) {
+      return new ExceptionBody("Authentication failed.");
     }
 
     @ExceptionHandler
