@@ -16,6 +16,7 @@ public class RestoreRequest {
     @NotEmpty(
             message = "Username must be not empty."
     )
+    @Schema(description = "User username", example = "johndoe@gmail.com")
     private String username;
 
 }

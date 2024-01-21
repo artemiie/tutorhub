@@ -104,7 +104,7 @@ public class AuthController {
     })
     @PostMapping("/restore")
     public void restore(
-            @RequestBody @Schema(example = "{\"username\":\"johndoe@gmail.com\"}") final RestoreRequest request
+            @RequestBody final RestoreRequest request
     ) {
         authService.restore(request);
     }

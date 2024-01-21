@@ -25,7 +25,7 @@ public class MailServiceImpl implements MailService {
   @SneakyThrows
   public void sendEmail(
       final String username,
-      final String userFullname,
+      final String userFullName,
       final MailType type,
       final Properties params) {
     MimeMessage mimeMessage = mailSender.createMimeMessage();
@@ -33,9 +33,9 @@ public class MailServiceImpl implements MailService {
 
     String emailContext =
         switch (type) {
-          case REGISTRATION -> buildRegistrationEmailContext(helper, userFullname, params);
-          case LOGIN -> buildLoginEmailContext(helper, userFullname, params);
-          case RESTORE -> buildRestoreEmailContext(helper, userFullname, params);
+          case REGISTRATION -> buildRegistrationEmailContext(helper, userFullName, params);
+          case LOGIN -> buildLoginEmailContext(helper, userFullName, params);
+          case RESTORE -> buildRestoreEmailContext(helper, userFullName, params);
         };
 
     helper.setText(emailContext, true);

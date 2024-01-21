@@ -1,7 +1,5 @@
 package com.tutorhub.service.impl;
 
-import static com.tutorhub.model.MailType.REGISTRATION;
-
 import com.tutorhub.model.MailType;
 import com.tutorhub.model.User;
 import com.tutorhub.model.exception.ResourceAlreadyExistsException;
@@ -129,7 +127,7 @@ public class AuthServiceImpl implements AuthService {
         properties.setProperty("token", token);
         properties.setProperty("username", request.getUsername());
 
-        mailService.sendEmail(user, RESTORE, properties);
+        mailService.sendEmail(user.getUsername(), user.getFullName(), RESTORE, properties);
     }
 
     @Override
