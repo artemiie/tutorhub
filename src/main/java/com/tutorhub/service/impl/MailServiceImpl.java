@@ -1,7 +1,6 @@
 package com.tutorhub.service.impl;
 
 import com.tutorhub.model.MailType;
-import com.tutorhub.model.User;
 import com.tutorhub.service.MailService;
 import freemarker.template.Configuration;
 import jakarta.mail.internet.MimeMessage;
@@ -24,57 +23,53 @@ public class MailServiceImpl implements MailService {
 
   @Override
   @SneakyThrows
-  public void sendEmail(final User user, final MailType type, final Properties params) {
+  public void sendEmail(
+      final String username,
+      final String userFullname,
+      final MailType type,
+      final Properties params) {
     MimeMessage mimeMessage = mailSender.createMimeMessage();
     MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
 
     String emailContext =
         switch (type) {
-          case REGISTRATION -> buildRegistrationEmailContext(helper, user, params);
-          case LOGIN -> buildLoginEmailContext(helper, user, params);
-          case RESTORE -> buildRestoreEmailContext(helper, user, params);
+          case REGISTRATION -> buildRegistrationEmailContext(helper, userFullname, params);
+          case LOGIN -> buildLoginEmailContext(helper, userFullname, params);
+          case RESTORE -> buildRestoreEmailContext(helper, userFullname, params);
         };
 
     helper.setText(emailContext, true);
-    helper.setTo(user.getUsername());
+    helper.setTo(username);
     mailSender.send(mimeMessage);
   }
 
   @SneakyThrows
   private String buildRegistrationEmailContext(
-      final MimeMessageHelper helper,
-      final User user,
-      final Properties params
-  ) {
-    helper.setSubject("Thank you for registration, " + user.getFullName());
-    return getRegistrationEmailContext(user, params);
+      final MimeMessageHelper helper, final String userFullname, final Properties params) {
+    helper.setSubject("Thank you for registration, " + userFullname);
+    return getRegistrationEmailContext(userFullname, params);
   }
 
   @SneakyThrows
   private String buildLoginEmailContext(
-      final MimeMessageHelper helper,
-      final User user,
-      final Properties params
-  ) {
+      final MimeMessageHelper helper, final String userFullname, final Properties params) {
     helper.setSubject("Login Information");
-    return getLoginEmailContext(user, params);
+    return getLoginEmailContext(userFullname, params);
   }
 
   @SneakyThrows
   private String buildRestoreEmailContext(
-      final MimeMessageHelper helper,
-      final User user,
-      final Properties params
-  ) {
+      final MimeMessageHelper helper, final String userFullname, final Properties params) {
     helper.setSubject("Password Restoration");
-    return getRestoreEmailContext(user, params);
+    return getRestoreEmailContext(userFullname, params);
   }
 
   @SneakyThrows
-  private String getRegistrationEmailContext(final User user, final Properties properties) {
+  private String getRegistrationEmailContext(
+      final String userFullname, final Properties properties) {
     StringWriter writer = new StringWriter();
     Map<String, Object> model = new HashMap<>();
-    model.put("name", user.getFullName());
+    model.put("name", userFullname);
     model.put("token", properties.get("token"));
     configuration.getTemplate("register.ftlh").process(model, writer);
     return writer.getBuffer().toString();
@@ -82,16 +77,16 @@ public class MailServiceImpl implements MailService {
 
   // todo create field about loginTime
   @SneakyThrows
-  private String getLoginEmailContext(final User user, final Properties properties) {
+  private String getLoginEmailContext(final String userFullname, final Properties properties) {
     StringWriter writer = new StringWriter();
     Map<String, Object> model = new HashMap<>();
-    model.put("name", user.getFullName());
+    model.put("name", userFullname);
     configuration.getTemplate("login.ftlh").process(model, writer);
     return writer.getBuffer().toString();
   }
 
   @SneakyThrows
-  private String getRestoreEmailContext(final User user, final Properties properties) {
+  private String getRestoreEmailContext(final String userFullname, final Properties properties) {
     StringWriter writer = new StringWriter();
     Map<String, Object> model = new HashMap<>();
     model.put("username", properties.get("username"));

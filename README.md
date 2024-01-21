@@ -15,3 +15,11 @@
 **JWT_ACTIVATION_DURATION** = Activation token duration (in seconds)<br>
 **JWT_REFRESH_DURATION** = Refresh token duration (in seconds)<br>
 **JWT_RESTORE_DURATION** = Restore token duration (in seconds)<br>
+
+# Email service settings
+
+**SPRING_MAIL_HOST** = SMTP server host for the Spring Mail service (example, smtp.gmail.com)<br>
+**SPRING_MAIL_PORT** = SMTP server port for the Spring Mail service (example, 587)<br>
+**SPRING_MAIL_USERNAME** = Username for auth with the SMTP server (example, johndoe@gmail.com)<br>
+**SPRING_MAIL_PASSWORD** = Password for auth with the SMTP server
+(<a href="https://www.youtube.com/watch?v=xspiCuU_BXk" target="_blank">**tutorial for gmail**</a>)<br>

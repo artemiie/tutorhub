@@ -1,6 +1,8 @@
 package com.tutorhub.service.impl;
 
 import com.tutorhub.model.Tutor;
+import com.tutorhub.model.exception.ResourceAlreadyExistsException;
+import com.tutorhub.model.exception.ResourceNotFoundException;
 import com.tutorhub.repository.TutorRepository;
 import com.tutorhub.service.TutorService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +18,9 @@ public class TutorServiceImpl implements TutorService {
 
   @Override
   public Tutor getById(final ObjectId id) {
-    return null;
+    return tutorRepository
+        .findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Tutor with id[" + id + "] not found."));
   }
 
   @Override
@@ -26,12 +30,29 @@ public class TutorServiceImpl implements TutorService {
 
   @Override
   public Tutor create(final Tutor entity) {
-    return null;
+    boolean userExists = tutorRepository.existsByUsername(entity.getUsername());
+    if (userExists) {
+      throw new ResourceAlreadyExistsException(
+          "User with username[" + entity.getUsername() + "] already exists.");
+    }
+    return tutorRepository.save(entity);
   }
 
   @Override
   public Tutor update(final Tutor entity) {
-    return null;
+    Tutor tutorOnDb =
+        tutorRepository
+            .findById(entity.getId())
+            .orElseThrow(
+                () ->
+                    new ResourceNotFoundException(
+                        "Tutor with username[" + entity.getUsername() + "] not found."));
+
+    entity.setId(tutorOnDb.getId());
+    entity.setUsername(tutorOnDb.getUsername());
+    entity.setRole(tutorOnDb.getRole());
+
+    return tutorRepository.save(entity);
   }
 
   @Override
@@ -43,5 +64,4 @@ public class TutorServiceImpl implements TutorService {
   public void delete(final ObjectId id) {
 
   }
-
 }

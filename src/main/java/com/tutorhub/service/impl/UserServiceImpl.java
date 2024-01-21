@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
+  private final UserRepository userRepository;
 
     @Override
     public User getById(
@@ -49,12 +49,22 @@ public class UserServiceImpl implements UserService {
         return entity;
     }
 
-    @Override
-    public User update(
-            final User entity
-    ) {
-        return userRepository.save(entity);
-    }
+  @Override
+  public User update(final User entity) {
+    User userOnDb =
+        userRepository
+            .findById(entity.getId())
+            .orElseThrow(
+                () ->
+                    new ResourceNotFoundException(
+                        "User with id[" + entity.getId() + "] not found."));
+
+    entity.setId(userOnDb.getId());
+    entity.setUsername(userOnDb.getUsername());
+    entity.setRole(userOnDb.getRole());
+
+    return userRepository.save(entity);
+  }
 
     @Override
     public boolean existsById(

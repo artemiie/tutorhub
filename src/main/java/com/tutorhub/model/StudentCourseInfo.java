@@ -6,7 +6,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("courses_info")
+@Document("student_courses_info")
 @Getter
 @Setter
 public class StudentCourseInfo {

@@ -1,5 +1,8 @@
 package com.tutorhub.service.impl;
 
+import static com.tutorhub.model.MailType.REGISTRATION;
+
+import com.tutorhub.model.MailType;
 import com.tutorhub.model.User;
 import com.tutorhub.model.exception.ResourceAlreadyExistsException;
 import com.tutorhub.model.exception.ResourceNotFoundException;
@@ -17,14 +20,12 @@ import com.tutorhub.web.security.jwt.service.params.JwtProperties;
 import com.tutorhub.web.security.jwt.service.params.TokenParameters;
 import java.util.Map;
 import java.util.Properties;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import static com.tutorhub.model.MailType.REGISTRATION;
 import static com.tutorhub.model.MailType.RESTORE;
 
@@ -60,11 +61,16 @@ public class AuthServiceImpl implements AuthService {
                         .build()
         );
 
-        Properties properties = new Properties();
-        properties.setProperty("token", token);
-
-        mailService.sendEmail(user, REGISTRATION, properties);
-    }
+    mailService.sendEmail(
+        user.getUsername(),
+        user.getFullName(),
+        REGISTRATION,
+        new Properties() {
+          {
+            put("token", token);
+          }
+        });
+  }
 
     @Override
     public AuthResponse login(
@@ -97,6 +103,12 @@ public class AuthServiceImpl implements AuthService {
                                 .build()
                 )
         );
+
+        User userOnDb = userService.getByUsername(request.getUsername());
+
+        mailService.sendEmail(
+                request.getUsername(), userOnDb.getFullName(), MailType.LOGIN, new Properties());
+
         return response;
     }
 
