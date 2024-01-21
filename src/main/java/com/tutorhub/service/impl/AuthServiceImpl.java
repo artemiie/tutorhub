@@ -8,6 +8,7 @@ import com.tutorhub.service.MailService;
 import com.tutorhub.service.UserService;
 import com.tutorhub.web.security.jwt.AuthRequest;
 import com.tutorhub.web.security.jwt.AuthResponse;
+import com.tutorhub.web.security.jwt.ResetRequest;
 import com.tutorhub.web.security.jwt.RestoreRequest;
 import com.tutorhub.web.security.jwt.TokenType;
 import com.tutorhub.web.security.jwt.exception.InvalidTokenException;
@@ -100,8 +101,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void restore(final String username) {
-        User user = userService.getByUsername(username);
+    public void restore(final RestoreRequest request) {
+        User user = userService.getByUsername(request.getUsername());
         if (user == null) {
             throw new ResourceNotFoundException();
         }
@@ -114,14 +115,14 @@ public class AuthServiceImpl implements AuthService {
 
         Properties properties = new Properties();
         properties.setProperty("token", token);
-        properties.setProperty("username", username);
+        properties.setProperty("username", request.getUsername());
 
         mailService.sendEmail(user, RESTORE, properties);
     }
 
     @Override
     public void reset(
-            final RestoreRequest request
+            final ResetRequest request
     ) {
         if (!jwtService.isValid(request.getToken(), TokenType.RESTORE)) {
             throw new InvalidTokenException();

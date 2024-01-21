@@ -8,6 +8,7 @@ import com.tutorhub.web.dto.TutorDTO;
 import com.tutorhub.web.dto.mapper.UserMapper;
 import com.tutorhub.web.security.jwt.AuthRequest;
 import com.tutorhub.web.security.jwt.AuthResponse;
+import com.tutorhub.web.security.jwt.ResetRequest;
 import com.tutorhub.web.security.jwt.RestoreRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -50,11 +51,11 @@ public class AuthController {
 
   @PostMapping("/restore")
   public void restore(@RequestBody @Validated final RestoreRequest request) {
-    authService.restore(request.getUsername());
+    authService.restore(request);
   }
 
   @PostMapping("/reset")
-  public void reset(@RequestBody final RestoreRequest request) {
+  public void reset(@RequestBody final ResetRequest request) {
     authService.reset(request);
   }
 
