@@ -56,7 +56,7 @@ public class TutorController {
   }
 
   @DeleteMapping("/{id}")
-  public void delete(@PathVariable final ObjectId id){
+  public void delete(@PathVariable final ObjectId id) {
     tutorService.delete(id);
   }
 }
