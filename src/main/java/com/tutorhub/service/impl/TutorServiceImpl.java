@@ -67,6 +67,6 @@ public class TutorServiceImpl implements TutorService {
 
   @Override
   public void delete(final ObjectId id) {
-
+    tutorRepository.deleteById(id);
   }
 }

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,5 +53,10 @@ public class TutorController {
     Tutor newTutor = tutorMapper.fromDto(tutorDTO);
     Tutor createdTutot = tutorService.create(newTutor);
     return tutorMapper.toDto(createdTutot);
+  }
+
+  @DeleteMapping("/{id}")
+  public void delete(@PathVariable final ObjectId id){
+    tutorService.delete(id);
   }
 }
