@@ -6,6 +6,9 @@ import com.tutorhub.web.dto.StudentDTO;
 import com.tutorhub.web.dto.mapper.StudentMapper;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +23,16 @@ public class StudentController {
     @GetMapping("/{id}")
     public StudentDTO getById(@PathVariable final ObjectId id) {
         return studentMapper.toDto(studentService.getById(id));
+    }
+
+    @GetMapping()
+    public Page<StudentDTO> getAllPaged(
+            @RequestParam(name = "page") final int pageNumber,
+            @RequestParam(name = "size") final int pageSize,
+            @RequestParam final String sortBy) {
+        return studentService
+                .getAll(PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)))
+                .map(student -> studentMapper.toDto(student));
     }
 
     @PostMapping
