@@ -10,22 +10,13 @@ import lombok.Setter;
 @Setter
 public class RestoreRequest {
 
-    @Schema(
-            description = "Restore token",
-            example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9."
-                      + "eyJzdWIiOiJleDMiLCJpYXQiOjE1MTYyMzkwMjJ9."
-                      + "zF8AzhvONcMUiy_JnC-tFrxzYJixuIApxfqOzLrHlBc"
+    @NotNull(
+            message = "Username must be not null."
     )
-    @NotNull(message = "Token must be not null.")
-    @NotEmpty(message = "Token must be not empty.")
-    private String token;
-
-    @Schema(
-            description = "New User password",
-            example = "123456"
+    @NotEmpty(
+            message = "Username must be not empty."
     )
-    @NotNull(message = "Password must be not null.")
-    @NotEmpty(message = "Password must be not empty.")
-    private String password;
+    @Schema(description = "User username", example = "johndoe@gmail.com")
+    private String username;
 
 }

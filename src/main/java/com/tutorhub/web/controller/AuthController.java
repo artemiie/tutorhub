@@ -8,6 +8,7 @@ import com.tutorhub.web.dto.TutorDTO;
 import com.tutorhub.web.dto.mapper.UserMapper;
 import com.tutorhub.web.security.jwt.AuthRequest;
 import com.tutorhub.web.security.jwt.AuthResponse;
+import com.tutorhub.web.security.jwt.ResetRequest;
 import com.tutorhub.web.security.jwt.RestoreRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -103,9 +104,9 @@ public class AuthController {
     })
     @PostMapping("/restore")
     public void restore(
-            @RequestBody @Schema(example = "{\"username\":\"johndoe@gmail.com\"}") final String username
+            @RequestBody final RestoreRequest request
     ) {
-        authService.restore(username);
+        authService.restore(request);
     }
 
     @Operation(
@@ -120,7 +121,7 @@ public class AuthController {
     })
     @PostMapping("/reset")
     public void reset(
-            @RequestBody final RestoreRequest request
+            @RequestBody final ResetRequest request
     ) {
         authService.reset(request);
     }

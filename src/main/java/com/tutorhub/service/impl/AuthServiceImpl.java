@@ -1,15 +1,15 @@
 package com.tutorhub.service.impl;
 
-import static com.tutorhub.model.MailType.REGISTRATION;
-
 import com.tutorhub.model.MailType;
 import com.tutorhub.model.User;
 import com.tutorhub.model.exception.ResourceAlreadyExistsException;
+import com.tutorhub.model.exception.ResourceNotFoundException;
 import com.tutorhub.service.AuthService;
 import com.tutorhub.service.MailService;
 import com.tutorhub.service.UserService;
 import com.tutorhub.web.security.jwt.AuthRequest;
 import com.tutorhub.web.security.jwt.AuthResponse;
+import com.tutorhub.web.security.jwt.ResetRequest;
 import com.tutorhub.web.security.jwt.RestoreRequest;
 import com.tutorhub.web.security.jwt.TokenType;
 import com.tutorhub.web.security.jwt.exception.InvalidTokenException;
@@ -24,7 +24,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import static com.tutorhub.model.MailType.REGISTRATION;
+import static com.tutorhub.model.MailType.RESTORE;
 
 @Service
 @RequiredArgsConstructor
@@ -110,25 +111,28 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void restore(
-            final String username
-    ) {
-        if (userService.existsByUsername(username)) {
-            String token = jwtService.generate(
-                    TokenParameters.builder(
-                                    username,
-                                    jwtProperties.getRestore()
-                            )
-                            .type(TokenType.RESTORE)
-                            .build()
-            );
-            //TODO send email with token
+    public void restore(final RestoreRequest request) {
+        User user = userService.getByUsername(request.getUsername());
+        if (user == null) {
+            throw new ResourceNotFoundException();
         }
+
+        String token = jwtService.generate(
+                TokenParameters.builder(user.getUsername(), jwtProperties.getRestore())
+                        .type(TokenType.RESTORE)
+                        .build()
+        );
+
+        Properties properties = new Properties();
+        properties.setProperty("token", token);
+        properties.setProperty("username", request.getUsername());
+
+        mailService.sendEmail(user.getUsername(), user.getFullName(), RESTORE, properties);
     }
 
     @Override
     public void reset(
-            final RestoreRequest request
+            final ResetRequest request
     ) {
         if (!jwtService.isValid(request.getToken(), TokenType.RESTORE)) {
             throw new InvalidTokenException();
