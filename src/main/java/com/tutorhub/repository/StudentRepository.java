@@ -6,4 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface StudentRepository extends MongoRepository<Student, ObjectId> {
 
+    boolean existsByUsername(String username);
+
 }
