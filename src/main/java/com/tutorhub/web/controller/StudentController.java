@@ -3,6 +3,7 @@ package com.tutorhub.web.controller;
 import com.tutorhub.model.Student;
 import com.tutorhub.service.StudentService;
 import com.tutorhub.web.dto.StudentDTO;
+import com.tutorhub.web.dto.TutorDTO;
 import com.tutorhub.web.dto.mapper.StudentMapper;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
@@ -40,6 +41,11 @@ public class StudentController {
         Student newStudent = studentMapper.fromDto(studentDTO);
         Student createdStudent = studentService.create(newStudent);
         return studentMapper.toDto(createdStudent);
+    }
+
+    @PutMapping
+    public StudentDTO update(@Validated @RequestBody final StudentDTO studentDTO) {
+        return studentMapper.toDto(studentService.update(studentMapper.fromDto(studentDTO)));
     }
 
 }

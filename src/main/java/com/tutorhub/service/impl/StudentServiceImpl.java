@@ -46,7 +46,19 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student update(final Student entity) {
-        return null;
+        Student studentOnDb =
+                studentRepository
+                        .findById(entity.getId())
+                        .orElseThrow(
+                                () ->
+                                        new ResourceNotFoundException(
+                                                "Student with username[" + entity.getUsername() + "] not found."));
+
+        entity.setId(studentOnDb.getId());
+        entity.setUsername(studentOnDb.getUsername());
+        entity.setRole(studentOnDb.getRole());
+
+        return studentRepository.save(entity);
     }
 
     @Override
