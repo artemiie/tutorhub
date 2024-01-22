@@ -63,7 +63,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public boolean existsById(final ObjectId id) {
-        return false;
+        return studentRepository.existsById(id);
     }
 
     @Override
