@@ -48,4 +48,8 @@ public class StudentController {
         return studentMapper.toDto(studentService.update(studentMapper.fromDto(studentDTO)));
     }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable final ObjectId id) {
+        studentService.delete(id);
+    }
 }
