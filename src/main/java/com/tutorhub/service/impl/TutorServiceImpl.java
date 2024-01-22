@@ -62,7 +62,7 @@ public class TutorServiceImpl implements TutorService {
 
   @Override
   public boolean existsById(final ObjectId id) {
-    return false;
+    return tutorRepository.existsById(id);
   }
 
   @Override
