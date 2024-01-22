@@ -9,12 +9,14 @@ import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class TutorServiceImpl implements TutorService {
   private final TutorRepository tutorRepository;
+  private final PasswordEncoder passwordEncoder;
 
   @Override
   public Tutor getById(final ObjectId id) {
@@ -35,6 +37,9 @@ public class TutorServiceImpl implements TutorService {
       throw new ResourceAlreadyExistsException(
           "User with username[" + entity.getUsername() + "] already exists.");
     }
+
+    entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+
     return tutorRepository.save(entity);
   }
 
