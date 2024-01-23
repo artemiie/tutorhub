@@ -9,12 +9,16 @@ import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
+
+
     private final StudentRepository studentRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public Student getById(final ObjectId id) {
@@ -25,30 +29,46 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Page<Student> getAll(final Pageable page) {
-        return null;
+        return studentRepository.findAll(page);
     }
+
     @Override
     public Student create(final Student entity) {
-        boolean userExists = studentRepository.existsByUsername(entity.getUsername());
-        if (userExists) {
+        boolean studentExits = studentRepository.existsByUsername(entity.getUsername());
+        if (studentExits) {
             throw new ResourceAlreadyExistsException(
-                    "User with username [" + entity.getUsername() + "] already exists.");
+                    "Student with username[" + entity.getUsername() + "] already exists.");
         }
+
+        entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+
         return studentRepository.save(entity);
     }
 
     @Override
     public Student update(final Student entity) {
-        return null;
+        Student studentOnDb =
+                studentRepository
+                        .findById(entity.getId())
+                        .orElseThrow(
+                                () ->
+                                        new ResourceNotFoundException(
+                                                "Student with username[" + entity.getUsername() + "] not found."));
+
+        entity.setId(studentOnDb.getId());
+        entity.setUsername(studentOnDb.getUsername());
+        entity.setRole(studentOnDb.getRole());
+
+        return studentRepository.save(entity);
     }
 
     @Override
     public boolean existsById(final ObjectId id) {
-        return false;
+        return studentRepository.existsById(id);
     }
 
     @Override
     public void delete(final ObjectId id) {
-
+        studentRepository.deleteById(id);
     }
 }
