@@ -8,9 +8,6 @@ import lombok.Setter;
 @Setter
 public class VideoContentDTO extends ContentDTO {
 
-    @JsonProperty(
-            access = JsonProperty.Access.READ_ONLY
-    )
-    private String videoURL;
-
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private String videoURL;
 }

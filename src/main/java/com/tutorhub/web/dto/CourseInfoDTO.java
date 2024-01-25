@@ -9,24 +9,15 @@ import org.bson.types.ObjectId;
 @Setter
 public class CourseInfoDTO {
 
-    @JsonProperty(
-            access = JsonProperty.Access.READ_ONLY
-    )
-    private ObjectId id;
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private ObjectId id;
 
-    @JsonProperty(
-            access = JsonProperty.Access.READ_ONLY
-    )
-    private StudentDTO user;
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private StudentDTO user;
 
-    @JsonProperty(
-            access = JsonProperty.Access.READ_ONLY
-    )
-    private CourseDTO course;
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private CourseDTO course;
 
-    @JsonProperty(
-            access = JsonProperty.Access.READ_ONLY
-    )
-    private ProgressDTO progress;
-
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private ProgressDTO progress;
 }

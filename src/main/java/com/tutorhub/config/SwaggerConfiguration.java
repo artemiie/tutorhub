@@ -31,24 +31,20 @@ public class SwaggerConfiguration {
   @Bean
   public OpenAPI openAPI() {
     return new OpenAPI()
-            .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
-            .components(
-                    new Components().addSecuritySchemes("bearerAuth", new SecurityScheme()
-                            .type(SecurityScheme.Type.HTTP)
-                            .scheme("bearer").bearerFormat("JWT")
-                    )
-            )
-            .info(
-                    new Info()
-                            .title(apiTitle)
-                            .version(apiVersion)
-                            .description(apiDescription)
-                            .contact(
-                                    new Contact()
-                                            .name(apiContactName)
-                                            .email(apiContactEmail)
-                            )
-            );
+        .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
+        .components(
+            new Components()
+                .addSecuritySchemes(
+                    "bearerAuth",
+                    new SecurityScheme()
+                        .type(SecurityScheme.Type.HTTP)
+                        .scheme("bearer")
+                        .bearerFormat("JWT")))
+        .info(
+            new Info()
+                .title(apiTitle)
+                .version(apiVersion)
+                .description(apiDescription)
+                .contact(new Contact().name(apiContactName).email(apiContactEmail)));
   }
-
 }

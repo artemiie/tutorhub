@@ -9,7 +9,5 @@ import org.springframework.data.annotation.Id;
 @Setter
 public abstract class Content {
 
-    @Id
-    protected ObjectId id;
-
+  @Id protected ObjectId id;
 }

@@ -10,13 +10,8 @@ import lombok.Setter;
 @Setter
 public class RestoreRequest {
 
-    @NotNull(
-            message = "Username must be not null."
-    )
-    @NotEmpty(
-            message = "Username must be not empty."
-    )
-    @Schema(description = "User username", example = "johndoe@gmail.com")
-    private String username;
-
+  @NotNull(message = "Username must be not null.")
+  @NotEmpty(message = "Username must be not empty.")
+  @Schema(description = "User username", example = "johndoe@gmail.com")
+  private String username;
 }

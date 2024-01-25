@@ -9,6 +9,5 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 public class VideoContent extends Content {
 
-    private String videoURL;
-
+  private String videoURL;
 }

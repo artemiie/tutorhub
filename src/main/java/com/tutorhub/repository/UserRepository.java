@@ -9,9 +9,9 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface UserRepository extends MongoRepository<User, ObjectId> {
 
-    Optional<User> findByUsername(String username);
+  Optional<User> findByUsername(String username);
 
-    boolean existsByUsername(String username);
+  boolean existsByUsername(String username);
 
-    Page<User> findAll(Pageable page);
+  Page<User> findAll(Pageable page);
 }

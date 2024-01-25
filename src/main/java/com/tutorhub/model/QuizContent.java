@@ -10,6 +10,5 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 public class QuizContent extends Content {
 
-    private List<QuizQuestion> questions;
-
+  private List<QuizQuestion> questions;
 }

@@ -7,26 +7,19 @@ import org.mapstruct.factory.Mappers;
 
 public interface Mappable<E, D> {
 
-    E fromDto(D d);
+  E fromDto(D d);
 
-    List<E> fromDto(List<D> d);
+  List<E> fromDto(List<D> d);
 
-    D toDto(E e);
+  D toDto(E e);
 
-    List<D> toDto(List<E> e);
+  List<D> toDto(List<E> e);
 
-    default Content map(
-            final ContentDTO d
-    ) {
-        return Mappers.getMapper(ContentMapper.class)
-                .fromDto(d);
-    }
+  default Content map(final ContentDTO d) {
+    return Mappers.getMapper(ContentMapper.class).fromDto(d);
+  }
 
-    default ContentDTO map(
-            final Content c
-    ) {
-        return Mappers.getMapper(ContentMapper.class)
-                .toDto(c);
-    }
-
+  default ContentDTO map(final Content c) {
+    return Mappers.getMapper(ContentMapper.class).toDto(c);
+  }
 }

@@ -6,16 +6,15 @@ import org.springframework.data.domain.Pageable;
 
 public interface CrudService<C> {
 
-    C getById(ObjectId id);
+  C getById(ObjectId id);
 
-    Page<C> getAll(Pageable page);
+  Page<C> getAll(Pageable page);
 
-    C create(C entity);
+  C create(C entity);
 
-    C update(C entity);
+  C update(C entity);
 
-    boolean existsById(ObjectId id);
+  boolean existsById(ObjectId id);
 
-    void delete(ObjectId id);
-
+  void delete(ObjectId id);
 }

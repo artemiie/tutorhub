@@ -9,9 +9,8 @@ import org.bson.types.ObjectId;
 @Setter
 public class QuizQuestion {
 
-    private ObjectId id;
-    private String title;
-    private List<String> options;
-    private List<Integer> answerIndexes;
-
+  private ObjectId id;
+  private String title;
+  private List<String> options;
+  private List<Integer> answerIndexes;
 }

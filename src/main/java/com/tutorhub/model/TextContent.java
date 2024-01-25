@@ -9,6 +9,5 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 public class TextContent extends Content {
 
-    private String text;
-
+  private String text;
 }

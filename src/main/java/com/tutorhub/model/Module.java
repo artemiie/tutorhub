@@ -12,12 +12,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 public class Module {
 
-    @Id
-    private ObjectId id;
+  @Id private ObjectId id;
 
-    private String name;
-    private Content content;
-    private List<Module> submodules;
-    private Course course;
-
+  private String name;
+  private Content content;
+  private List<Module> submodules;
+  private Course course;
 }

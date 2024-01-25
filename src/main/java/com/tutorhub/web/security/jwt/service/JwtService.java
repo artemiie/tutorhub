@@ -6,10 +6,9 @@ import java.util.HashMap;
 
 public interface JwtService {
 
-    String generate(TokenParameters params);
+  String generate(TokenParameters params);
 
-    boolean isValid(String token, TokenType type);
+  boolean isValid(String token, TokenType type);
 
-    HashMap<String, Object> fields(String token);
-
+  HashMap<String, Object> fields(String token);
 }

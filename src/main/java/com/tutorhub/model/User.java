@@ -12,15 +12,13 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 @Setter
 public abstract class User {
 
-    @MongoId
-    protected ObjectId id;
-    protected String fullName;
+  @MongoId protected ObjectId id;
+  protected String fullName;
 
-    @Indexed(unique = true)
-    protected String username;
+  @Indexed(unique = true)
+  protected String username;
 
-    protected String password;
+  protected String password;
 
-    protected String role;
-
+  protected String role;
 }

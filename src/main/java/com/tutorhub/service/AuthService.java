@@ -8,13 +8,13 @@ import com.tutorhub.web.security.jwt.RestoreRequest;
 
 public interface AuthService {
 
-    void register(User user);
+  void register(User user);
 
-    AuthResponse login(AuthRequest request);
+  AuthResponse login(AuthRequest request);
 
-    void restore(RestoreRequest request);
+  void restore(RestoreRequest request);
 
-    void reset(ResetRequest request);
+  void reset(ResetRequest request);
 
-    boolean checkToken(String token);
+  boolean checkToken(String token);
 }

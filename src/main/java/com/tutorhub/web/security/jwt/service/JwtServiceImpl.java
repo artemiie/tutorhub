@@ -19,64 +19,39 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class JwtServiceImpl implements JwtService {
 
-    private final JwtProperties properties;
-    private SecretKey key;
+  private final JwtProperties properties;
+  private SecretKey key;
 
-    @PostConstruct
-    protected void init() {
-        key = Keys.hmacShaKeyFor(properties.getSecret().getBytes());
+  @PostConstruct
+  protected void init() {
+    key = Keys.hmacShaKeyFor(properties.getSecret().getBytes());
+  }
+
+  @Override
+  public String generate(final TokenParameters params) {
+    Claims claims = Jwts.claims().subject(params.getSubject()).add(params.getFields()).build();
+    return Jwts.builder()
+        .claims(claims)
+        .issuedAt(params.getIssuedAt())
+        .expiration(params.getExpiredAt())
+        .signWith(key)
+        .compact();
+  }
+
+  @Override
+  public boolean isValid(final String token, final TokenType tokenType) {
+    try {
+      Jws<Claims> claims = Jwts.parser().verifyWith(key).build().parseSignedClaims(token);
+      TokenType type = TokenType.valueOf((String) claims.getPayload().get("type"));
+      return claims.getPayload().getExpiration().after(new Date()) && tokenType.equals(type);
+    } catch (JwtException | IllegalArgumentException e) {
+      return false;
     }
+  }
 
-    @Override
-    public String generate(
-            final TokenParameters params
-    ) {
-        Claims claims = Jwts.claims()
-                .subject(params.getSubject())
-                .add(params.getFields())
-                .build();
-        return Jwts.builder()
-                .claims(claims)
-                .issuedAt(params.getIssuedAt())
-                .expiration(params.getExpiredAt())
-                .signWith(key)
-                .compact();
-    }
-
-    @Override
-    public boolean isValid(
-            final String token,
-            final TokenType tokenType
-    ) {
-        try {
-            Jws<Claims> claims = Jwts
-                    .parser()
-                    .verifyWith(key)
-                    .build()
-                    .parseSignedClaims(token);
-            TokenType type = TokenType.valueOf(
-                    (String) claims.getPayload()
-                            .get("type")
-            );
-            return claims.getPayload()
-                    .getExpiration()
-                    .after(new Date())
-                    && tokenType.equals(type);
-        } catch (JwtException | IllegalArgumentException e) {
-            return false;
-        }
-    }
-
-    @Override
-    public HashMap<String, Object> fields(
-            final String token
-    ) {
-        Jws<Claims> claims = Jwts
-                .parser()
-                .verifyWith(key)
-                .build()
-                .parseSignedClaims(token);
-        return new HashMap<>(claims.getPayload());
-    }
-
+  @Override
+  public HashMap<String, Object> fields(final String token) {
+    Jws<Claims> claims = Jwts.parser().verifyWith(key).build().parseSignedClaims(token);
+    return new HashMap<>(claims.getPayload());
+  }
 }

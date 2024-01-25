@@ -16,59 +16,58 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
 
+  private final StudentRepository studentRepository;
+  private final PasswordEncoder passwordEncoder;
 
-    private final StudentRepository studentRepository;
-    private final PasswordEncoder passwordEncoder;
+  @Override
+  public Student getById(final ObjectId id) {
+    return studentRepository
+        .findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Student with id[" + id + "] not found."));
+  }
 
-    @Override
-    public Student getById(final ObjectId id) {
-        return studentRepository
-                .findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Student with id[" + id + "] not found."));
+  @Override
+  public Page<Student> getAll(final Pageable page) {
+    return studentRepository.findAll(page);
+  }
+
+  @Override
+  public Student create(final Student entity) {
+    boolean studentExits = studentRepository.existsByUsername(entity.getUsername());
+    if (studentExits) {
+      throw new ResourceAlreadyExistsException(
+          "Student with username[" + entity.getUsername() + "] already exists.");
     }
 
-    @Override
-    public Page<Student> getAll(final Pageable page) {
-        return studentRepository.findAll(page);
-    }
+    entity.setPassword(passwordEncoder.encode(entity.getPassword()));
 
-    @Override
-    public Student create(final Student entity) {
-        boolean studentExits = studentRepository.existsByUsername(entity.getUsername());
-        if (studentExits) {
-            throw new ResourceAlreadyExistsException(
-                    "Student with username[" + entity.getUsername() + "] already exists.");
-        }
+    return studentRepository.save(entity);
+  }
 
-        entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+  @Override
+  public Student update(final Student entity) {
+    Student studentOnDb =
+        studentRepository
+            .findById(entity.getId())
+            .orElseThrow(
+                () ->
+                    new ResourceNotFoundException(
+                        "Student with username[" + entity.getUsername() + "] not found."));
 
-        return studentRepository.save(entity);
-    }
+    entity.setId(studentOnDb.getId());
+    entity.setUsername(studentOnDb.getUsername());
+    entity.setRole(studentOnDb.getRole());
 
-    @Override
-    public Student update(final Student entity) {
-        Student studentOnDb =
-                studentRepository
-                        .findById(entity.getId())
-                        .orElseThrow(
-                                () ->
-                                        new ResourceNotFoundException(
-                                                "Student with username[" + entity.getUsername() + "] not found."));
+    return studentRepository.save(entity);
+  }
 
-        entity.setId(studentOnDb.getId());
-        entity.setUsername(studentOnDb.getUsername());
-        entity.setRole(studentOnDb.getRole());
+  @Override
+  public boolean existsById(final ObjectId id) {
+    return studentRepository.existsById(id);
+  }
 
-        return studentRepository.save(entity);
-    }
-
-    @Override
-    public boolean existsById(final ObjectId id) {
-        return studentRepository.existsById(id);
-    }
-
-    @Override
-    public void delete(final ObjectId id) {
-        studentRepository.deleteById(id);
-    }
+  @Override
+  public void delete(final ObjectId id) {
+    studentRepository.deleteById(id);
+  }
 }

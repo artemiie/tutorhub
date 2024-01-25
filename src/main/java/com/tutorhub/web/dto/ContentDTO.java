@@ -10,14 +10,7 @@ import org.bson.types.ObjectId;
 @Setter
 public abstract class ContentDTO {
 
-    @NotNull(
-            message = "Id must be not null.",
-            groups = OnUpdate.class
-    )
-    @Null(
-            message = "Id must be null.",
-            groups = OnCreate.class
-    )
-    protected ObjectId id;
-
+  @NotNull(message = "Id must be not null.", groups = OnUpdate.class)
+  @Null(message = "Id must be null.", groups = OnCreate.class)
+  protected ObjectId id;
 }

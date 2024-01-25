@@ -10,14 +10,8 @@ import lombok.Setter;
 @Setter
 public class QuizContentDTO extends ContentDTO {
 
-    @Valid
-    @NotNull(
-            message = "Questions list must be not null."
-    )
-    @NotNull(
-            message = "Questions list must be not empty."
-    )
-    private List<QuizQuestionDTO> questions;
-
-
+  @Valid
+  @NotNull(message = "Questions list must be not null.")
+  @NotNull(message = "Questions list must be not empty.")
+  private List<QuizQuestionDTO> questions;
 }

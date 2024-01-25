@@ -9,9 +9,6 @@ import lombok.Setter;
 @Setter
 public class TutorDTO extends UserDTO {
 
-    @JsonProperty(
-            access = JsonProperty.Access.READ_ONLY
-    )
-    private List<CourseDTO> courses;
-
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private List<CourseDTO> courses;
 }

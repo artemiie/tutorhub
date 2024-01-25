@@ -25,39 +25,38 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/students")
 public class StudentController {
 
-    private final StudentMapper studentMapper;
-    private final StudentService studentService;
+  private final StudentMapper studentMapper;
+  private final StudentService studentService;
 
-    @GetMapping("/{id}")
-    public StudentDTO getById(@PathVariable final ObjectId id) {
-        return studentMapper.toDto(studentService.getById(id));
-    }
+  @GetMapping("/{id}")
+  public StudentDTO getById(@PathVariable final ObjectId id) {
+    return studentMapper.toDto(studentService.getById(id));
+  }
 
-    @GetMapping()
-    public Page<StudentDTO> getAllPaged(
-            @RequestParam(name = "page") final int pageNumber,
-            @RequestParam(name = "size") final int pageSize,
-            @RequestParam final String sortBy) {
-        return studentService
-                .getAll(PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)))
-                .map(student -> studentMapper.toDto(student));
-    }
+  @GetMapping()
+  public Page<StudentDTO> getAllPaged(
+      @RequestParam(name = "page") final int pageNumber,
+      @RequestParam(name = "size") final int pageSize,
+      @RequestParam final String sortBy) {
+    return studentService
+        .getAll(PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)))
+        .map(student -> studentMapper.toDto(student));
+  }
 
-    @PostMapping
-    public StudentDTO create(@RequestBody @Validated final StudentDTO studentDTO) {
-        Student newStudent = studentMapper.fromDto(studentDTO);
-        Student createdStudent = studentService.create(newStudent);
-        return studentMapper.toDto(createdStudent);
-    }
+  @PostMapping
+  public StudentDTO create(@RequestBody @Validated final StudentDTO studentDTO) {
+    Student newStudent = studentMapper.fromDto(studentDTO);
+    Student createdStudent = studentService.create(newStudent);
+    return studentMapper.toDto(createdStudent);
+  }
 
-    @PutMapping
-    public StudentDTO update(@Validated @RequestBody final StudentDTO studentDTO) {
-        return studentMapper.toDto(studentService.update(studentMapper.fromDto(studentDTO)));
-    }
+  @PutMapping
+  public StudentDTO update(@Validated @RequestBody final StudentDTO studentDTO) {
+    return studentMapper.toDto(studentService.update(studentMapper.fromDto(studentDTO)));
+  }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable final ObjectId id) {
-        studentService.delete(id);
-    }
-
+  @DeleteMapping("/{id}")
+  public void delete(@PathVariable final ObjectId id) {
+    studentService.delete(id);
+  }
 }

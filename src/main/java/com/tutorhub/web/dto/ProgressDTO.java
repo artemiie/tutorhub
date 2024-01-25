@@ -10,15 +10,9 @@ import org.bson.types.ObjectId;
 @Setter
 public class ProgressDTO {
 
-    @JsonProperty(
-            access = JsonProperty.Access.READ_ONLY
-    )
-    private ObjectId id;
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private ObjectId id;
 
-
-    @JsonProperty(
-            access = JsonProperty.Access.READ_ONLY
-    )
-    private List<ModuleDTO> passedModules;
-
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private List<ModuleDTO> passedModules;
 }

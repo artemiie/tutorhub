@@ -1,4 +1,3 @@
 package com.tutorhub.web.dto;
 
-public interface OnCreate {
-}
+public interface OnCreate {}

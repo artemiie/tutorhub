@@ -12,29 +12,16 @@ import org.bson.types.ObjectId;
 @Setter
 public class CourseDTO {
 
-    @NotNull(
-            message = "Id must be not null.",
-            groups = OnUpdate.class
-    )
-    @Null(
-            message = "Id must be null.",
-            groups = OnCreate.class
-    )
-    private ObjectId id;
+  @NotNull(message = "Id must be not null.", groups = OnUpdate.class)
+  @Null(message = "Id must be null.", groups = OnCreate.class)
+  private ObjectId id;
 
-    @NotNull(
-            message = "Name must be not null."
-    )
-    private String name;
+  @NotNull(message = "Name must be not null.")
+  private String name;
 
-    @JsonProperty(
-            access = JsonProperty.Access.READ_ONLY
-    )
-    private TutorDTO tutor;
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private TutorDTO tutor;
 
-    @JsonProperty(
-            access = JsonProperty.Access.READ_ONLY
-    )
-    private List<ModuleDTO> modules;
-
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private List<ModuleDTO> modules;
 }

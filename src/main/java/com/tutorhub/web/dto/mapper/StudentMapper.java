@@ -5,5 +5,4 @@ import com.tutorhub.web.dto.StudentDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface StudentMapper extends Mappable<Student, StudentDTO> {
-}
+public interface StudentMapper extends Mappable<Student, StudentDTO> {}

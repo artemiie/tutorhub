@@ -11,14 +11,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor(onConstructor = @__(@Lazy))
 public class SecurityUserService implements UserDetailsService {
 
-    private final UserService userService;
+  private final UserService userService;
 
-    @Override
-    public SecurityUser loadUserByUsername(
-            final String username
-    ) {
-        User user = userService.getByUsername(username);
-        return new SecurityUser(user);
-    }
-
+  @Override
+  public SecurityUser loadUserByUsername(final String username) {
+    User user = userService.getByUsername(username);
+    return new SecurityUser(user);
+  }
 }

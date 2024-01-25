@@ -9,11 +9,10 @@ import lombok.Setter;
 @Setter
 public class Tutor extends User {
 
-    private List<Course> courses;
+  private List<Course> courses;
 
-    public Tutor() {
-        this.role = "ROLE_TUTOR";
-        this.courses = new ArrayList<>();
-    }
-
+  public Tutor() {
+    this.role = "ROLE_TUTOR";
+    this.courses = new ArrayList<>();
+  }
 }

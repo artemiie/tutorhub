@@ -11,11 +11,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 public class StudentCourseInfo {
 
-    @Id
-    private ObjectId id;
+  @Id private ObjectId id;
 
-    private Student user;
-    private Course course;
-    private Progress progress;
-
+  private Student user;
+  private Course course;
+  private Progress progress;
 }

@@ -22,68 +22,46 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtService jwtService;
-    private final UserDetailsService userDetailsService;
+  private final JwtService jwtService;
+  private final UserDetailsService userDetailsService;
 
-    @Bean
-    public PasswordEncoder bcryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public PasswordEncoder bcryptPasswordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
-    @Bean
-    @SneakyThrows
-    public AuthenticationManager authenticationManager(
-            final AuthenticationConfiguration authenticationConfiguration
-    ) {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
+  @Bean
+  @SneakyThrows
+  public AuthenticationManager authenticationManager(
+      final AuthenticationConfiguration authenticationConfiguration) {
+    return authenticationConfiguration.getAuthenticationManager();
+  }
 
-    @Bean
-    @SneakyThrows
-    public SecurityFilterChain configure(
-            final HttpSecurity http
-    ) {
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
-                .httpBasic(AbstractHttpConfigurer::disable)
-                .sessionManagement(configurer ->
-                        configurer
-                                .sessionCreationPolicy(
-                                        SessionCreationPolicy.STATELESS
-                                )
-                )
-                .exceptionHandling(configurer ->
-                        configurer
-                                .authenticationEntryPoint(
-                                        (request, response, exception) -> {
-                                            response.setStatus(
-                                                    HttpStatus.UNAUTHORIZED
-                                                            .value()
-                                            );
-                                            response.getWriter()
-                                                    .write("Unauthorized");
-                                        })
-                                .accessDeniedHandler(
-                                        (request, response, exception) -> {
-                                            response.setStatus(
-                                                    HttpStatus.FORBIDDEN
-                                                            .value()
-                                            );
-                                            response.getWriter()
-                                                    .write("Forbidden");
-                                        }))
-                .authorizeHttpRequests(configurer -> configurer
-                        .requestMatchers("/**")
-                        .permitAll())
-                .addFilterBefore(
-                        new JwtTokenFilter(
-                                jwtService,
-                                userDetailsService
-                        ),
-                        UsernamePasswordAuthenticationFilter.class
-                );
-        return http.build();
-    }
-
+  @Bean
+  @SneakyThrows
+  public SecurityFilterChain configure(final HttpSecurity http) {
+    http.csrf(AbstractHttpConfigurer::disable)
+        .cors(AbstractHttpConfigurer::disable)
+        .httpBasic(AbstractHttpConfigurer::disable)
+        .sessionManagement(
+            configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .exceptionHandling(
+            configurer ->
+                configurer
+                    .authenticationEntryPoint(
+                        (request, response, exception) -> {
+                          response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                          response.getWriter().write("Unauthorized");
+                        })
+                    .accessDeniedHandler(
+                        (request, response, exception) -> {
+                          response.setStatus(HttpStatus.FORBIDDEN.value());
+                          response.getWriter().write("Forbidden");
+                        }))
+        .authorizeHttpRequests(configurer -> configurer.requestMatchers("/**").permitAll())
+        .addFilterBefore(
+            new JwtTokenFilter(jwtService, userDetailsService),
+            UsernamePasswordAuthenticationFilter.class);
+    return http.build();
+  }
 }
