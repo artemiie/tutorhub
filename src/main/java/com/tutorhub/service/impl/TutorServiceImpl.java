@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TutorServiceImpl implements TutorService {
   private final TutorRepository tutorRepository;
-  private final PasswordEncoder passwordEncoder;
 
   @Override
   public Tutor getById(final ObjectId id) {
@@ -28,19 +27,6 @@ public class TutorServiceImpl implements TutorService {
   @Override
   public Page<Tutor> getAll(final Pageable page) {
     return tutorRepository.findAll(page);
-  }
-
-  @Override
-  public Tutor create(final Tutor entity) {
-    boolean userExists = tutorRepository.existsByUsername(entity.getUsername());
-    if (userExists) {
-      throw new ResourceAlreadyExistsException(
-          "User with username[" + entity.getUsername() + "] already exists.");
-    }
-
-    entity.setPassword(passwordEncoder.encode(entity.getPassword()));
-
-    return tutorRepository.save(entity);
   }
 
   @Override

@@ -1,7 +1,6 @@
 package com.tutorhub.service.impl;
 
 import com.tutorhub.model.Student;
-import com.tutorhub.model.exception.ResourceAlreadyExistsException;
 import com.tutorhub.model.exception.ResourceNotFoundException;
 import com.tutorhub.repository.StudentRepository;
 import com.tutorhub.service.StudentService;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class StudentServiceImpl implements StudentService {
 
   private final StudentRepository studentRepository;
-  private final PasswordEncoder passwordEncoder;
 
   @Override
   public Student getById(final ObjectId id) {
@@ -29,19 +27,6 @@ public class StudentServiceImpl implements StudentService {
   @Override
   public Page<Student> getAll(final Pageable page) {
     return studentRepository.findAll(page);
-  }
-
-  @Override
-  public Student create(final Student entity) {
-    boolean studentExits = studentRepository.existsByUsername(entity.getUsername());
-    if (studentExits) {
-      throw new ResourceAlreadyExistsException(
-          "Student with username[" + entity.getUsername() + "] already exists.");
-    }
-
-    entity.setPassword(passwordEncoder.encode(entity.getPassword()));
-
-    return studentRepository.save(entity);
   }
 
   @Override

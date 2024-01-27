@@ -4,6 +4,8 @@ import static com.tutorhub.model.MailType.REGISTRATION;
 import static com.tutorhub.model.MailType.RESTORE;
 
 import com.tutorhub.model.MailType;
+import com.tutorhub.model.Student;
+import com.tutorhub.model.Tutor;
 import com.tutorhub.model.User;
 import com.tutorhub.model.exception.ResourceAlreadyExistsException;
 import com.tutorhub.model.exception.ResourceNotFoundException;
@@ -43,10 +45,13 @@ public class AuthServiceImpl implements AuthService {
   @Override
   public void register(final User user) {
     if (userService.existsByUsername(user.getUsername())) {
-      throw new ResourceAlreadyExistsException();
+      throw new ResourceAlreadyExistsException(
+          "User with username [" + user.getUsername() + "] already exists.");
     }
+
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     userService.create(user);
+
     String token =
         jwtService.generate(
             TokenParameters.builder(user.getUsername(), jwtProperties.getActivation())

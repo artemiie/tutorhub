@@ -1,10 +1,14 @@
 package com.tutorhub.web.controller;
 
+import com.tutorhub.model.Student;
+import com.tutorhub.model.Tutor;
 import com.tutorhub.model.User;
 import com.tutorhub.service.AuthService;
 import com.tutorhub.web.dto.OnCreate;
 import com.tutorhub.web.dto.StudentDTO;
 import com.tutorhub.web.dto.TutorDTO;
+import com.tutorhub.web.dto.mapper.StudentMapper;
+import com.tutorhub.web.dto.mapper.TutorMapper;
 import com.tutorhub.web.dto.mapper.UserMapper;
 import com.tutorhub.web.security.jwt.AuthRequest;
 import com.tutorhub.web.security.jwt.AuthResponse;
@@ -50,8 +54,8 @@ public class AuthController {
         content = {@Content(schema = @Schema(implementation = Void.class))})
   })
   public void registerTutor(@RequestBody @Validated(OnCreate.class) final TutorDTO tutorDTO) {
-    User user = userMapper.fromDto(tutorDTO);
-    authService.register(user);
+    User tutor = userMapper.fromDto(tutorDTO);
+    authService.register(tutor);
   }
 
   @Operation(
@@ -67,8 +71,8 @@ public class AuthController {
   @PostMapping("/register/student")
   @ResponseStatus(HttpStatus.CREATED)
   public void registerStudent(@RequestBody @Validated(OnCreate.class) final StudentDTO studentDTO) {
-    User user = userMapper.fromDto(studentDTO);
-    authService.register(user);
+    User student = userMapper.fromDto(studentDTO);
+    authService.register(student);
   }
 
   @Operation(summary = "${api.auth.login.description}", description = "${api.auth.login.notes}")
