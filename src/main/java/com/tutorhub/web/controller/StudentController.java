@@ -1,6 +1,5 @@
 package com.tutorhub.web.controller;
 
-import com.tutorhub.model.Student;
 import com.tutorhub.service.StudentService;
 import com.tutorhub.web.dto.StudentDTO;
 import com.tutorhub.web.dto.mapper.StudentMapper;
@@ -13,7 +12,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,13 +39,6 @@ public class StudentController {
     return studentService
         .getAll(PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)))
         .map(student -> studentMapper.toDto(student));
-  }
-
-  @PostMapping
-  public StudentDTO create(@RequestBody @Validated final StudentDTO studentDTO) {
-    Student newStudent = studentMapper.fromDto(studentDTO);
-    Student createdStudent = studentService.create(newStudent);
-    return studentMapper.toDto(createdStudent);
   }
 
   @PutMapping

@@ -33,10 +33,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User create(final User entity) {
-    if (entity.getId() == null && !existsByUsername(entity.getUsername())) {
-      userRepository.save(entity);
-    }
-    return entity;
+    return userRepository.save(entity);
   }
 
   @Override
@@ -47,7 +44,7 @@ public class UserServiceImpl implements UserService {
             .orElseThrow(
                 () ->
                     new ResourceNotFoundException(
-                        "User with id[" + entity.getId() + "] not found."));
+                        "User with id [" + entity.getId() + "] not found."));
 
     entity.setId(userOnDb.getId());
     entity.setUsername(userOnDb.getUsername());

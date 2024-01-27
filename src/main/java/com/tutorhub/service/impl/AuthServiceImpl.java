@@ -43,10 +43,13 @@ public class AuthServiceImpl implements AuthService {
   @Override
   public void register(final User user) {
     if (userService.existsByUsername(user.getUsername())) {
-      throw new ResourceAlreadyExistsException();
+      throw new ResourceAlreadyExistsException(
+          "User with username [" + user.getUsername() + "] already exists.");
     }
+
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     userService.create(user);
+
     String token =
         jwtService.generate(
             TokenParameters.builder(user.getUsername(), jwtProperties.getActivation())

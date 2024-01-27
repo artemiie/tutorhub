@@ -50,8 +50,8 @@ public class AuthController {
         content = {@Content(schema = @Schema(implementation = Void.class))})
   })
   public void registerTutor(@RequestBody @Validated(OnCreate.class) final TutorDTO tutorDTO) {
-    User user = userMapper.fromDto(tutorDTO);
-    authService.register(user);
+    User tutor = userMapper.fromDto(tutorDTO);
+    authService.register(tutor);
   }
 
   @Operation(
@@ -67,8 +67,8 @@ public class AuthController {
   @PostMapping("/register/student")
   @ResponseStatus(HttpStatus.CREATED)
   public void registerStudent(@RequestBody @Validated(OnCreate.class) final StudentDTO studentDTO) {
-    User user = userMapper.fromDto(studentDTO);
-    authService.register(user);
+    User student = userMapper.fromDto(studentDTO);
+    authService.register(student);
   }
 
   @Operation(summary = "${api.auth.login.description}", description = "${api.auth.login.notes}")

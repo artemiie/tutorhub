@@ -1,5 +1,5 @@
 <#ftl encoding="UTF-8">
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Thank you for registration ${name}</title>
@@ -25,9 +25,6 @@
             color: black;
         }
 
-        #a {
-            text-decoration: none;
-        }
     </style>
 </head>
 <body>
