@@ -1,7 +1,6 @@
 package com.tutorhub.service.impl;
 
 import com.tutorhub.model.Tutor;
-import com.tutorhub.model.exception.ResourceAlreadyExistsException;
 import com.tutorhub.model.exception.ResourceNotFoundException;
 import com.tutorhub.repository.TutorRepository;
 import com.tutorhub.service.TutorService;
@@ -9,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service

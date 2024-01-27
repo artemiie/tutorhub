@@ -1,6 +1,5 @@
 package com.tutorhub.web.controller;
 
-import com.tutorhub.model.Tutor;
 import com.tutorhub.service.TutorService;
 import com.tutorhub.web.dto.TutorDTO;
 import com.tutorhub.web.dto.mapper.TutorMapper;

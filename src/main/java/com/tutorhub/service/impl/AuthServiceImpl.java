@@ -4,8 +4,6 @@ import static com.tutorhub.model.MailType.REGISTRATION;
 import static com.tutorhub.model.MailType.RESTORE;
 
 import com.tutorhub.model.MailType;
-import com.tutorhub.model.Student;
-import com.tutorhub.model.Tutor;
 import com.tutorhub.model.User;
 import com.tutorhub.model.exception.ResourceAlreadyExistsException;
 import com.tutorhub.model.exception.ResourceNotFoundException;
