@@ -27,7 +27,7 @@ public class TutorServiceImpl implements TutorService {
 
   @Override
   public Page<Tutor> getAll(final Pageable page) {
-    return tutorRepository.findAll(page);
+    return tutorRepository.findByRole("ROLE_TUTOR", page);
   }
 
   @Override
