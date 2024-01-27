@@ -68,7 +68,10 @@ public class AuthServiceImpl implements AuthService {
   public AuthResponse login(final AuthRequest request) {
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+    User userOnDb = userService.getByUsername(request.getUsername());
+
     AuthResponse response = new AuthResponse();
+
     response.setAccess(
         jwtService.generate(
             TokenParameters.builder(request.getUsername(), jwtProperties.getAccess())
@@ -79,8 +82,7 @@ public class AuthServiceImpl implements AuthService {
             TokenParameters.builder(request.getUsername(), jwtProperties.getRefresh())
                 .type(TokenType.REFRESH)
                 .build()));
-
-    User userOnDb = userService.getByUsername(request.getUsername());
+    response.setUserId(userOnDb.getId());
 
     mailService.sendEmail(
         request.getUsername(), userOnDb.getFullName(), MailType.LOGIN, new Properties());
