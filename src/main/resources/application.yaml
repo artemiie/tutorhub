@@ -1,3 +1,8 @@
+logging:
+  level:
+    root: INFO
+    com.tutorhub: DEBUG
+
 spring:
   config:
     import:
