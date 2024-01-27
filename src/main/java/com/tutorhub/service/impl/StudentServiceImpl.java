@@ -28,7 +28,7 @@ public class StudentServiceImpl implements StudentService {
 
   @Override
   public Page<Student> getAll(final Pageable page) {
-    return studentRepository.findAll(page);
+    return studentRepository.findByRole("ROLE_STUDENT", page);
   }
 
   @Override
