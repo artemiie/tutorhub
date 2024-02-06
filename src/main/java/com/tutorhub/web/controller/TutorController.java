@@ -46,7 +46,7 @@ public class TutorController {
 
   @GetMapping("/{id}")
   public TutorDTO getById(@PathVariable final ObjectId id) {
-	  Tutor tutorEntity = tutorService.getById(id);
+    Tutor tutorEntity = tutorService.getById(id);
     return tutorMapper.toDto(tutorEntity);
   }
 
