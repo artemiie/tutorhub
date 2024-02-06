@@ -1,0 +1,43 @@
+version: '3.0'
+
+volumes:
+  mongo-data:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  app:
+    build: ./
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+#    depends_on:
+#      mongodb:
+#        condition: service_healthy
+    networks:
+      - app-network
+
+  mongodb:
+    image: 'mongo:focal'
+    ports:
+      - '27017:27017'
+    command: mongod
+    environment:
+      - MONGO_INITDB_DATABASE=${MONGO_DATABASE}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
+    networks:
+      - app-network
+    volumes:
+      - mongo-data:/data/db
+#    healthcheck:
+#      test: "mongostat -n 1"
+#      interval: 5s
+#      timeout: 2s
+#      retries: 60
