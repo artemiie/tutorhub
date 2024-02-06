@@ -41,7 +41,7 @@ public class ControllerAdvice {
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler({InvalidTokenException.class})
   public String handleInvalidToken() {
-    return "Bad request params.";
+    return "Token is invalid.";
   }
 
   @ExceptionHandler
