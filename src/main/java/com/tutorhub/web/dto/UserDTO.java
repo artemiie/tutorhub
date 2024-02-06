@@ -34,8 +34,8 @@ public abstract class UserDTO {
   protected String username;
 
   @Schema(
-      description = "User crypted password",
-      example = "$2a$10$fFLij9aYgaNCFPTL9WcA/uoCRukxnwf.vOQ8nrEEOskrCNmGsxY7m")
+      description = "User password",
+      example = "12345678")
   @NotNull(message = "Password must be not null.", groups = OnCreate.class)
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   protected String password;
