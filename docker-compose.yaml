@@ -17,9 +17,8 @@ services:
       - .env
     ports:
       - "8080:8080"
-#    depends_on:
-#      mongodb:
-#        condition: service_healthy
+    depends_on:
+      - mongodb
     networks:
       - app-network
 
@@ -36,8 +35,3 @@ services:
       - app-network
     volumes:
       - mongo-data:/data/db
-#    healthcheck:
-#      test: "mongostat -n 1"
-#      interval: 5s
-#      timeout: 2s
-#      retries: 60
