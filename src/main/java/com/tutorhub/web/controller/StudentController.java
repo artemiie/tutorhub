@@ -1,5 +1,6 @@
 package com.tutorhub.web.controller;
 
+import com.tutorhub.model.Student;
 import com.tutorhub.service.StudentService;
 import com.tutorhub.web.dto.StudentDTO;
 import com.tutorhub.web.dto.mapper.StudentMapper;
@@ -28,7 +29,8 @@ public class StudentController {
 
   @GetMapping("/{id}")
   public StudentDTO getById(@PathVariable final ObjectId id) {
-    return studentMapper.toDto(studentService.getById(id));
+    Student studentEntity = studentService.getById(id);
+    return studentMapper.toDto(studentEntity);
   }
 
   @GetMapping()
@@ -43,7 +45,9 @@ public class StudentController {
 
   @PutMapping
   public StudentDTO update(@Validated @RequestBody final StudentDTO studentDTO) {
-    return studentMapper.toDto(studentService.update(studentMapper.fromDto(studentDTO)));
+    Student studentEntity = studentMapper.fromDto(studentDTO);
+    Student updatedEntity = studentService.update(studentEntity);
+    return studentMapper.toDto(updatedEntity);
   }
 
   @DeleteMapping("/{id}")
