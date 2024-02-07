@@ -8,5 +8,5 @@ public interface UserService extends CrudService<User> {
 
   boolean existsByUsername(String username);
 
-  void enableUser(String username);
+  void enable(String username);
 }
