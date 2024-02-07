@@ -57,12 +57,12 @@ public class AuthServiceImpl implements AuthService {
                 .build());
 
     mailService.sendEmail(
-        user.getUsername(),
-        user.getFullName(),
         REGISTRATION,
         new Properties() {
           {
             put("token", token);
+            put("username", user.getUsername());
+            put("fullName", user.getFullName());
           }
         });
   }
@@ -88,7 +88,13 @@ public class AuthServiceImpl implements AuthService {
     response.setUserId(userOnDb.getId());
 
     mailService.sendEmail(
-        request.getUsername(), userOnDb.getFullName(), MailType.LOGIN, new Properties());
+         MailType.LOGIN,
+            new Properties() {
+              {
+                put("username", userOnDb.getUsername());
+                put("fullName", userOnDb.getFullName());
+              }
+            });
 
     return response;
   }
@@ -110,7 +116,7 @@ public class AuthServiceImpl implements AuthService {
     properties.setProperty("token", token);
     properties.setProperty("username", request.getUsername());
 
-    mailService.sendEmail(user.getUsername(), user.getFullName(), RESTORE, properties);
+    mailService.sendEmail(RESTORE, properties);
   }
 
   @Override

@@ -24,8 +24,6 @@ public class MailServiceImpl implements MailService {
   @Override
   @SneakyThrows
   public void sendEmail(
-      final String username,
-      final String userFullName,
       final MailType type,
       final Properties params) {
     MimeMessage mimeMessage = mailSender.createMimeMessage();
@@ -33,64 +31,63 @@ public class MailServiceImpl implements MailService {
 
     String emailContext =
         switch (type) {
-          case REGISTRATION -> buildRegistrationEmailContext(helper, userFullName, params);
-          case LOGIN -> buildLoginEmailContext(helper, userFullName, params);
-          case RESTORE -> buildRestoreEmailContext(helper, userFullName, params);
+          case REGISTRATION -> buildRegistrationEmailContext(helper, params);
+          case LOGIN -> buildLoginEmailContext(helper, params);
+          case RESTORE -> buildRestoreEmailContext(helper, params);
         };
 
     helper.setText(emailContext, true);
-    helper.setTo(username);
+    helper.setTo(params.getProperty("username"));
     mailSender.send(mimeMessage);
   }
 
   @SneakyThrows
   private String buildRegistrationEmailContext(
-      final MimeMessageHelper helper, final String userFullname, final Properties params) {
-    helper.setSubject("Thank you for registration, " + userFullname);
-    return getRegistrationEmailContext(userFullname, params);
+      final MimeMessageHelper helper, final Properties params) {
+    helper.setSubject("Thank you for registration, " + params.getProperty("fullName"));
+    return getRegistrationEmailContext(params);
   }
 
   @SneakyThrows
   private String buildLoginEmailContext(
-      final MimeMessageHelper helper, final String userFullname, final Properties params) {
+      final MimeMessageHelper helper, final Properties params) {
     helper.setSubject("Login Information");
-    return getLoginEmailContext(userFullname, params);
+    return getLoginEmailContext(params);
   }
 
   @SneakyThrows
   private String buildRestoreEmailContext(
-      final MimeMessageHelper helper, final String userFullname, final Properties params) {
+      final MimeMessageHelper helper, final Properties params) {
     helper.setSubject("Password Restoration");
-    return getRestoreEmailContext(userFullname, params);
+    return getRestoreEmailContext(params);
   }
 
   @SneakyThrows
-  private String getRegistrationEmailContext(
-      final String userFullname, final Properties properties) {
+  private String getRegistrationEmailContext(final Properties properties) {
     StringWriter writer = new StringWriter();
     Map<String, Object> model = new HashMap<>();
-    model.put("name", userFullname);
-    model.put("token", properties.get("token"));
+    model.put("name", properties.getProperty("fullName"));
+    model.put("token", properties.getProperty("token"));
     configuration.getTemplate("register.ftlh").process(model, writer);
     return writer.getBuffer().toString();
   }
 
   // todo create field about loginTime
   @SneakyThrows
-  private String getLoginEmailContext(final String userFullname, final Properties properties) {
+  private String getLoginEmailContext(final Properties properties) {
     StringWriter writer = new StringWriter();
     Map<String, Object> model = new HashMap<>();
-    model.put("name", userFullname);
+    model.put("name", properties.getProperty("fullName"));
     configuration.getTemplate("login.ftlh").process(model, writer);
     return writer.getBuffer().toString();
   }
 
   @SneakyThrows
-  private String getRestoreEmailContext(final String userFullname, final Properties properties) {
+  private String getRestoreEmailContext(final Properties properties) {
     StringWriter writer = new StringWriter();
     Map<String, Object> model = new HashMap<>();
-    model.put("username", properties.get("username"));
-    model.put("token", properties.get("token"));
+    model.put("username", properties.getProperty("username"));
+    model.put("token", properties.getProperty("token"));
     configuration.getTemplate("restore.ftlh").process(model, writer);
     return writer.getBuffer().toString();
   }
