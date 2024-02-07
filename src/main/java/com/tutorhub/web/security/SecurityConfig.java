@@ -58,7 +58,13 @@ public class SecurityConfig {
                           response.setStatus(HttpStatus.FORBIDDEN.value());
                           response.getWriter().write("Forbidden");
                         }))
-        .authorizeHttpRequests(configurer -> configurer.requestMatchers("/**").permitAll())
+        .authorizeHttpRequests(
+            configurer ->
+                configurer
+                    .requestMatchers("/api/v1/courses")
+                    .hasRole("TUTOR")
+                    .requestMatchers("/**")
+                    .permitAll())
         .addFilterBefore(
             new JwtTokenFilter(jwtService, userDetailsService),
             UsernamePasswordAuthenticationFilter.class);
