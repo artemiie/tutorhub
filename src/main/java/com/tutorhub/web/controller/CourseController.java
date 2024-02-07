@@ -23,8 +23,8 @@ public class CourseController {
   @PostMapping
   @PreAuthorize("hasRole('TUTOR')")
   public CourseDTO create(@RequestBody @Validated(OnCreate.class) final CourseDTO courseDTO) {
-    Course courseEntity = courseMapper.fromDto(courseDTO);
-    Course createdCourseEntity = courseService.create(courseEntity);
-    return courseMapper.toDto(createdCourseEntity);
+    Course entity = courseMapper.fromDto(courseDTO);
+    Course createdEntity = courseService.create(entity);
+    return courseMapper.toDto(createdEntity);
   }
 }
