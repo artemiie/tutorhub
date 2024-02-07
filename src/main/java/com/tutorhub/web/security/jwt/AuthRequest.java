@@ -17,9 +17,7 @@ public class AuthRequest {
   @NotEmpty(message = "Username must be not empty.")
   private String username;
 
-  @Schema(
-      description = "User password",
-      example = "12345678")
+  @Schema(description = "User password", example = "12345678")
   @NotNull(message = "Password must be not null.")
   @NotEmpty(message = "Password must be not empty.")
   private String password;

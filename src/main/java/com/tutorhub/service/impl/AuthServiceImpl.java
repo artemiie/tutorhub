@@ -131,4 +131,12 @@ public class AuthServiceImpl implements AuthService {
     }
     return true;
   }
+
+  @Override
+  public void confirmUserEmail(final String token) {
+    if (checkToken(token)) {
+      Map<String, Object> fields = jwtService.fields(token);
+      userService.enable((String) fields.get("subject"));
+    }
+  }
 }

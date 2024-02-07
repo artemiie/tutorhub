@@ -17,4 +17,6 @@ public interface AuthService {
   void reset(ResetRequest request);
 
   boolean checkToken(String token);
+
+  void confirmUserEmail(String token);
 }
