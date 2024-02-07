@@ -1,0 +1,39 @@
+logging:
+  level:
+    root: INFO
+    com.tutorhub: DEBUG
+
+spring:
+  config:
+    import:
+      - optional:file:.env[.properties]
+      - classpath:swagger/swagger-config.yaml
+  data:
+    mongodb:
+      host: ${MONGO_HOST}
+      port: ${MONGO_PORT}
+      username: ${MONGO_USER}
+      password: ${MONGO_PASSWORD}
+      database: ${MONGO_DATABASE}
+      authentication-database: admin
+  mail:
+    host: ${SPRING_MAIL_HOST}
+    port: ${SPRING_MAIL_PORT}
+    username: ${SPRING_MAIL_USERNAME}
+    password: ${SPRING_MAIL_PASSWORD}
+    properties:
+      mail:
+        debug: false
+        transport:
+          protocol: smtp
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+security:
+  jwt:
+    secret: ${JWT_SECRET}
+    access: ${JWT_ACCESS_DURATION}
+    activation: ${JWT_ACTIVATION_DURATION}
+    refresh: ${JWT_REFRESH_DURATION}
+    restore: ${JWT_RESTORE_DURATION}
