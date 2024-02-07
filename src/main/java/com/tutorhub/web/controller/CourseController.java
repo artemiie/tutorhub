@@ -6,6 +6,7 @@ import com.tutorhub.web.dto.CourseDTO;
 import com.tutorhub.web.dto.OnCreate;
 import com.tutorhub.web.dto.mapper.CourseMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,7 @@ public class CourseController {
   private final CourseMapper courseMapper;
 
   @PostMapping
+  @PreAuthorize("hasRole('TUTOR')")
   public CourseDTO create(@RequestBody @Validated(OnCreate.class) final CourseDTO courseDTO) {
     Course courseEntity = courseMapper.fromDto(courseDTO);
     Course createdCourseEntity = courseService.create(courseEntity);
