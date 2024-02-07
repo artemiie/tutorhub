@@ -1,8 +1,6 @@
 package com.tutorhub.service.impl;
 
 import com.tutorhub.model.Course;
-import com.tutorhub.model.Tutor;
-import com.tutorhub.model.User;
 import com.tutorhub.repository.CourseRepository;
 import com.tutorhub.service.AuthService;
 import com.tutorhub.service.CourseService;
@@ -30,8 +28,6 @@ public class CourseServiceImpl implements CourseService {
 
   @Override
   public Course create(final Course entity) {
-    User user = authService.getCurrentLoggedUser();
-    entity.setTutor((Tutor) user);
     return courseRepository.save(entity);
   }
 
