@@ -21,5 +21,5 @@ public abstract class User {
   protected String password;
 
   protected String role;
-  protected Boolean enabled = false;
+  protected boolean enabled;
 }
