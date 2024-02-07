@@ -5,5 +5,5 @@ import java.util.Properties;
 
 public interface MailService {
 
-  void sendEmail(String username, String userFullname, MailType type, Properties params);
+  void sendEmail(MailType type, Properties params);
 }
