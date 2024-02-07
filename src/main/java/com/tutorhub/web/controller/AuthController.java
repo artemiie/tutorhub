@@ -120,6 +120,6 @@ public class AuthController {
   })
   @GetMapping("/confirm")
   public void confirm(@RequestParam("token") final String token) {
-    authService.checkToken(token);
+    authService.confirmUserEmail(token);
   }
 }

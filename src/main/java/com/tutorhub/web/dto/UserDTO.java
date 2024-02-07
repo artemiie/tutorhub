@@ -33,9 +33,7 @@ public abstract class UserDTO {
   @Size(max = 100, message = "Username length must be less than {max}.")
   protected String username;
 
-  @Schema(
-      description = "User password",
-      example = "12345678")
+  @Schema(description = "User password", example = "12345678")
   @NotNull(message = "Password must be not null.", groups = OnCreate.class)
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   protected String password;

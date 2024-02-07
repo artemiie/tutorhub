@@ -64,6 +64,13 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public void enableUser(final String username) {
+    User user = getByUsername(username);
+    user.setEnabled(true);
+    update(user);
+  }
+
+  @Override
   public void delete(final ObjectId id) {
     userRepository.deleteById(id);
   }
