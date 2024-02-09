@@ -1,6 +1,7 @@
 package com.tutorhub.model;
 
 import java.util.List;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
@@ -11,6 +12,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 @Document("courses")
 @Getter
 @Setter
+@EqualsAndHashCode
 public class Course {
 
   @MongoId private ObjectId id;
