@@ -182,7 +182,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "65c379af87aee02f3b40a6d0"
+									"value": "65c5d2b97a7c0a2f5b248620"
 								}
 							]
 						}
@@ -397,10 +397,101 @@
 			"name": "COURSE",
 			"item": [
 				{
-					"name": "Create",
+					"name": "Get one",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "id",
+								"value": "65ad27683a81021f4b1d1e03",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/courses/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"courses",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65c5d2a07a7c0a2f5b24861d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all",
 					"request": {
 						"auth": {
 							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/courses?page=0&size=30&sortBy=username",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"courses"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "30"
+								},
+								{
+									"key": "sortBy",
+									"value": "username"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcnRlbWllQGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwNzU2MzM2MTQzNiwic3ViamVjdCI6ImFydGVtaWVAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDc0NjMzNjE0MzYsInR5cGUiOiJBQ0NFU1MiLCJpYXQiOjE3MDc0NjMzNjEsImV4cCI6MTcwNzU2MzM2MX0.Sd040v1hDGPUSwYgTNTdjGoWRiqVtDcFMtgcCFzgX7wJOQQGbnVEO2OHn09e8cIDHjUTG9WGXzSIXT1flc8B2Q",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
@@ -424,6 +515,34 @@
 								"api",
 								"v1",
 								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/courses/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"courses",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65c5d2a07a7c0a2f5b24861d"
+								}
 							]
 						}
 					},
