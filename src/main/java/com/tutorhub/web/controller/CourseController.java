@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,5 +58,10 @@ public class CourseController {
     Course createdEntity = courseService.create(entity);
 
     return courseMapper.toDto(createdEntity);
+  }
+
+  @DeleteMapping("/{id}")
+  public void delete(@PathVariable final ObjectId id) {
+    courseService.delete(id);
   }
 }
