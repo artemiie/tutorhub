@@ -23,7 +23,7 @@ public class CourseServiceImpl implements CourseService {
 
   @Override
   public Page<Course> getAll(final Pageable page) {
-    return null;
+    return courseRepository.findAll(page);
   }
 
   @Override

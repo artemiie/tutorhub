@@ -8,11 +8,16 @@ import com.tutorhub.web.dto.CourseDTO;
 import com.tutorhub.web.dto.OnCreate;
 import com.tutorhub.web.dto.mapper.CourseMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,6 +27,16 @@ public class CourseController {
   private final CourseService courseService;
   private final CourseMapper courseMapper;
   private final SecurityService securityService;
+
+  @GetMapping
+  public Page<CourseDTO> findAllPaged(
+      @RequestParam(name = "page") final int pageNumber,
+      @RequestParam(name = "size") final int pageSize,
+      @RequestParam final String sortBy) {
+    return courseService
+        .getAll(PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)))
+        .map(course -> courseMapper.toDto(course));
+  }
 
   @PostMapping
   @PreAuthorize("hasRole('TUTOR')")
