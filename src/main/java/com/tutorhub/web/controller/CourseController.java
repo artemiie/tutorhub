@@ -8,12 +8,14 @@ import com.tutorhub.web.dto.CourseDTO;
 import com.tutorhub.web.dto.OnCreate;
 import com.tutorhub.web.dto.mapper.CourseMapper;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,12 @@ public class CourseController {
   private final CourseService courseService;
   private final CourseMapper courseMapper;
   private final SecurityService securityService;
+
+  @GetMapping("/{id}")
+  public CourseDTO findById(@PathVariable final ObjectId id) {
+    Course courseEntity = courseService.getById(id);
+    return courseMapper.toDto(courseEntity);
+  }
 
   @GetMapping
   public Page<CourseDTO> findAllPaged(

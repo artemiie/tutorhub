@@ -1,6 +1,7 @@
 package com.tutorhub.service.impl;
 
 import com.tutorhub.model.Course;
+import com.tutorhub.model.exception.ResourceNotFoundException;
 import com.tutorhub.repository.CourseRepository;
 import com.tutorhub.service.AuthService;
 import com.tutorhub.service.CourseService;
@@ -18,7 +19,9 @@ public class CourseServiceImpl implements CourseService {
 
   @Override
   public Course getById(final ObjectId id) {
-    return null;
+    return courseRepository
+        .findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Course with id[" + id + "] not found."));
   }
 
   @Override
