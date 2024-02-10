@@ -19,10 +19,8 @@
     </parent>
 
     <properties>
-        <checkstyle.path>config/checkstyle/</checkstyle.path>
-
         <java.version>21</java.version>
-        <checkstyle.version>3.2.2</checkstyle.version>
+        <checkstyle.version>3.3.1</checkstyle.version>
         <lombok.version>1.18.30</lombok.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <jakarta-validation.version>3.0.2</jakarta-validation.version>
@@ -32,6 +30,18 @@
     </properties>
 
     <dependencies>
+
+        <!--
+         Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile
+         (default-compile) on project tutorhub: Fatal error compiling: error: release version 21 not supported
+         -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.12.1</version>
+            <type>maven-plugin</type>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -142,7 +152,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${checkstyle.version}</version>
                 <configuration>
-                    <configLocation>${checkstyle.path}custom_sun_checks.xml
+                    <configLocation>config/checkstyle/custom_sun_checks.xml
                     </configLocation>
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>true</failsOnError>
@@ -156,11 +166,8 @@
                             <goal>check</goal>
                         </goals>
                         <configuration>
-                            <suppressionsFileExpression>
-                                checkstyle.suppressions.file
-                            </suppressionsFileExpression>
-                            <suppressionsLocation>
-                                ${checkstyle.path}checkstyle-suppressions.xml
+                            <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+                            <suppressionsLocation>config/checkstyle/checkstyle-suppressions.xml
                             </suppressionsLocation>
                         </configuration>
                     </execution>

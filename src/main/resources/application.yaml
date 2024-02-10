@@ -37,3 +37,8 @@ security:
     activation: ${JWT_ACTIVATION_DURATION}
     refresh: ${JWT_REFRESH_DURATION}
     restore: ${JWT_RESTORE_DURATION}
+
+---
+spring.config.activate.on-profile: docker
+
+spring.data.mongodb.host: mongodb
