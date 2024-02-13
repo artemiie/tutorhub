@@ -36,18 +36,9 @@ public class CourseServiceImpl implements CourseService {
 
   @Override
   public Course update(final Course entity) {
-    Course courseOnDb =
-        courseRepository
-            .findById(entity.getId())
-            .orElseThrow(
-                () ->
-                    new ResourceNotFoundException(
-                        "Course with id [" + entity.getId() + "] not found."));
+    Course courseOnDb = getById(entity.getId());
     entity.setId(courseOnDb.getId());
-    entity.setName(courseOnDb.getName());
     entity.setTutor(courseOnDb.getTutor());
-    entity.setModules(courseOnDb.getModules());
-    entity.setStudents(courseOnDb.getStudents());
 
     return courseRepository.save(entity);
   }
