@@ -1,3 +1,4 @@
+/*
 package com.tutorhub.web.dto.mapper;
 
 import com.tutorhub.model.Content;
@@ -42,3 +43,4 @@ public interface ContentMapper {
     }
   }
 }
+*/

@@ -9,7 +9,6 @@ import jakarta.validation.constraints.Size;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import org.bson.types.ObjectId;
 
 @Getter
 @Setter
@@ -17,7 +16,7 @@ public class QuizQuestionDTO {
 
   @NotNull(message = "Id must be not null.", groups = OnUpdate.class)
   @Null(message = "Id must be null.", groups = OnCreate.class)
-  private ObjectId id;
+  private Long id;
 
   @NotNull(message = "Title must be not null.")
   @Size(max = 1024, message = "Title length must be less than {max}.")

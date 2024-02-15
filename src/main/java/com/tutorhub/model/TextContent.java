@@ -1,13 +1,17 @@
+/*
 package com.tutorhub.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("text_contents")
+@Entity
+@Table(name = "text_contents")
 @Getter
 @Setter
 public class TextContent extends Content {
 
   private String text;
 }
+*/

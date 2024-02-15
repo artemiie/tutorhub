@@ -10,7 +10,6 @@ import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.bson.types.ObjectId;
 
 @Getter
 @Setter
@@ -20,7 +19,7 @@ public abstract class UserDTO {
   @NotNull(message = "Id must be not null.", groups = OnUpdate.class)
   @Null(message = "Id must be null.", groups = OnCreate.class)
   @JsonSerialize(using = ToStringSerializer.class)
-  protected ObjectId id;
+  protected Long id;
 
   @Schema(description = "User full name", example = "john Doe")
   @NotNull(message = "Full name must be not null.")

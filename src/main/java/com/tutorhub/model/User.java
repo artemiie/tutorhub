@@ -1,25 +1,45 @@
 package com.tutorhub.model;
 
+import jakarta.persistence.*;
+import java.util.List;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
-@Document("users")
+@Entity
+@Table(name = "users")
 @Getter
 @Setter
-public abstract class User {
+public class User {
 
-  @MongoId protected ObjectId id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  protected Long id;
+
+  @Column(name = "full_name")
   protected String fullName;
 
-  @Indexed(unique = true)
+  @Column(name = "username")
   protected String username;
 
+  @Column(name = "password")
   protected String password;
 
-  protected String role;
+  /*@Column(name = "role")
+  @OneToMany
+  @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))*/
+  @Enumerated(value = EnumType.STRING)
+  protected Set<Role> role;
+
+  @Column(name = "enabled")
   protected boolean enabled;
+
+  /*@OneToMany(mappedBy = "user")
+  @Fetch(FetchMode.JOIN)
+  private List<Course> courses;*/
+
+  /*@OneToMany(mappedBy = "user")
+  private List<CourseInfo> assignedCourses;*/
 }

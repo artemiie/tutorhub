@@ -1,3 +1,4 @@
+/*
 package com.tutorhub.service.impl;
 
 import com.tutorhub.model.Student;
@@ -5,7 +6,6 @@ import com.tutorhub.model.exception.ResourceNotFoundException;
 import com.tutorhub.repository.StudentRepository;
 import com.tutorhub.service.StudentService;
 import lombok.RequiredArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class StudentServiceImpl implements StudentService {
   private final StudentRepository studentRepository;
 
   @Override
-  public Student getById(final ObjectId id) {
+  public Student getById(final Long id) {
     return studentRepository
         .findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Student with id[" + id + "] not found."));
@@ -46,12 +46,13 @@ public class StudentServiceImpl implements StudentService {
   }
 
   @Override
-  public boolean existsById(final ObjectId id) {
+  public boolean existsById(final Long id) {
     return studentRepository.existsById(id);
   }
 
   @Override
-  public void delete(final ObjectId id) {
+  public void delete(final Long id) {
     studentRepository.deleteById(id);
   }
 }
+*/

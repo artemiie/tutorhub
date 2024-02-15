@@ -1,24 +1,33 @@
 package com.tutorhub.model;
 
-import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
-@Document("courses")
+@Entity
+@Table(name = "courses")
 @Getter
 @Setter
 @EqualsAndHashCode
 public class Course {
 
-  @MongoId private ObjectId id;
+  @Id private Long id;
 
   private String name;
-  @DBRef private Tutor tutor;
-  private List<Module> modules;
-  private List<Student> students;
+
+  @ManyToOne
+  @JoinTable(
+      name = "users_courses",
+      joinColumns = {@JoinColumn(name = "course_id")},
+      inverseJoinColumns = {@JoinColumn(name = "user_id")})
+  private User user;
+
+ /* @OneToMany(mappedBy = "course")
+  private List<Module> modules;*/
 }

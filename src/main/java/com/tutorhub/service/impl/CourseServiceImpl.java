@@ -6,7 +6,6 @@ import com.tutorhub.repository.CourseRepository;
 import com.tutorhub.service.AuthService;
 import com.tutorhub.service.CourseService;
 import lombok.RequiredArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,7 @@ public class CourseServiceImpl implements CourseService {
   private final AuthService authService;
 
   @Override
-  public Course getById(final ObjectId id) {
+  public Course getById(final Long id) {
     return courseRepository
         .findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Course with id[" + id + "] not found."));
@@ -40,12 +39,12 @@ public class CourseServiceImpl implements CourseService {
   }
 
   @Override
-  public boolean existsById(final ObjectId id) {
+  public boolean existsById(final Long id) {
     return false;
   }
 
   @Override
-  public void delete(final ObjectId id) {
+  public void delete(final Long id) {
     courseRepository.deleteById(id);
   }
 }

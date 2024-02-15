@@ -1,5 +1,7 @@
+/*
 package com.tutorhub.service;
 
-import com.tutorhub.model.StudentCourseInfo;
+import com.tutorhub.model.CourseInfo;
 
-public interface CourseInfoService extends CrudService<StudentCourseInfo> {}
+public interface CourseInfoService extends CrudService<CourseInfo> {}
+*/

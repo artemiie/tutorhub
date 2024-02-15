@@ -1,7 +1,8 @@
+/*
 package com.tutorhub.repository;
 
 import com.tutorhub.model.TextContent;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TextContentRepository extends MongoRepository<TextContent, ObjectId> {}
+public interface TextContentRepository extends JpaRepository<TextContent, Long> {}
+*/

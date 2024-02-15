@@ -5,7 +5,6 @@ import com.tutorhub.model.exception.ResourceNotFoundException;
 import com.tutorhub.repository.UserRepository;
 import com.tutorhub.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
 
   @Override
-  public User getById(final ObjectId id) {
+  public User getById(final Long id) {
     return userRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
   }
 
@@ -54,7 +53,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public boolean existsById(final ObjectId id) {
+  public boolean existsById(final Long id) {
     return userRepository.existsById(id);
   }
 
@@ -71,7 +70,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void delete(final ObjectId id) {
+  public void delete(final Long id) {
     userRepository.deleteById(id);
   }
 }

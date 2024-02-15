@@ -1,9 +1,6 @@
 package com.tutorhub.web.dto.mapper;
 
-import com.tutorhub.model.Content;
-import com.tutorhub.web.dto.ContentDTO;
 import java.util.List;
-import org.mapstruct.factory.Mappers;
 
 public interface Mappable<E, D> {
 
@@ -15,11 +12,11 @@ public interface Mappable<E, D> {
 
   List<D> toDto(List<E> e);
 
-  default Content map(final ContentDTO d) {
+  /*default Content map(final ContentDTO d) {
     return Mappers.getMapper(ContentMapper.class).fromDto(d);
   }
 
   default ContentDTO map(final Content c) {
     return Mappers.getMapper(ContentMapper.class).toDto(c);
-  }
+  }*/
 }

@@ -1,3 +1,4 @@
+/*
 package com.tutorhub.web.controller;
 
 import com.tutorhub.model.User;
@@ -5,7 +6,7 @@ import com.tutorhub.service.AuthService;
 import com.tutorhub.web.dto.OnCreate;
 import com.tutorhub.web.dto.StudentDTO;
 import com.tutorhub.web.dto.TutorDTO;
-import com.tutorhub.web.dto.mapper.UserMapper;
+//import com.tutorhub.web.dto.mapper.UserMapper;
 import com.tutorhub.web.security.jwt.AuthRequest;
 import com.tutorhub.web.security.jwt.AuthResponse;
 import com.tutorhub.web.security.jwt.ResetRequest;
@@ -123,3 +124,4 @@ public class AuthController {
     authService.confirmUserEmail(token);
   }
 }
+*/

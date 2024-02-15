@@ -1,7 +1,8 @@
+/*
 package com.tutorhub.repository;
 
 import com.tutorhub.model.QuizContent;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface QuizContentRepository extends MongoRepository<QuizContent, ObjectId> {}
+public interface QuizContentRepository extends JpaRepository<QuizContent, Long> {}
+*/

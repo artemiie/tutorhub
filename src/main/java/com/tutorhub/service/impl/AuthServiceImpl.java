@@ -88,13 +88,13 @@ public class AuthServiceImpl implements AuthService {
     response.setUserId(userOnDb.getId());
 
     mailService.sendEmail(
-         MailType.LOGIN,
-            new Properties() {
-              {
-                put("username", userOnDb.getUsername());
-                put("fullName", userOnDb.getFullName());
-              }
-            });
+        MailType.LOGIN,
+        new Properties() {
+          {
+            put("username", userOnDb.getUsername());
+            put("fullName", userOnDb.getFullName());
+          }
+        });
 
     return response;
   }

@@ -2,12 +2,22 @@ logging:
   level:
     root: INFO
     com.tutorhub: DEBUG
+    org.hibernate: DEBUG
 
 spring:
   config:
     import:
       - optional:file:.env[.properties]
       - classpath:swagger/swagger-config.yaml
+  datasource:
+    url: jdbc:postgresql://${HOST}:5432/${POSTGRES_DATABASE}?currentSchema=${POSTGRES_SCHEMA}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  hibernate:
+    dialect: org.hibernate.dialect.PostgreSQL94Dialect
+    hbm2ddl:
+      auto: update
   data:
     mongodb:
       host: ${MONGO_HOST}

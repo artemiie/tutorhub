@@ -1,16 +1,17 @@
+/*
 package com.tutorhub.repository;
 
 import com.tutorhub.model.Student;
-import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface StudentRepository extends MongoRepository<Student, ObjectId> {
+public interface StudentRepository extends JpaRepository<Student, Long> {
 
   boolean existsByUsername(String username);
 
-  boolean existsById(ObjectId id);
+  boolean existsById(Long id);
 
   Page<Student> findByRole(String role, Pageable pageable);
 }
+*/

@@ -1,14 +1,18 @@
+/*
 package com.tutorhub.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("quiz_contents")
+@Entity
+@Table(name = "quiz_contents")
 @Getter
 @Setter
 public class QuizContent extends Content {
 
   private List<QuizQuestion> questions;
 }
+*/

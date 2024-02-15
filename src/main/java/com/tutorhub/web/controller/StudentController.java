@@ -1,3 +1,4 @@
+/*
 package com.tutorhub.web.controller;
 
 import com.tutorhub.model.Student;
@@ -5,7 +6,6 @@ import com.tutorhub.service.StudentService;
 import com.tutorhub.web.dto.StudentDTO;
 import com.tutorhub.web.dto.mapper.StudentMapper;
 import lombok.RequiredArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -28,7 +28,7 @@ public class StudentController {
   private final StudentService studentService;
 
   @GetMapping("/{id}")
-  public StudentDTO getById(@PathVariable final ObjectId id) {
+  public StudentDTO getById(@PathVariable final Long id) {
     Student studentEntity = studentService.getById(id);
     return studentMapper.toDto(studentEntity);
   }
@@ -51,7 +51,8 @@ public class StudentController {
   }
 
   @DeleteMapping("/{id}")
-  public void delete(@PathVariable final ObjectId id) {
+  public void delete(@PathVariable final Long id) {
     studentService.delete(id);
   }
 }
+*/
