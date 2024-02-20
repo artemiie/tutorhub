@@ -1,3 +1,4 @@
+/*
 package com.tutorhub.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,3 +12,4 @@ public class VideoContentDTO extends ContentDTO {
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private String videoURL;
 }
+*/

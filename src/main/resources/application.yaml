@@ -2,30 +2,28 @@ logging:
   level:
     root: INFO
     com.tutorhub: DEBUG
-    org.hibernate: DEBUG
 
 spring:
+
+
   config:
     import:
       - optional:file:.env[.properties]
       - classpath:swagger/swagger-config.yaml
+
+
   datasource:
-    url: jdbc:postgresql://${HOST}:5432/${POSTGRES_DATABASE}?currentSchema=${POSTGRES_SCHEMA}
+    url: jdbc:postgresql://${HOST}:${PORT}/${POSTGRES_DATABASE}?currentSchema=${POSTGRES_SCHEMA}
     username: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
-  hibernate:
-    dialect: org.hibernate.dialect.PostgreSQL94Dialect
-    hbm2ddl:
-      auto: update
-  data:
-    mongodb:
-      host: ${MONGO_HOST}
-      port: ${MONGO_PORT}
-      username: ${MONGO_USER}
-      password: ${MONGO_PASSWORD}
-      database: ${MONGO_DATABASE}
-      authentication-database: admin
+
+  liquibase:
+    changelog: classpath:liquibase/db.changelog.yaml
+    enabled: true
+    default-schema: tutorhub
+
+
   mail:
     host: ${SPRING_MAIL_HOST}
     port: ${SPRING_MAIL_PORT}
@@ -40,6 +38,8 @@ spring:
           auth: true
           starttls:
             enable: true
+
+
 security:
   jwt:
     secret: ${JWT_SECRET}

@@ -1,3 +1,4 @@
+/*
 package com.tutorhub.web.controller;
 
 import com.tutorhub.model.exception.ExceptionBody;
@@ -50,3 +51,4 @@ public class ControllerAdvice {
     return e.getMessage();
   }
 }
+*/

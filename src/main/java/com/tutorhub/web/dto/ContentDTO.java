@@ -1,3 +1,4 @@
+/*
 package com.tutorhub.web.dto;
 
 import jakarta.validation.constraints.NotNull;
@@ -13,3 +14,4 @@ public abstract class ContentDTO {
   @Null(message = "Id must be null.", groups = OnCreate.class)
   protected Long id;
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.tutorhub.web.dto;
 
 import jakarta.validation.Valid;
@@ -15,3 +16,4 @@ public class QuizContentDTO extends ContentDTO {
   @NotNull(message = "Questions list must be not empty.")
   private List<QuizQuestionDTO> questions;
 }
+*/

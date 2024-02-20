@@ -1,3 +1,4 @@
+/*
 package com.tutorhub.service;
 
 import org.springframework.data.domain.Page;
@@ -14,3 +15,4 @@ public interface CommonUserService<T> {
 
   void delete(Long id);
 }
+*/

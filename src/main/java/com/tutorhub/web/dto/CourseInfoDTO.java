@@ -1,3 +1,4 @@
+/*
 package com.tutorhub.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,3 +21,4 @@ public class CourseInfoDTO {
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private ProgressDTO progress;
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.tutorhub.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -27,3 +28,4 @@ public class ModuleDTO {
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private CourseDTO course;
 }
+*/

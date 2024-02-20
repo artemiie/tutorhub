@@ -25,9 +25,9 @@ public class CourseInfo {
 
   */
 /*@OneToOne
-  @JoinColumn(name = "progress_id")
-  private Progress progress;*//*
+@JoinColumn(name = "progress_id")
+private Progress progress;*//*
 
 
-}
-*/
+                            }
+                            */

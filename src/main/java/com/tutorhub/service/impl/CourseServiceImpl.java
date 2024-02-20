@@ -1,3 +1,4 @@
+/*
 package com.tutorhub.service.impl;
 
 import com.tutorhub.model.Course;
@@ -48,3 +49,4 @@ public class CourseServiceImpl implements CourseService {
     courseRepository.deleteById(id);
   }
 }
+*/

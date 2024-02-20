@@ -1,19 +1,15 @@
-/*
 package com.tutorhub.web.dto.mapper;
 
-import com.tutorhub.model.Student;
-import com.tutorhub.model.Tutor;
+// import com.tutorhub.model.Student;
+// import com.tutorhub.model.Tutor;
 import com.tutorhub.model.User;
-import com.tutorhub.web.dto.StudentDTO;
-import com.tutorhub.web.dto.TutorDTO;
 import com.tutorhub.web.dto.UserDTO;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
-public interface UserMapper {
+public interface UserMapper extends Mappable<User, UserDTO> {
 
-  default User fromDto(final UserDTO d) {
+  /* default User fromDto(final UserDTO d) {
     if (d == null) {
       return null;
     } else if (d instanceof TutorDTO) {
@@ -35,6 +31,6 @@ public interface UserMapper {
     } else {
       return null;
     }
-  }
+  }*/
+
 }
-*/

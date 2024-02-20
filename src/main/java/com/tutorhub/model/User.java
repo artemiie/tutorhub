@@ -1,25 +1,25 @@
 package com.tutorhub.model;
 
 import jakarta.persistence.*;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
+@AllArgsConstructor
 public class User {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   protected Long id;
 
-  @Column(name = "full_name")
-  protected String fullName;
+  @Column(name = "fullname")
+  protected String fullname;
 
   @Column(name = "username")
   protected String username;
@@ -27,11 +27,11 @@ public class User {
   @Column(name = "password")
   protected String password;
 
-  /*@Column(name = "role")
-  @OneToMany
-  @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))*/
-  @Enumerated(value = EnumType.STRING)
-  protected Set<Role> role;
+  @ElementCollection(targetClass = Role.class)
+  @JoinTable(name = "USERS_ROLES", joinColumns = @JoinColumn(name = "user_id"))
+  @Column(name = "role", nullable = false)
+  @Enumerated(EnumType.STRING)
+  protected Set<Role> role = new HashSet<>();
 
   @Column(name = "enabled")
   protected boolean enabled;
@@ -42,4 +42,6 @@ public class User {
 
   /*@OneToMany(mappedBy = "user")
   private List<CourseInfo> assignedCourses;*/
+
+  public User() {}
 }

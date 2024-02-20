@@ -1,3 +1,4 @@
+/*
 package com.tutorhub.web.dto;
 
 import jakarta.validation.constraints.NotNull;
@@ -13,3 +14,4 @@ public class TextContentDTO extends ContentDTO {
   @Size(max = 16384, message = "Text length must be less than {max}.")
   private String text;
 }
+*/

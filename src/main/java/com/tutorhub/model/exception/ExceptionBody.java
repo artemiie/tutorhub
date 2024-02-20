@@ -1,3 +1,4 @@
+/*
 package com.tutorhub.model.exception;
 
 import java.util.Map;
@@ -14,3 +15,4 @@ public class ExceptionBody {
     this.message = message;
   }
 }
+*/

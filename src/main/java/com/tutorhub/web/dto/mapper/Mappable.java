@@ -19,4 +19,5 @@ public interface Mappable<E, D> {
   default ContentDTO map(final Content c) {
     return Mappers.getMapper(ContentMapper.class).toDto(c);
   }*/
+
 }

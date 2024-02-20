@@ -5,13 +5,15 @@ volumes:
     driver: local
 
 services:
-  mongo:
-    image: 'mongo:focal'
+
+  postgresdb:
+    image: postgres:16.2
+    container_name: postgresdb
     ports:
-      - '27018:27017'
+      - "5433:5432"
     environment:
-      - MONGO_INITDB_DATABASE=${MONGO_DATABASE}
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
+      POSTGRES_DB: tutorhub
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
     volumes:
-      - mongo-data:/data/db
+      - ./src/main/resources/db-init:/docker-entrypoint-initdb.d

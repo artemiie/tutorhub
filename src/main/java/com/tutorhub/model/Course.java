@@ -1,3 +1,4 @@
+/*
 package com.tutorhub.model;
 
 import jakarta.persistence.Entity;
@@ -28,6 +29,9 @@ public class Course {
       inverseJoinColumns = {@JoinColumn(name = "user_id")})
   private User user;
 
- /* @OneToMany(mappedBy = "course")
-  private List<Module> modules;*/
-}
+  */
+/* @OneToMany(mappedBy = "course")
+private List<Module> modules;*//*
+
+                               }
+                               */

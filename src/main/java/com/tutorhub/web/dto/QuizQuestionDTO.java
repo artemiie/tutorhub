@@ -1,3 +1,4 @@
+/*
 package com.tutorhub.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -33,3 +34,4 @@ public class QuizQuestionDTO {
           Integer>
       answerIndexes;
 }
+*/

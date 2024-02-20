@@ -1,3 +1,4 @@
+
 package com.tutorhub.service.impl;
 
 import static com.tutorhub.model.MailType.REGISTRATION;
@@ -6,19 +7,22 @@ import static com.tutorhub.model.MailType.RESTORE;
 import com.tutorhub.model.MailType;
 import com.tutorhub.model.User;
 import com.tutorhub.model.exception.ResourceAlreadyExistsException;
+//import com.tutorhub.model.exception.ResourceNotFoundException;
 import com.tutorhub.model.exception.ResourceNotFoundException;
 import com.tutorhub.service.AuthService;
 import com.tutorhub.service.MailService;
 import com.tutorhub.service.UserService;
-import com.tutorhub.web.security.jwt.AuthRequest;
-import com.tutorhub.web.security.jwt.AuthResponse;
-import com.tutorhub.web.security.jwt.ResetRequest;
-import com.tutorhub.web.security.jwt.RestoreRequest;
-import com.tutorhub.web.security.jwt.TokenType;
+//import com.tutorhub.web.security.jwt.AuthRequest;
+//import com.tutorhub.web.security.jwt.AuthResponse;
+//import com.tutorhub.web.security.jwt.ResetRequest;
+//import com.tutorhub.web.security.jwt.RestoreRequest;
+import com.tutorhub.web.security.jwt.*;
+//import com.tutorhub.web.security.jwt.exception.InvalidTokenException;
 import com.tutorhub.web.security.jwt.exception.InvalidTokenException;
 import com.tutorhub.web.security.jwt.service.JwtService;
 import com.tutorhub.web.security.jwt.service.params.JwtProperties;
 import com.tutorhub.web.security.jwt.service.params.TokenParameters;
+
 import java.util.Map;
 import java.util.Properties;
 import lombok.RequiredArgsConstructor;
@@ -62,7 +66,7 @@ public class AuthServiceImpl implements AuthService {
           {
             put("token", token);
             put("username", user.getUsername());
-            put("fullName", user.getFullName());
+            put("fullName", user.getFullname());
           }
         });
   }
@@ -92,12 +96,13 @@ public class AuthServiceImpl implements AuthService {
         new Properties() {
           {
             put("username", userOnDb.getUsername());
-            put("fullName", userOnDb.getFullName());
+            put("fullName", userOnDb.getFullname());
           }
         });
 
     return response;
   }
+
 
   @Override
   public void restore(final RestoreRequest request) {
@@ -127,22 +132,24 @@ public class AuthServiceImpl implements AuthService {
     Map<String, Object> fields = jwtService.fields(request.getToken());
     User user = userService.getByUsername((String) fields.get("subject"));
     user.setPassword(passwordEncoder.encode(request.getPassword()));
-    userService.update(user);
+    //userService.update(user);
   }
+  /*
+  */
 
-  @Override
+  /*@Override
   public boolean checkToken(final String token) {
     if (!jwtService.isValid(token, TokenType.ACTIVATION)) {
       throw new InvalidTokenException();
     }
     return true;
-  }
+  }*/
 
-  @Override
+  /*@Override
   public void confirmUserEmail(final String token) {
     if (checkToken(token)) {
       Map<String, Object> fields = jwtService.fields(token);
       userService.enable((String) fields.get("subject"));
     }
-  }
+  }*/
 }
