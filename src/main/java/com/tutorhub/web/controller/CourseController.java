@@ -1,8 +1,7 @@
-/*
 package com.tutorhub.web.controller;
 
 import com.tutorhub.model.Course;
-import com.tutorhub.model.Tutor;
+import com.tutorhub.model.User;
 import com.tutorhub.service.CourseService;
 import com.tutorhub.service.impl.SecurityService;
 import com.tutorhub.web.dto.CourseDTO;
@@ -14,14 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -50,14 +42,22 @@ public class CourseController {
   @PostMapping
   @PreAuthorize("hasRole('TUTOR')")
   public CourseDTO create(@RequestBody @Validated(OnCreate.class) final CourseDTO courseDTO) {
-    Tutor currentLoggedInUser = (Tutor) securityService.getCurrentLoggedUser();
+    User currentLoggedInUser = securityService.getCurrentLoggedUser();
 
     Course entity = courseMapper.fromDto(courseDTO);
-    entity.setTutor(currentLoggedInUser);
+    entity.setCourseOwner(currentLoggedInUser);
 
     Course createdEntity = courseService.create(entity);
 
     return courseMapper.toDto(createdEntity);
+  }
+
+  @PutMapping
+  @PreAuthorize("hasRole('TUTOR')")
+  public CourseDTO update(@Validated @RequestBody final CourseDTO courseDTO) {
+    Course entity = courseMapper.fromDto(courseDTO);
+    Course updated = courseService.update(entity);
+    return courseMapper.toDto(updated);
   }
 
   @DeleteMapping("/{id}")
@@ -65,4 +65,3 @@ public class CourseController {
     courseService.delete(id);
   }
 }
-*/

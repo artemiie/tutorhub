@@ -16,11 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
-  /*
+
   @Override
   public User getById(final Long id) {
     return userRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
-  }*/
+  }
 
   public User getByUsername(final String username) {
     return userRepository.findByUsername(username).orElseThrow(ResourceNotFoundException::new);
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
     return userRepository.existsByUsername(username);
   }
 
-  /*@Override
+  @Override
   public User update(final User entity) {
     User userOnDb =
         userRepository
@@ -62,20 +62,20 @@ public class UserServiceImpl implements UserService {
     return userRepository.existsById(id);
   }
 
-  @Override
+  /*@Override
   public boolean existsByUsername(final String username) {
     return userRepository.existsByUsername(username);
-  }
+  }*/
 
-  @Override
+  /*@Override
   public void enable(final String username) {
     User user = getByUsername(username);
     user.setEnabled(true);
     update(user);
-  }
+  }*/
 
   @Override
   public void delete(final Long id) {
     userRepository.deleteById(id);
-  }*/
+  }
 }

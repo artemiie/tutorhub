@@ -1,10 +1,8 @@
-/*
 package com.tutorhub.service.impl;
 
 import com.tutorhub.model.Course;
 import com.tutorhub.model.exception.ResourceNotFoundException;
 import com.tutorhub.repository.CourseRepository;
-import com.tutorhub.service.AuthService;
 import com.tutorhub.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CourseServiceImpl implements CourseService {
   private final CourseRepository courseRepository;
-  private final AuthService authService;
 
   @Override
   public Course getById(final Long id) {
@@ -36,7 +33,9 @@ public class CourseServiceImpl implements CourseService {
 
   @Override
   public Course update(final Course entity) {
-    return null;
+    Course courseOnDb = getById(entity.getId());
+    entity.setCourseOwner(courseOnDb.getCourseOwner());
+    return courseRepository.save(entity);
   }
 
   @Override
@@ -49,4 +48,3 @@ public class CourseServiceImpl implements CourseService {
     courseRepository.deleteById(id);
   }
 }
-*/

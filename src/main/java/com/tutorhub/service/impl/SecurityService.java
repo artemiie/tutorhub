@@ -1,4 +1,3 @@
-/*
 package com.tutorhub.service.impl;
 
 import com.tutorhub.model.User;
@@ -18,4 +17,3 @@ public class SecurityService {
     return userService.getByUsername(currentLoggedUser.getName());
   }
 }
-*/

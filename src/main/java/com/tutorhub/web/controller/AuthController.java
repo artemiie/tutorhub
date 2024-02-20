@@ -5,7 +5,8 @@ import com.tutorhub.model.User;
 import com.tutorhub.service.AuthService;
 // import com.tutorhub.web.dto.OnCreate;
 // import com.tutorhub.web.dto.StudentDTO;
-import com.tutorhub.web.dto.TutorDTO;
+//import com.tutorhub.web.dto.TutorDTO;
+import com.tutorhub.web.dto.UserDTO;
 import com.tutorhub.web.dto.mapper.UserMapper;
 // import com.tutorhub.web.security.jwt.AuthRequest;
 // import com.tutorhub.web.security.jwt.AuthResponse;
@@ -51,7 +52,7 @@ public class AuthController {
         description = "${api.responseCodes.unprocessableEntity.description}",
         content = {@Content(schema = @Schema(implementation = Void.class))})
   })
-  public void registerTutor(@RequestBody /*@Validated(OnCreate.class)*/ final TutorDTO tutorDTO) {
+  public void registerTutor(@RequestBody /*@Validated(OnCreate.class)*/ final UserDTO tutorDTO) {
     User tutor = userMapper.fromDto(tutorDTO);
     tutor.getRole().add(Role.ROLE_TUTOR);
     authService.register(tutor);

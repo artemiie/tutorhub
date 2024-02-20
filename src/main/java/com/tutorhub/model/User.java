@@ -27,7 +27,7 @@ public class User {
   @Column(name = "password")
   protected String password;
 
-  @ElementCollection(targetClass = Role.class)
+  @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
   @JoinTable(name = "USERS_ROLES", joinColumns = @JoinColumn(name = "user_id"))
   @Column(name = "role", nullable = false)
   @Enumerated(EnumType.STRING)

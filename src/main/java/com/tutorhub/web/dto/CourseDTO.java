@@ -1,4 +1,3 @@
-/*
 package com.tutorhub.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,7 +5,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,9 +21,8 @@ public class CourseDTO {
   private String name;
 
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  private TutorDTO tutor;
+  private UserDTO courseOwner;
 
-  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  private List<ModuleDTO> modules;
+  /*@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private List<ModuleDTO> modules;*/
 }
-*/

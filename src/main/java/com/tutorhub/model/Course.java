@@ -1,10 +1,12 @@
-/*
 package com.tutorhub.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
@@ -18,20 +20,14 @@ import lombok.Setter;
 @EqualsAndHashCode
 public class Course {
 
-  @Id private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
+  @Column(name = "name")
   private String name;
 
-  @ManyToOne
-  @JoinTable(
-      name = "users_courses",
-      joinColumns = {@JoinColumn(name = "course_id")},
-      inverseJoinColumns = {@JoinColumn(name = "user_id")})
-  private User user;
-
-  */
-/* @OneToMany(mappedBy = "course")
-private List<Module> modules;*//*
-
-                               }
-                               */
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "user_id")
+  private User courseOwner;
+}

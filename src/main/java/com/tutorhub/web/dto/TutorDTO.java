@@ -1,3 +1,4 @@
+/*
 package com.tutorhub.web.dto;
 
 import lombok.Getter;
@@ -10,3 +11,4 @@ public class TutorDTO extends UserDTO {
   // @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   // private List<CourseDTO> courses;
 }
+*/
