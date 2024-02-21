@@ -7,6 +7,8 @@ import com.tutorhub.service.impl.SecurityService;
 import com.tutorhub.web.dto.CourseDTO;
 import com.tutorhub.web.dto.OnCreate;
 import com.tutorhub.web.dto.mapper.CourseMapper;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -68,5 +70,11 @@ public class CourseController {
   @PutMapping("/{id}")
   public void assignUser(@RequestHeader("USER_ID") final Long userId, @PathVariable final Long id) {
     courseService.assignUser(userId, id);
+  }
+
+  @GetMapping("/user/{userId}")
+  public List<CourseDTO> findAllPaged(@PathVariable final Long userId) {
+    List<Course> courseList = courseService.findByUserId(userId);
+    return courseList.stream().map(courseMapper::toDto).collect(Collectors.toList());
   }
 }

@@ -10,6 +10,7 @@ import com.tutorhub.service.CourseInfoService;
 import com.tutorhub.service.CourseService;
 import com.tutorhub.service.ProgressService;
 import com.tutorhub.service.UserService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -70,5 +71,10 @@ public class CourseServiceImpl implements CourseService {
     courseInfo.setProgress(progress);
 
     courseInfoService.create(courseInfo);
+  }
+
+  @Override
+  public List<Course> findByUserId(Long userId) {
+    return courseRepository.findByCourseOwnerId(userId);
   }
 }
