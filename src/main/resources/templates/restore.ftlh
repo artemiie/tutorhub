@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Restore password ${username}</title>
+    <title>Restore password ${recipientName}</title>
     <style>
         #body {
             display: flex;
@@ -34,8 +34,8 @@
 <div id="body">
     <div id="div">
         <h1 style="text-align: center">Restore password</h1>
-        <p>Hello, ${username}!</p>
-        <p>${token}</p>
+        <p>Hello, ${recipientName}!</p>
+        <p>${restoreToken}</p>
     </div>
 </div>
 </body>
