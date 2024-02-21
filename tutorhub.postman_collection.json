@@ -6,16 +6,16 @@
 	},
 	"item": [
 		{
-			"name": "USER",
+			"name": "AUTH",
 			"item": [
 				{
-					"name": "Register Tutor",
+					"name": "Register",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fullName\":\"Tutor\",\r\n    \"username\":\"artemie.fliostor@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
+							"raw": "{\r\n    \"fullname\":\"Anastasia\",\r\n    \"username\":\"artemie.fliostor@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -23,7 +23,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/auth/register/tutor",
+							"raw": "http://localhost:8080/api/v1/auth/register",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -33,21 +33,20 @@
 								"api",
 								"v1",
 								"auth",
-								"register",
-								"tutor"
+								"register"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Register Student",
+					"name": "Reset",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fullName\":\"Student\",\r\n    \"username\":\"artiom.flyoshtor@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
+							"raw": "{\r\n    \"token\":\"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcnRlbWllLmZsaW9zdG9yQGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwODYxMjUwNDMyOCwic3ViamVjdCI6ImFydGVtaWUuZmxpb3N0b3JAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDg1MTI1MDQzMjgsInR5cGUiOiJSRVNUT1JFIiwiaWF0IjoxNzA4NTEyNTA0LCJleHAiOjE3MDg2MTI1MDR9.VwTLnfgph4x70TOw7CtLW0Mwt1RcvDgTZoA4MZgUwvCUfQatK6OiToCG_r2lkjduyGXSR3ux__7dG3--kB0KHQ\",\r\n    \"password\":\"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -55,7 +54,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/auth/register/student",
+							"raw": "http://localhost:8080/api/v1/auth/reset",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -65,8 +64,38 @@
 								"api",
 								"v1",
 								"auth",
-								"register",
-								"student"
+								"reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restore",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"artemie.fliostor@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/restore",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"restore"
 							]
 						}
 					},
@@ -106,7 +135,7 @@
 			]
 		},
 		{
-			"name": "TUTOR",
+			"name": "USER",
 			"item": [
 				{
 					"name": "Get all",
@@ -114,7 +143,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/tutors?page=0&size=30&sortBy=username",
+							"raw": "http://localhost:8080/api/v1/users?page=0&size=30&sortBy=id",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -123,7 +152,7 @@
 							"path": [
 								"api",
 								"v1",
-								"tutors"
+								"users"
 							],
 							"query": [
 								{
@@ -136,7 +165,7 @@
 								},
 								{
 									"key": "sortBy",
-									"value": "username"
+									"value": "id"
 								}
 							]
 						}
@@ -167,7 +196,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/tutors/:id",
+							"raw": "http://localhost:8080/api/v1/users/:id",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -176,13 +205,13 @@
 							"path": [
 								"api",
 								"v1",
-								"tutors",
+								"users",
 								":id"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": "65c5d2b97a7c0a2f5b248620"
+									"value": "2"
 								}
 							]
 						}
@@ -196,7 +225,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n            \"id\": \"65b51cfe20fa4d5de204e80a\",\r\n            \"fullName\": \"qwerty\",\r\n            \"username\": \"qwerty@gmail.com\"\r\n        }",
+							"raw": "{\r\n            \"id\": \"1\",\r\n            \"fullname\": \"qwerty\",\r\n            \"username\": \"qwerty@gmail.com\"\r\n        }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -204,7 +233,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/tutors",
+							"raw": "http://localhost:8080/api/v1/users",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -213,7 +242,7 @@
 							"path": [
 								"api",
 								"v1",
-								"tutors"
+								"users"
 							]
 						}
 					},
@@ -225,7 +254,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/tutors/:id",
+							"raw": "http://localhost:8080/api/v1/users/:id",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -234,157 +263,13 @@
 							"path": [
 								"api",
 								"v1",
-								"tutors",
+								"users",
 								":id"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": "65b51cfe20fa4d5de204e80a"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "STUDENT",
-			"item": [
-				{
-					"name": "Get all",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/students?page=0&size=30&sortBy=username",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"students"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "sortBy",
-									"value": "username"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get one",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "id",
-								"value": "65ad27683a81021f4b1d1e03",
-								"type": "default"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/students/:id",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"students",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "65b51cfe20fa4d5de204e80a"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n            \"id\": \"65b51cfe20fa4d5de204e80a\",\r\n            \"fullName\": \"qwertystudent\",\r\n            \"username\": \"qwerty@gmail.com\"\r\n        }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/students",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"students"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/students/:id",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"students",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "65b51cfe20fa4d5de204e80a"
+									"value": "1"
 								}
 							]
 						}
@@ -406,8 +291,9 @@
 						"header": [
 							{
 								"key": "id",
-								"value": "65ad27683a81021f4b1d1e03",
-								"type": "default"
+								"value": "1",
+								"type": "default",
+								"disabled": true
 							}
 						],
 						"body": {
@@ -435,7 +321,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "65c5d2a07a7c0a2f5b24861d"
+									"value": "1"
 								}
 							]
 						}
@@ -443,7 +329,7 @@
 					"response": []
 				},
 				{
-					"name": "Get all",
+					"name": "Get by user id",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -451,7 +337,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/courses?page=0&size=30&sortBy=username",
+							"raw": "http://localhost:8080/api/v1/courses/user/:userId",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -460,20 +346,14 @@
 							"path": [
 								"api",
 								"v1",
-								"courses"
+								"courses",
+								"user",
+								":userId"
 							],
-							"query": [
+							"variable": [
 								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "sortBy",
-									"value": "username"
+									"key": "userId",
+									"value": "1"
 								}
 							]
 						}
@@ -488,7 +368,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcnRlbWllQGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwNzU2MzM2MTQzNiwic3ViamVjdCI6ImFydGVtaWVAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDc0NjMzNjE0MzYsInR5cGUiOiJBQ0NFU1MiLCJpYXQiOjE3MDc0NjMzNjEsImV4cCI6MTcwNzU2MzM2MX0.Sd040v1hDGPUSwYgTNTdjGoWRiqVtDcFMtgcCFzgX7wJOQQGbnVEO2OHn09e8cIDHjUTG9WGXzSIXT1flc8B2Q",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcnRlbWllLmZsaW9zdG9yQGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwODYxODQ5Mzg0NCwic3ViamVjdCI6ImFydGVtaWUuZmxpb3N0b3JAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDg1MTg0OTM4NDQsInR5cGUiOiJBQ0NFU1MiLCJpYXQiOjE3MDg1MTg0OTMsImV4cCI6MTcwODYxODQ5M30.SD8BsZtTK66sVTa6Px3M3WGrL8cLDnqp-IhwAkOZcxWWI4O4iBrVAA8G1S0bNaghZQJprTU96C0sKWi5BT7u8g",
 									"type": "string"
 								}
 							]
@@ -497,7 +377,54 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"New Course\"\r\n}",
+							"raw": "{\r\n    \"name\":\"Another course\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/courses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmFzdGFzaWEuZmxpb3N0b3JAZ21haWwuY29tIiwiZXhwaXJlZEF0IjoxNzA4NjEzOTkwNzY1LCJzdWJqZWN0IjoiYW5hc3Rhc2lhLmZsaW9zdG9yQGdtYWlsLmNvbSIsImlzc3VlZEF0IjoxNzA4NTEzOTkwNzY1LCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzA4NTEzOTkwLCJleHAiOjE3MDg2MTM5OTB9.cAGDCOxykKlED-zXqxLjEZf6oi3s9DgX6PQqCJ0Vq80rl0G5HVUQvYHeTjKMAJPXWijM0biY1bFvcNNW4HS90w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "USER_ID",
+								"value": "1",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":2,\r\n    \"name\":\"Course after update\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -523,6 +450,16 @@
 				{
 					"name": "Delete",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcnRlbWllLmZsaW9zdG9yQGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwODYxNDI1MjAxMCwic3ViamVjdCI6ImFydGVtaWUuZmxpb3N0b3JAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDg1MTQyNTIwMTAsInR5cGUiOiJBQ0NFU1MiLCJpYXQiOjE3MDg1MTQyNTIsImV4cCI6MTcwODYxNDI1Mn0.8Rnpgurwscv-_Km6ewP6pnEJd0Vhj6vV4Qwygk3wUOD11nIJm2NAioCgN40d5uw8xMRoPPS5bJJ1bjxUWgZiCw",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -541,7 +478,41 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "65c5d2a07a7c0a2f5b24861d"
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign to user",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "USER_ID",
+								"value": "1",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/courses/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"courses",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
 								}
 							]
 						}
