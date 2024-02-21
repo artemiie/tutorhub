@@ -5,11 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "modules")
+@Table(name = "submodules")
 @Getter
 @Setter
-public class Module {
-
+public class Submodule {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -17,7 +16,7 @@ public class Module {
   @Column(name = "name")
   private String name;
 
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "course_id", nullable = false)
-  private Course course;
+  @ManyToOne
+  @JoinColumn(name = "module_id")
+  private Module module;
 }
