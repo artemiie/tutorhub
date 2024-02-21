@@ -1,10 +1,6 @@
-/*
 package com.tutorhub.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.util.List;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,8 +10,9 @@ import lombok.Setter;
 @Setter
 public class Progress {
 
-  @Id private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-  private List<Module> passedModules;
+  // private List<Module> passedModules;
 }
-*/

@@ -23,12 +23,12 @@ public class Module {
       inverseJoinColumns = {@JoinColumn(name = "sub_module_id")})
   private List<Module> submodules;
 
-  @OneToOne
-  private TextContent textContent;
-  @OneToOne
-  private QuizContent quizContent;
-  @OneToOne
-  private VideoContent videoContent;
+  // @OneToOne
+  // private TextContent textContent;
+  // @OneToOne
+  // private QuizContent quizContent;
+  // @OneToOne
+  // private VideoContent videoContent;
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "course_id", nullable = false)

@@ -8,5 +8,7 @@ public interface UserService extends CrudService<User> {
 
   boolean existsByUsername(String username);
 
-  // void enable(String username);
+  void enable(String username);
+
+  boolean isCourseOwner(Long userId, Long noteId);
 }

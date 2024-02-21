@@ -18,20 +18,14 @@ create table courses
 (
 id
 name
-)
-
-create table users_courses
-(
 user_id
-course_id
 )
 
 create table courses_info
 (
 id
 course_id
-user_id
-progress_id
+assigned_user_id
 )
 
 create table progress

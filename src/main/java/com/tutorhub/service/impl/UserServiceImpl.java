@@ -67,15 +67,20 @@ public class UserServiceImpl implements UserService {
     return userRepository.existsByUsername(username);
   }*/
 
-  /*@Override
+  @Override
   public void enable(final String username) {
     User user = getByUsername(username);
     user.setEnabled(true);
     update(user);
-  }*/
+  }
 
   @Override
   public void delete(final Long id) {
     userRepository.deleteById(id);
+  }
+
+  @Override
+  public boolean isCourseOwner(final Long userId, final Long courseId) {
+    return userRepository.isNoteOwner(userId, courseId);
   }
 }

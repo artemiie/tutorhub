@@ -24,7 +24,7 @@ public class CourseController {
   private final SecurityService securityService;
 
   @GetMapping("/{id}")
-  public CourseDTO findById(@PathVariable final Long id) {
+  public CourseDTO find(@PathVariable final Long id) {
     Course courseEntity = courseService.getById(id);
     return courseMapper.toDto(courseEntity);
   }
@@ -34,13 +34,12 @@ public class CourseController {
       @RequestParam(name = "page") final int pageNumber,
       @RequestParam(name = "size") final int pageSize,
       @RequestParam final String sortBy) {
-    return courseService
-        .getAll(PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)))
-        .map(course -> courseMapper.toDto(course));
+    Page<Course> courses =
+        courseService.getAll(PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)));
+    return courses.map(courseMapper::toDto);
   }
 
   @PostMapping
-  @PreAuthorize("hasRole('TUTOR')")
   public CourseDTO create(@RequestBody @Validated(OnCreate.class) final CourseDTO courseDTO) {
     User currentLoggedInUser = securityService.getCurrentLoggedUser();
 
@@ -53,7 +52,7 @@ public class CourseController {
   }
 
   @PutMapping
-  @PreAuthorize("hasRole('TUTOR')")
+  @PreAuthorize("@customSecurityExpresion.canAccessCourse(#courseDTO.id)")
   public CourseDTO update(@Validated @RequestBody final CourseDTO courseDTO) {
     Course entity = courseMapper.fromDto(courseDTO);
     Course updated = courseService.update(entity);
@@ -61,7 +60,13 @@ public class CourseController {
   }
 
   @DeleteMapping("/{id}")
+  @PreAuthorize("@customSecurityExpresion.canAccessCourse(#id)")
   public void delete(@PathVariable final Long id) {
     courseService.delete(id);
+  }
+
+  @PutMapping("/{id}")
+  public void assignUser(@RequestHeader("USER_ID") final Long userId, @PathVariable final Long id) {
+    courseService.assignUser(userId, id);
   }
 }

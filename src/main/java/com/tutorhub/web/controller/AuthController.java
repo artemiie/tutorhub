@@ -1,11 +1,11 @@
 package com.tutorhub.web.controller;
 
-import com.tutorhub.model.Role;
 import com.tutorhub.model.User;
 import com.tutorhub.service.AuthService;
 // import com.tutorhub.web.dto.OnCreate;
 // import com.tutorhub.web.dto.StudentDTO;
-//import com.tutorhub.web.dto.TutorDTO;
+// import com.tutorhub.web.dto.TutorDTO;
+import com.tutorhub.web.dto.OnCreate;
 import com.tutorhub.web.dto.UserDTO;
 import com.tutorhub.web.dto.mapper.UserMapper;
 // import com.tutorhub.web.security.jwt.AuthRequest;
@@ -25,11 +25,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -40,7 +36,7 @@ public class AuthController {
   private final AuthService authService;
   private final UserMapper userMapper;
 
-  @PostMapping("/register/tutor")
+  @PostMapping("/register")
   @ResponseStatus(HttpStatus.CREATED)
   @Operation(
       summary = "${api.auth.registration.tutor-description}",
@@ -52,28 +48,10 @@ public class AuthController {
         description = "${api.responseCodes.unprocessableEntity.description}",
         content = {@Content(schema = @Schema(implementation = Void.class))})
   })
-  public void registerTutor(@RequestBody /*@Validated(OnCreate.class)*/ final UserDTO tutorDTO) {
-    User tutor = userMapper.fromDto(tutorDTO);
-    tutor.getRole().add(Role.ROLE_TUTOR);
-    authService.register(tutor);
+  public void register(@RequestBody @Validated(OnCreate.class) final UserDTO userDTO) {
+    User user = userMapper.fromDto(userDTO);
+    authService.register(user);
   }
-
-  /*@Operation(
-      summary = "${api.auth.registration.student-description}",
-      description = "${api.auth.registration.notes}")
-  @ApiResponses({
-    @ApiResponse(responseCode = "201", description = "${api.responseCodes.create.description}"),
-    @ApiResponse(
-        responseCode = "422",
-        description = "${api.responseCodes.unprocessableEntity.description}",
-        content = {@Content(schema = @Schema(implementation = Void.class))})
-  })
-  @PostMapping("/register/student")
-  @ResponseStatus(HttpStatus.CREATED)
-  public void registerStudent(@RequestBody @Validated(OnCreate.class) final StudentDTO studentDTO) {
-    User student = userMapper.fromDto(studentDTO);
-    authService.register(student);
-  }*/
 
   @Operation(summary = "${api.auth.login.description}", description = "${api.auth.login.notes}")
   @ApiResponses({
@@ -113,8 +91,7 @@ public class AuthController {
   public void reset(@RequestBody final ResetRequest request) {
     authService.reset(request);
   }
-  /*
-
+  
   @Operation(summary = "${api.auth.confirm.description}", description = "${api.auth.confirm.notes}")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "${api.responseCodes.ok.description}"),
@@ -126,5 +103,5 @@ public class AuthController {
   @GetMapping("/confirm")
   public void confirm(@RequestParam("token") final String token) {
     authService.confirmUserEmail(token);
-  }*/
+  }
 }

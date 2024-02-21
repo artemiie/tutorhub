@@ -36,12 +36,5 @@ public class User {
   @Column(name = "enabled")
   protected boolean enabled;
 
-  /*@OneToMany(mappedBy = "user")
-  @Fetch(FetchMode.JOIN)
-  private List<Course> courses;*/
-
-  /*@OneToMany(mappedBy = "user")
-  private List<CourseInfo> assignedCourses;*/
-
   public User() {}
 }

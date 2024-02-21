@@ -1,9 +1,15 @@
 package com.tutorhub.service.impl;
 
 import com.tutorhub.model.Course;
+import com.tutorhub.model.CourseInfo;
+import com.tutorhub.model.Progress;
+import com.tutorhub.model.User;
 import com.tutorhub.model.exception.ResourceNotFoundException;
 import com.tutorhub.repository.CourseRepository;
+import com.tutorhub.service.CourseInfoService;
 import com.tutorhub.service.CourseService;
+import com.tutorhub.service.ProgressService;
+import com.tutorhub.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +19,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CourseServiceImpl implements CourseService {
   private final CourseRepository courseRepository;
+  private final UserService userService;
+  private final CourseInfoService courseInfoService;
+  private final ProgressService progressService;
 
   @Override
   public Course getById(final Long id) {
@@ -46,5 +55,20 @@ public class CourseServiceImpl implements CourseService {
   @Override
   public void delete(final Long id) {
     courseRepository.deleteById(id);
+  }
+
+  @Override
+  public void assignUser(Long userId, Long courseId) {
+
+    Course course = getById(courseId);
+    User user = userService.getById(userId);
+    Progress progress = progressService.create(new Progress());
+
+    CourseInfo courseInfo = new CourseInfo();
+    courseInfo.setCourse(course);
+    courseInfo.setUser(user);
+    courseInfo.setProgress(progress);
+
+    courseInfoService.create(courseInfo);
   }
 }
