@@ -1,7 +1,6 @@
 package com.tutorhub.service;
 
 import com.tutorhub.model.Course;
-
 import java.util.List;
 
 public interface CourseService extends CrudService<Course> {
