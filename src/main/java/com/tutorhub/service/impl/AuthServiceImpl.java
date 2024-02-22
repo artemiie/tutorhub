@@ -1,16 +1,15 @@
 package com.tutorhub.service.impl;
 
-import static com.tutorhub.model.MailType.REGISTRATION;
-import static com.tutorhub.model.MailType.RESTORE;
-
-import com.tutorhub.model.MailType;
+import com.tutorhub.mail.MailService;
+import com.tutorhub.mail.model.MailInfoActivation;
+import com.tutorhub.mail.model.MailInfoLogin;
+import com.tutorhub.mail.model.MailInfoRestore;
 import com.tutorhub.model.Role;
 import com.tutorhub.model.User;
 import com.tutorhub.model.exception.ResourceAlreadyExistsException;
 // import com.tutorhub.model.exception.ResourceNotFoundException;
 import com.tutorhub.model.exception.ResourceNotFoundException;
 import com.tutorhub.service.AuthService;
-import com.tutorhub.service.MailService;
 import com.tutorhub.service.UserService;
 // import com.tutorhub.web.security.jwt.AuthRequest;
 // import com.tutorhub.web.security.jwt.AuthResponse;
@@ -20,9 +19,7 @@ import com.tutorhub.web.security.jwt.*;
 // import com.tutorhub.web.security.jwt.exception.InvalidTokenException;
 import com.tutorhub.web.security.jwt.exception.InvalidTokenException;
 import com.tutorhub.web.security.jwt.service.JwtService;
-import com.tutorhub.web.security.jwt.service.params.JwtProperties;
 import java.util.Map;
-import java.util.Properties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -54,15 +51,8 @@ public class AuthServiceImpl implements AuthService {
 
     String activationToken = jwtService.generate(user.getUsername(), TokenType.ACTIVATION);
 
-    mailService.sendEmail(
-        REGISTRATION,
-        new Properties() {
-          {
-            put("token", activationToken);
-            put("username", user.getUsername());
-            put("fullName", user.getFullname());
-          }
-        });
+    mailService.send(
+        new MailInfoActivation(user.getFullname(), user.getUsername(), activationToken));
   }
 
   @Override
@@ -79,14 +69,7 @@ public class AuthServiceImpl implements AuthService {
     response.setRefresh(restoreToken);
     response.setUserId(userOnDb.getId());
 
-    mailService.sendEmail(
-        MailType.LOGIN,
-        new Properties() {
-          {
-            put("username", userOnDb.getUsername());
-            put("fullName", userOnDb.getFullname());
-          }
-        });
+    mailService.send(new MailInfoLogin(userOnDb.getFullname(), userOnDb.getUsername()));
 
     return response;
   }
@@ -98,13 +81,9 @@ public class AuthServiceImpl implements AuthService {
       throw new ResourceNotFoundException();
     }
 
-    String token = jwtService.generate(user.getUsername(), TokenType.RESTORE);
+    String restoreToken = jwtService.generate(user.getUsername(), TokenType.RESTORE);
 
-    Properties properties = new Properties();
-    properties.setProperty("token", token);
-    properties.setProperty("username", request.getUsername());
-
-    mailService.sendEmail(RESTORE, properties);
+    mailService.send(new MailInfoRestore(user.getFullname(), request.getUsername(), restoreToken));
   }
 
   @Override

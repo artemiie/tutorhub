@@ -24,7 +24,7 @@ public class JwtServiceImpl implements JwtService {
 
   private final JwtProperties properties;
   private SecretKey key;
-  private Map<TokenType, Duration> tokenDurationByType = new HashMap<>();
+  private final Map<TokenType, Duration> tokenDurationByType = new HashMap<>();
 
   @PostConstruct
   protected void init() {

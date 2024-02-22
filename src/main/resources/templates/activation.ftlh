@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Thank you for registration ${name}</title>
+    <title>Thank you for registration ${recipientName}</title>
     <style>
         #body {
             display: flex;
@@ -31,8 +31,8 @@
 <div id="body">
     <div id="div">
         <h1 style="text-align: center">Registration</h1>
-        <p>Hello, ${name}!</p>
-        <p><a href="http://localhost:8080/api/v1/auth/confirm?token=${token}">Confirm your registration</a></p>
+        <p>Hello, ${recipientName}!</p>
+        <p><a href="http://localhost:8080/api/v1/auth/confirm?token=${activationToken}">Confirm your registration</a></p>
         <p>This is registration mail. You can log in and use tutorhub.</p>
     </div>
 </div>
