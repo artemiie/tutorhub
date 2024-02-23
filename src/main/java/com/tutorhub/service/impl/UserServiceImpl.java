@@ -1,7 +1,7 @@
 package com.tutorhub.service.impl;
 
-import com.tutorhub.model.user.User;
 import com.tutorhub.exception.ResourceNotFoundException;
+import com.tutorhub.model.user.User;
 import com.tutorhub.repository.UserRepository;
 import com.tutorhub.service.UserService;
 import lombok.RequiredArgsConstructor;

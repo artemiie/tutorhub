@@ -1,9 +1,9 @@
 package com.tutorhub.service.impl;
 
+import com.tutorhub.exception.ResourceNotFoundException;
 import com.tutorhub.model.course.Course;
 import com.tutorhub.model.course.CourseInfo;
 import com.tutorhub.model.user.User;
-import com.tutorhub.exception.ResourceNotFoundException;
 import com.tutorhub.repository.CourseRepository;
 import com.tutorhub.service.CourseInfoService;
 import com.tutorhub.service.CourseService;

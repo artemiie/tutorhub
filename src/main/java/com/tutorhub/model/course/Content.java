@@ -20,5 +20,4 @@ public class Content {
   @Column(name = "content_type", nullable = false)
   @Enumerated(EnumType.STRING)
   private ContentType contentType;
-
 }

@@ -1,9 +1,9 @@
 package com.tutorhub.security.jwt.service;
 
+import com.tutorhub.security.jwt.TokenType;
 import com.tutorhub.security.jwt.exception.InvalidTokenException;
 import com.tutorhub.security.jwt.service.params.JwtProperties;
 import com.tutorhub.security.jwt.service.params.TokenParameters;
-import com.tutorhub.security.jwt.TokenType;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
