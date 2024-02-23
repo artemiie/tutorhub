@@ -47,3 +47,8 @@ security:
     activation: ${JWT_ACTIVATION_DURATION}
     refresh: ${JWT_REFRESH_DURATION}
     restore: ${JWT_RESTORE_DURATION}
+
+aws:
+  accessKey: ${AWS_ACCESS_KEY}
+  secretKey: ${AWS_SECRET_KEY}
+  region: ${AWS_REGION}
