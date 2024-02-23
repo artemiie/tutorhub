@@ -1,10 +1,9 @@
 package com.tutorhub.service.impl;
 
-import com.tutorhub.model.Course;
-import com.tutorhub.model.CourseInfo;
-import com.tutorhub.model.Progress;
-import com.tutorhub.model.User;
-import com.tutorhub.model.exception.ResourceNotFoundException;
+import com.tutorhub.model.course.Course;
+import com.tutorhub.model.course.CourseInfo;
+import com.tutorhub.model.user.User;
+import com.tutorhub.exception.ResourceNotFoundException;
 import com.tutorhub.repository.CourseRepository;
 import com.tutorhub.service.CourseInfoService;
 import com.tutorhub.service.CourseService;
@@ -63,12 +62,12 @@ public class CourseServiceImpl implements CourseService {
 
     Course course = getById(courseId);
     User user = userService.getById(userId);
-    Progress progress = progressService.create(new Progress());
+    // Progress progress = progressService.create(new Progress());
 
     CourseInfo courseInfo = new CourseInfo();
     courseInfo.setCourse(course);
     courseInfo.setUser(user);
-    courseInfo.setProgress(progress);
+    // courseInfo.setProgress(progress);
 
     courseInfoService.create(courseInfo);
   }

@@ -2,7 +2,7 @@ package com.tutorhub.web.dto.mapper;
 
 // import com.tutorhub.model.Student;
 // import com.tutorhub.model.Tutor;
-import com.tutorhub.model.User;
+import com.tutorhub.model.user.User;
 import com.tutorhub.web.dto.UserDTO;
 import org.mapstruct.Mapper;
 

@@ -1,6 +1,6 @@
 package com.tutorhub.service.impl;
 
-import com.tutorhub.model.CourseInfo;
+import com.tutorhub.model.course.CourseInfo;
 import com.tutorhub.repository.CourseInfoRepository;
 import com.tutorhub.service.CourseInfoService;
 import lombok.RequiredArgsConstructor;

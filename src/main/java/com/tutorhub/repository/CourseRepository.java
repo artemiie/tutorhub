@@ -1,6 +1,6 @@
 package com.tutorhub.repository;
 
-import com.tutorhub.model.Course;
+import com.tutorhub.model.course.Course;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 

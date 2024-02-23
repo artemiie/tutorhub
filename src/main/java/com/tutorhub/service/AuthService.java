@@ -1,10 +1,10 @@
 package com.tutorhub.service;
 
-import com.tutorhub.model.User;
-import com.tutorhub.web.security.jwt.AuthRequest;
-import com.tutorhub.web.security.jwt.AuthResponse;
-import com.tutorhub.web.security.jwt.ResetRequest;
-import com.tutorhub.web.security.jwt.RestoreRequest;
+import com.tutorhub.model.user.User;
+import com.tutorhub.security.jwt.AuthRequest;
+import com.tutorhub.security.jwt.AuthResponse;
+import com.tutorhub.security.jwt.ResetRequest;
+import com.tutorhub.security.jwt.RestoreRequest;
 
 public interface AuthService {
 

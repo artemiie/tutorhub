@@ -1,7 +1,7 @@
 /*
 package com.tutorhub.web.dto.mapper;
 
-import com.tutorhub.model.Content;
+import com.tutorhub.model.course.Content;
 import com.tutorhub.model.QuizContent;
 import com.tutorhub.model.TextContent;
 import com.tutorhub.model.VideoContent;

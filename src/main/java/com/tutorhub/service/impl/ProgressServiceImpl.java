@@ -1,6 +1,6 @@
 package com.tutorhub.service.impl;
 
-import com.tutorhub.model.Progress;
+import com.tutorhub.model.course.Progress;
 import com.tutorhub.repository.ProgressRepository;
 import com.tutorhub.service.ProgressService;
 import lombok.RequiredArgsConstructor;

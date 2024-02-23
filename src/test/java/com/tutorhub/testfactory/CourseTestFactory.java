@@ -1,7 +1,7 @@
 /*
 package com.tutorhub.testfactory;
 
-import com.tutorhub.model.Course;
+import com.tutorhub.model.course.Course;
 
 public class CourseTestFactory {
   public static Course getCourseTest(Long id) {

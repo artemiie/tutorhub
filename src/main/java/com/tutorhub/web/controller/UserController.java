@@ -1,6 +1,6 @@
 package com.tutorhub.web.controller;
 
-import com.tutorhub.model.User;
+import com.tutorhub.model.user.User;
 import com.tutorhub.service.UserService;
 import com.tutorhub.web.dto.UserDTO;
 import com.tutorhub.web.dto.mapper.UserMapper;

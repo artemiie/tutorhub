@@ -1,9 +1,9 @@
 package com.tutorhub.web.controller;
 
-import com.tutorhub.model.Course;
-import com.tutorhub.model.User;
+import com.tutorhub.model.course.Course;
+import com.tutorhub.model.user.User;
 import com.tutorhub.service.CourseService;
-import com.tutorhub.service.impl.SecurityService;
+import com.tutorhub.security.SecurityService;
 import com.tutorhub.web.dto.CourseDTO;
 import com.tutorhub.web.dto.OnCreate;
 import com.tutorhub.web.dto.mapper.CourseMapper;

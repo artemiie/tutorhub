@@ -1,6 +1,6 @@
 package com.tutorhub.web.controller;
 
-import com.tutorhub.model.User;
+import com.tutorhub.model.user.User;
 import com.tutorhub.service.AuthService;
 // import com.tutorhub.web.dto.OnCreate;
 // import com.tutorhub.web.dto.StudentDTO;
@@ -12,10 +12,10 @@ import com.tutorhub.web.dto.mapper.UserMapper;
 // import com.tutorhub.web.security.jwt.AuthResponse;
 // import com.tutorhub.web.security.jwt.ResetRequest;
 // import com.tutorhub.web.security.jwt.RestoreRequest;
-import com.tutorhub.web.security.jwt.AuthRequest;
-import com.tutorhub.web.security.jwt.AuthResponse;
-import com.tutorhub.web.security.jwt.ResetRequest;
-import com.tutorhub.web.security.jwt.RestoreRequest;
+import com.tutorhub.security.jwt.AuthRequest;
+import com.tutorhub.security.jwt.AuthResponse;
+import com.tutorhub.security.jwt.ResetRequest;
+import com.tutorhub.security.jwt.RestoreRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

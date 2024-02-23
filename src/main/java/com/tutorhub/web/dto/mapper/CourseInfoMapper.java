@@ -1,7 +1,7 @@
 /*
 package com.tutorhub.web.dto.mapper;
 
-import com.tutorhub.model.CourseInfo;
+import com.tutorhub.model.course.CourseInfo;
 import com.tutorhub.web.dto.CourseInfoDTO;
 import org.mapstruct.Mapper;
 

@@ -1,6 +1,6 @@
 package com.tutorhub.service;
 
-import com.tutorhub.model.User;
+import com.tutorhub.model.user.User;
 
 public interface UserService extends CrudService<User> {
 
