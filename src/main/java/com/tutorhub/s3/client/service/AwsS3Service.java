@@ -2,15 +2,13 @@ package com.tutorhub.s3.client.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.util.IOUtils;
 import com.tutorhub.model.course.ContentType;
 import jakarta.annotation.PostConstruct;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-import javax.imageio.ImageIO;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
@@ -40,29 +38,11 @@ public class AwsS3Service {
 
   @SneakyThrows
   private byte[] extractImage(InputStream inputStream) {
-    BufferedImage imageFromAWS = ImageIO.read(inputStream);
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    ImageIO.write(imageFromAWS, "jpg", baos);
-
-    return baos.toByteArray();
+    return IOUtils.toByteArray(inputStream);
   }
 
   @SneakyThrows
   private byte[] extractVideo(InputStream inputStream) {
-    File file = Files.createTempFile("file", ".tmp").toFile();
-
-    try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
-      byte[] buffer = new byte[1024];
-      int bytesRead;
-      while ((bytesRead = inputStream.read(buffer)) != -1) {
-        fileOutputStream.write(buffer, 0, bytesRead);
-      }
-    }
-
-    FileInputStream fl = new FileInputStream(file);
-    byte[] arr = new byte[(int) file.length()];
-    fl.read(arr);
-    fl.close();
-    return arr;
+    return IOUtils.toByteArray(inputStream);
   }
 }
