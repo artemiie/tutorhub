@@ -1,4 +1,3 @@
-/*
 package com.tutorhub.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -19,8 +18,8 @@ public class ModuleDTO {
   @NotNull(message = "Name must be not null.")
   private String name;
 
-  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  private ContentDTO content;
+  //  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  //  private ContentDTO content;
 
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private List<ModuleDTO> submodules;
@@ -28,4 +27,3 @@ public class ModuleDTO {
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private CourseDTO course;
 }
-*/

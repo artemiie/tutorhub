@@ -1,4 +1,3 @@
-/*
 package com.tutorhub.web.dto.mapper;
 
 import com.tutorhub.model.course.Module;
@@ -7,4 +6,3 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface ModuleMapper extends Mappable<Module, ModuleDTO> {}
-*/
