@@ -28,6 +28,7 @@
         <jakarta-validation.version>3.0.2</jakarta-validation.version>
         <jjwt.version>0.12.2</jjwt.version>
         <postgresql.version>42.5.1</postgresql.version>
+        <s3.version>2.20.52</s3.version>
 
         <springdoc-openapi.version>2.3.0</springdoc-openapi.version>
 
@@ -141,6 +142,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <version>1.12.665</version>
         </dependency>
 
     </dependencies>
