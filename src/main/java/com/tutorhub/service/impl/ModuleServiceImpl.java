@@ -42,7 +42,7 @@ public class ModuleServiceImpl implements ModuleService {
 
   @Override
   public boolean existsById(Long id) {
-    return false;
+    return moduleRepository.existsById(id);
   }
 
   @Override
