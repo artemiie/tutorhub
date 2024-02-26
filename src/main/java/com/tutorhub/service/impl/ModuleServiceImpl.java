@@ -35,8 +35,6 @@ public class ModuleServiceImpl implements ModuleService {
   public Module update(final Module entity) {
     Module existingModule = getById(entity.getId());
     existingModule.setName(entity.getName());
-    existingModule.setCourse(entity.getCourse());
-    existingModule.setContent(entity.getContent());
     return moduleRepository.save(existingModule);
   }
 

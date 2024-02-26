@@ -59,25 +59,18 @@ public class ModuleController {
     return moduleMapper.toDto(savedModule);
   }
 
-  @PutMapping("/{courseId}/{moduleId}")
+  @PutMapping()
   @PreAuthorize("@customSecurityExpresion.canAccessCourse(#courseId)")
   public ModuleDTO update(
-      @PathVariable(name = "courseId") Long courseId,
-      @PathVariable(name = "moduleId") Long moduleId,
-      @RequestBody final ModuleDTO moduleDTO) {
-
-    Module existingModule = moduleService.getById(moduleId);
+      @RequestParam(name = "courseId") Long courseId, @RequestBody final ModuleDTO moduleDTO) {
     Module updatedModule = moduleMapper.fromDto(moduleDTO);
-    updatedModule.setId(existingModule.getId());
-    updatedModule.setCourse(existingModule.getCourse());
-    updatedModule.setContent(existingModule.getContent());
-    Module updated = moduleService.update(updatedModule);
-    return moduleMapper.toDto(updated);
+    Module savedModule = moduleService.update(updatedModule);
+    return moduleMapper.toDto(savedModule);
   }
 
   @DeleteMapping("/{id}")
-  @PreAuthorize("@customSecurityExpresion.canAccessCourse(#id)")
-  public void delete(@PathVariable final Long id) {
+  @PreAuthorize("@customSecurityExpresion.canAccessCourse(#courseId)")
+  public void delete(@PathVariable final Long id, @RequestParam(name = "courseId") Long courseId) {
     moduleService.delete(id);
   }
 }
