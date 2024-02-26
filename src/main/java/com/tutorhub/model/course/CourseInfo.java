@@ -2,6 +2,7 @@ package com.tutorhub.model.course;
 
 import com.tutorhub.model.user.User;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import lombok.Setter;
 @Table(name = "course_info")
 @Getter
 @Setter
+@EqualsAndHashCode
 public class CourseInfo {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
