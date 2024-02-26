@@ -7,6 +7,7 @@ import static org.mockito.Mockito.*;
 
 import com.tutorhub.exception.ResourceNotFoundException;
 import com.tutorhub.model.course.Course;
+import com.tutorhub.model.course.CourseInfo;
 import com.tutorhub.repository.CourseRepository;
 import com.tutorhub.service.CourseInfoService;
 import com.tutorhub.service.ProgressService;
@@ -135,5 +136,22 @@ class CourseServiceImplTest {
         () -> assertEquals(expectedResult.getFirst().getName(), actualResult.getFirst().getName()));
 
     verify(courseRepository).findByCourseOwnerId(ID);
+  }
+
+  @Test
+  void assignUser() {
+    var course = getCourseTest(ID);
+    doReturn(Optional.of(course)).when(courseRepository).findById(ID);
+
+    var user = getUserTest(ID);
+    doReturn(user).when(userService).getById(ID);
+
+    courseService.assignUser(ID, ID);
+
+    CourseInfo courseInfo = new CourseInfo();
+    courseInfo.setUser(user);
+    courseInfo.setCourse(course);
+
+    verify(courseInfoService).create(courseInfo);
   }
 }
