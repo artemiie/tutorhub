@@ -1,12 +1,16 @@
 package com.tutorhub.service.impl;
 
 import static com.tutorhub.testfactory.CourseTestFactory.getCourseTest;
+import static com.tutorhub.testfactory.UserTestFactory.getUserTest;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.tutorhub.exception.ResourceNotFoundException;
 import com.tutorhub.model.course.Course;
 import com.tutorhub.repository.CourseRepository;
+import com.tutorhub.service.CourseInfoService;
+import com.tutorhub.service.ProgressService;
+import com.tutorhub.service.UserService;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -22,6 +26,9 @@ import org.springframework.data.domain.Sort;
 class CourseServiceImplTest {
   private static final Long ID = 1L;
   @Mock private CourseRepository courseRepository;
+  @Mock private UserService userService;
+  @Mock private CourseInfoService courseInfoService;
+  @Mock private ProgressService progressService;
   @InjectMocks private CourseServiceImpl courseService;
 
   @Test
@@ -89,5 +96,44 @@ class CourseServiceImplTest {
     courseService.delete(ID);
 
     verify(courseRepository).deleteById(ID);
+  }
+
+  @Test
+  void update() {
+    var courseOnDb = getCourseTest(ID);
+    courseOnDb.setName("Course");
+    courseOnDb.setCourseOwner(getUserTest(ID));
+    doReturn(Optional.of(courseOnDb)).when(courseRepository).findById(ID);
+
+    when(courseRepository.save(any())).thenAnswer(i -> i.getArguments()[0]);
+
+    var course = getCourseTest(ID);
+    course.setName("New Course");
+
+    var actualResult = courseService.update(course);
+
+    assertAll(
+        () -> assertEquals("New Course", actualResult.getName()),
+        () -> assertEquals(courseOnDb.getCourseOwner(), actualResult.getCourseOwner()));
+
+    verify(courseRepository).save(actualResult);
+    verify(courseRepository).findById(ID);
+  }
+
+  @Test
+  void findByUserId() {
+    var expectedResult = List.of(getCourseTest(ID));
+
+    doReturn(expectedResult).when(courseRepository).findByCourseOwnerId(ID);
+
+    var actualResult = courseService.findByUserId(ID);
+
+    assertAll(
+        () -> assertNotNull(actualResult),
+        () -> assertEquals(expectedResult.size(), actualResult.size()),
+        () -> assertEquals(expectedResult.getFirst().getId(), actualResult.getFirst().getId()),
+        () -> assertEquals(expectedResult.getFirst().getName(), actualResult.getFirst().getName()));
+
+    verify(courseRepository).findByCourseOwnerId(ID);
   }
 }
