@@ -1,4 +1,3 @@
-/*
 package com.tutorhub.testfactory;
 
 import com.tutorhub.model.course.Course;
@@ -11,4 +10,3 @@ public class CourseTestFactory {
     return course;
   }
 }
-*/
