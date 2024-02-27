@@ -11,10 +11,6 @@ import org.springframework.stereotype.Service;
 public class CustomSecurityExpresion {
   private final UserService userService;
 
-  public boolean canAccessCourse(final String courseId, final Long userId) {
-    return userService.isCourseOwner(userId, Long.valueOf(courseId));
-  }
-
   public boolean canAccessCourse(final String courseId) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     SecurityUser user = (SecurityUser) authentication.getPrincipal();
