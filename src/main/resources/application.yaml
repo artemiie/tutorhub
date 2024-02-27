@@ -40,6 +40,12 @@ spring:
             enable: true
 
 
+  servlet:
+    multipart:
+      max-file-size: ${SPRING_MAX_FILE_SIZE}
+      max-request-size: ${SPRING_MAX_REQUEST_SIZE}
+
+
 security:
   jwt:
     secret: ${JWT_SECRET}
