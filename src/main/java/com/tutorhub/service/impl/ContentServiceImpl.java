@@ -35,7 +35,7 @@ public class ContentServiceImpl implements ContentService {
 
     String fileOriginalName = multipartFile.getOriginalFilename();
 
-    if (awsS3Service.checkIfExists(fileOriginalName)) {
+    if (awsS3Service.exists(fileOriginalName)) {
       throw new ResourceAlreadyExistsException("File already exists");
     }
 

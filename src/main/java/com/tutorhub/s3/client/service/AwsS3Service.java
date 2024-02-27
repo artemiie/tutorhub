@@ -26,7 +26,7 @@ public class AwsS3Service {
     return IOUtils.toByteArray(content);
   }
 
-  public boolean checkIfExists(String filename) {
+  public boolean exists(String filename) {
     return s3.doesObjectExist(bucket, filename);
   }
 
