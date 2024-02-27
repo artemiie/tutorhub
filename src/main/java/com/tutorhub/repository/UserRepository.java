@@ -28,5 +28,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
               )
               """,
       nativeQuery = true)
-  boolean isNoteOwner(Long userId, Long courseId);
+  boolean isCourseOwner(Long userId, Long courseId);
 }

@@ -82,6 +82,6 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public boolean isCourseOwner(final Long userId, final Long courseId) {
-    return userRepository.isNoteOwner(userId, courseId);
+    return userRepository.isCourseOwner(userId, courseId);
   }
 }
