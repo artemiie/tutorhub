@@ -3,6 +3,7 @@ package com.tutorhub.s3.client.service;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
 import com.amazonaws.util.IOUtils;
+import com.tutorhub.exception.ResourceNotFoundException;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -19,9 +20,15 @@ public class AwsS3Service {
 
   @SneakyThrows
   public Object find(String fileName) {
-    S3Object object = s3.getObject(bucket, fileName);
+    S3Object s3Object;
 
-    InputStream content = object.getObjectContent();
+    try {
+      s3Object = s3.getObject(bucket, fileName);
+    } catch (AmazonS3Exception s3Exception) {
+      throw new ResourceNotFoundException("File %s not found".formatted(fileName));
+    }
+
+    InputStream content = s3Object.getObjectContent();
 
     return IOUtils.toByteArray(content);
   }
