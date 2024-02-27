@@ -21,7 +21,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
           """
               SELECT exists(
                 SELECT 1
-                FROM users u LEFT JOIN courses c
+                FROM users u LEFT JOIN course c
                 ON u.id = c.user_id
                 WHERE u.id = :userId
                 AND c.id = :courseId

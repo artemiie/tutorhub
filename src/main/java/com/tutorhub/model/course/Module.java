@@ -21,7 +21,7 @@ public class Module {
   @JoinColumn(name = "course_id", nullable = false)
   private Course course;
 
-  @OneToOne
+  @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "content_id")
   private Content content;
 }
