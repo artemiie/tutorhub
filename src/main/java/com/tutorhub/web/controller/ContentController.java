@@ -18,7 +18,7 @@ public class ContentController {
   }
 
   @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public String upload(@RequestBody MultipartFile file) {
+  public String upload(@RequestParam(name = "file") MultipartFile file) {
     return contentService.upload(file);
   }
 }
