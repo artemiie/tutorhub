@@ -6,6 +6,9 @@ import com.tutorhub.web.dto.OnCreate;
 import com.tutorhub.web.dto.SubmoduleDTO;
 import com.tutorhub.web.dto.mapper.SubmoduleMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +27,21 @@ public class SubmoduleController {
       @PathVariable final Long submoduleId) {
     Submodule submodule = submoduleService.find(courseId, moduleId, submoduleId);
     return submoduleMapper.toDto(submodule);
+  }
+
+  @GetMapping
+  public Page<SubmoduleDTO> findAllPaged(
+      @PathVariable final Long courseId,
+      @PathVariable final Long moduleId,
+      @RequestParam(name = "page") final int pageNumber,
+      @RequestParam(name = "size") final int pageSize,
+      @RequestParam final String sortBy) {
+    Page<Submodule> submodules =
+        submoduleService.findAllPaged(
+            courseId,
+            moduleId,
+            PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)));
+    return submodules.map(submoduleMapper::toDto);
   }
 
   @PostMapping

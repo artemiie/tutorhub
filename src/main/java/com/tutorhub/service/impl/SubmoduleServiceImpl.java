@@ -7,6 +7,8 @@ import com.tutorhub.repository.SubmoduleRepository;
 import com.tutorhub.service.ModuleService;
 import com.tutorhub.service.SubmoduleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,6 +27,11 @@ public class SubmoduleServiceImpl implements SubmoduleService {
                     ("Submodule with id = %s not found on Module with id = %s and"
                         + " on Course with id %s")
                         .formatted(submoduleId, moduleId, courseId)));
+  }
+
+  @Override
+  public Page<Submodule> findAllPaged(Long courseId, Long moduleId, Pageable page) {
+    return submoduleRepository.findByModule_Course_IdAndModule_Id(courseId, moduleId, page);
   }
 
   @Override
