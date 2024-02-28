@@ -17,6 +17,15 @@ public class SubmoduleController {
   private final SubmoduleService submoduleService;
   private final SubmoduleMapper submoduleMapper;
 
+  @GetMapping("/{submoduleId}")
+  public SubmoduleDTO find(
+      @PathVariable final Long courseId,
+      @PathVariable final Long moduleId,
+      @PathVariable final Long submoduleId) {
+    Submodule submodule = submoduleService.find(courseId, moduleId, submoduleId);
+    return submoduleMapper.toDto(submodule);
+  }
+
   @PostMapping
   @PreAuthorize("@customSecurityExpresion.canAccessCourse(#courseId)")
   public SubmoduleDTO create(
