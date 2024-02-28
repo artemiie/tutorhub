@@ -18,7 +18,7 @@ public class SubmoduleServiceImpl implements SubmoduleService {
   @Override
   public Submodule find(Long courseId, Long moduleId, Long submoduleId) {
     return submoduleRepository
-        .findByCourseIdAndModuleIdAndSubmoduleId(courseId, moduleId, submoduleId)
+        .findByModule_Course_IdAndModule_IdAndId(courseId, moduleId, submoduleId)
         .orElseThrow(
             () ->
                 new ResourceNotFoundException(
