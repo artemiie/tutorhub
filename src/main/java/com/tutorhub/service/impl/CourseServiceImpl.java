@@ -9,11 +9,12 @@ import com.tutorhub.service.CourseInfoService;
 import com.tutorhub.service.CourseService;
 import com.tutorhub.service.ProgressService;
 import com.tutorhub.service.UserService;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +28,9 @@ public class CourseServiceImpl implements CourseService {
   public Course getById(final Long id) {
     return courseRepository
         .findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Course with id[" + id + "] not found."));
+        .orElseThrow(() ->
+            new ResourceNotFoundException(
+                "Course with id[%s] not found.".formatted(id)));
   }
 
   @Override
@@ -58,7 +61,7 @@ public class CourseServiceImpl implements CourseService {
   }
 
   @Override
-  public void assignUser(Long userId, Long courseId) {
+  public void assignUser(final Long userId, final Long courseId) {
 
     Course course = getById(courseId);
     User user = userService.getById(userId);
@@ -73,7 +76,7 @@ public class CourseServiceImpl implements CourseService {
   }
 
   @Override
-  public List<Course> findByUserId(Long userId) {
+  public List<Course> findByUserId(final Long userId) {
     return courseRepository.findByCourseOwnerId(userId);
   }
 }

@@ -6,5 +6,6 @@ import com.tutorhub.web.dto.TextContentDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface TextContentMapper extends Mappable<TextContent, TextContentDTO> {}
+public interface TextContentMapper
+extends Mappable<TextContent, TextContentDTO> {}
 */

@@ -1,3 +1,4 @@
 package com.tutorhub.security.jwt.exception;
 
-public class InvalidTokenException extends RuntimeException {}
+public class InvalidTokenException extends RuntimeException {
+}

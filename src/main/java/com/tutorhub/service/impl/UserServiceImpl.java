@@ -19,11 +19,15 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User getById(final Long id) {
-    return userRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+    return userRepository
+        .findById(id)
+        .orElseThrow(ResourceNotFoundException::new);
   }
 
   public User getByUsername(final String username) {
-    return userRepository.findByUsername(username).orElseThrow(ResourceNotFoundException::new);
+    return userRepository
+        .findByUsername(username)
+        .orElseThrow(ResourceNotFoundException::new);
   }
 
   public Page<User> getAll(final Pageable page) {
@@ -62,11 +66,6 @@ public class UserServiceImpl implements UserService {
   public boolean existsById(final Long id) {
     return userRepository.existsById(id);
   }
-
-  /*@Override
-  public boolean existsByUsername(final String username) {
-    return userRepository.existsByUsername(username);
-  }*/
 
   @Override
   public void enable(final String username) {

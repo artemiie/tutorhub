@@ -12,10 +12,13 @@ import org.springframework.stereotype.Component;
 public class EmailSender {
   private final JavaMailSender mailSender;
 
-  public void send(String to, String subject, String text) throws MessagingException {
+  public void send(final String to,
+                   final String subject,
+                   final String text) throws MessagingException {
     MimeMessage mimeMessage = mailSender.createMimeMessage();
 
-    MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
+    MimeMessageHelper mimeMessageHelper =
+        new MimeMessageHelper(mimeMessage, false, "UTF-8");
 
     mimeMessageHelper.setTo(to);
     mimeMessageHelper.setSubject(subject);

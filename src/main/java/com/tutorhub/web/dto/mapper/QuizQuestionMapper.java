@@ -6,5 +6,6 @@ import com.tutorhub.web.dto.QuizQuestionDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface QuizQuestionMapper extends Mappable<QuizQuestion, QuizQuestionDTO> {}
+public interface QuizQuestionMapper
+extends Mappable<QuizQuestion, QuizQuestionDTO> {}
 */

@@ -25,12 +25,14 @@ public class QuizQuestionDTO {
 
   @NotEmpty(message = "Options list must be not empty.")
   @NotNull(message = "Options list must be not null.")
-  private List<@Size(max = 1024, message = "Option length must be less than {max}.") String>
+  private List<@Size(max = 1024,
+  message = "Option length must be less than {max}.") String>
       options;
 
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private List<
-          @PositiveOrZero(message = "Answer indexes list must not contain negative values.")
+          @PositiveOrZero(
+          message = "Answer indexes list must not contain negative values.")
           Integer>
       answerIndexes;
 }

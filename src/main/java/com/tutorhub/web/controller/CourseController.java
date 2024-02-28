@@ -7,15 +7,25 @@ import com.tutorhub.service.CourseService;
 import com.tutorhub.web.dto.CourseDTO;
 import com.tutorhub.web.dto.OnCreate;
 import com.tutorhub.web.dto.mapper.CourseMapper;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,12 +47,14 @@ public class CourseController {
       @RequestParam(name = "size") final int pageSize,
       @RequestParam final String sortBy) {
     Page<Course> courses =
-        courseService.getAll(PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)));
+        courseService.getAll(
+            PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)));
     return courses.map(courseMapper::toDto);
   }
 
   @PostMapping
-  public CourseDTO create(@RequestBody @Validated(OnCreate.class) final CourseDTO courseDTO) {
+  public CourseDTO create(
+      @RequestBody @Validated(OnCreate.class) final CourseDTO courseDTO) {
     User currentLoggedInUser = securityService.getCurrentLoggedUser();
 
     Course entity = courseMapper.fromDto(courseDTO);
@@ -68,13 +80,17 @@ public class CourseController {
   }
 
   @PutMapping("/{id}")
-  public void assignUser(@RequestHeader("USER_ID") final Long userId, @PathVariable final Long id) {
+  public void assignUser(@RequestHeader("USER_ID") final Long userId,
+                         @PathVariable final Long id) {
     courseService.assignUser(userId, id);
   }
 
   @GetMapping("/user/{userId}")
   public List<CourseDTO> findAllPaged(@PathVariable final Long userId) {
     List<Course> courseList = courseService.findByUserId(userId);
-    return courseList.stream().map(courseMapper::toDto).collect(Collectors.toList());
+    return courseList
+        .stream()
+        .map(courseMapper::toDto)
+        .collect(Collectors.toList());
   }
 }

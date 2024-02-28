@@ -1,9 +1,10 @@
-/*
-package com.tutorhub.model.exception;
+package com.tutorhub.exception;
 
-import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -15,4 +16,3 @@ public class ExceptionBody {
     this.message = message;
   }
 }
-*/

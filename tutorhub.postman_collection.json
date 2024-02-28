@@ -1,525 +1,525 @@
 {
-	"info": {
-		"_postman_id": "5c9a3520-02fd-4284-a73c-312edf74c7e3",
-		"name": "tutorhub",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "AUTH",
-			"item": [
-				{
-					"name": "Register",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"fullname\":\"Anastasia\",\r\n    \"username\":\"artemie.fliostor@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/auth/register",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"auth",
-								"register"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Reset",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"token\":\"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcnRlbWllLmZsaW9zdG9yQGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwODYxMjUwNDMyOCwic3ViamVjdCI6ImFydGVtaWUuZmxpb3N0b3JAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDg1MTI1MDQzMjgsInR5cGUiOiJSRVNUT1JFIiwiaWF0IjoxNzA4NTEyNTA0LCJleHAiOjE3MDg2MTI1MDR9.VwTLnfgph4x70TOw7CtLW0Mwt1RcvDgTZoA4MZgUwvCUfQatK6OiToCG_r2lkjduyGXSR3ux__7dG3--kB0KHQ\",\r\n    \"password\":\"123456\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/auth/reset",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"auth",
-								"reset"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Restore",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\":\"artemie.fliostor@gmail.com\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/auth/restore",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"auth",
-								"restore"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Login",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\":\"artemie.fliostor@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/auth/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "USER",
-			"item": [
-				{
-					"name": "Get all",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/users?page=0&size=30&sortBy=id",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"users"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "sortBy",
-									"value": "id"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get one",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "id",
-								"value": "65ad27683a81021f4b1d1e03",
-								"type": "default"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/users/:id",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"users",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "2"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n            \"id\": \"1\",\r\n            \"fullname\": \"qwerty\",\r\n            \"username\": \"qwerty@gmail.com\"\r\n        }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/users/:id",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"users",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "COURSE",
-			"item": [
-				{
-					"name": "Get one",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "id",
-								"value": "1",
-								"type": "default",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/courses/:id",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"courses",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get by user id",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/courses/user/:userId",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"courses",
-								"user",
-								":userId"
-							],
-							"variable": [
-								{
-									"key": "userId",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcnRlbWllLmZsaW9zdG9yQGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwODYxODQ5Mzg0NCwic3ViamVjdCI6ImFydGVtaWUuZmxpb3N0b3JAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDg1MTg0OTM4NDQsInR5cGUiOiJBQ0NFU1MiLCJpYXQiOjE3MDg1MTg0OTMsImV4cCI6MTcwODYxODQ5M30.SD8BsZtTK66sVTa6Px3M3WGrL8cLDnqp-IhwAkOZcxWWI4O4iBrVAA8G1S0bNaghZQJprTU96C0sKWi5BT7u8g",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Another course\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/courses",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"courses"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmFzdGFzaWEuZmxpb3N0b3JAZ21haWwuY29tIiwiZXhwaXJlZEF0IjoxNzA4NjEzOTkwNzY1LCJzdWJqZWN0IjoiYW5hc3Rhc2lhLmZsaW9zdG9yQGdtYWlsLmNvbSIsImlzc3VlZEF0IjoxNzA4NTEzOTkwNzY1LCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzA4NTEzOTkwLCJleHAiOjE3MDg2MTM5OTB9.cAGDCOxykKlED-zXqxLjEZf6oi3s9DgX6PQqCJ0Vq80rl0G5HVUQvYHeTjKMAJPXWijM0biY1bFvcNNW4HS90w",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [
-							{
-								"key": "USER_ID",
-								"value": "1",
-								"type": "default",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\":2,\r\n    \"name\":\"Course after update\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/courses",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"courses"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcnRlbWllLmZsaW9zdG9yQGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwODYxNDI1MjAxMCwic3ViamVjdCI6ImFydGVtaWUuZmxpb3N0b3JAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDg1MTQyNTIwMTAsInR5cGUiOiJBQ0NFU1MiLCJpYXQiOjE3MDg1MTQyNTIsImV4cCI6MTcwODYxNDI1Mn0.8Rnpgurwscv-_Km6ewP6pnEJd0Vhj6vV4Qwygk3wUOD11nIJm2NAioCgN40d5uw8xMRoPPS5bJJ1bjxUWgZiCw",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/courses/:id",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"courses",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Assign to user",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "USER_ID",
-								"value": "1",
-								"type": "default"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/courses/:id",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"courses",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "2"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		}
-	]
+  "info": {
+    "_postman_id": "5c9a3520-02fd-4284-a73c-312edf74c7e3",
+    "name": "tutorhub",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "AUTH",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"fullname\":\"Anastasia\",\r\n    \"username\":\"artemie.fliostor@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reset",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"token\":\"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcnRlbWllLmZsaW9zdG9yQGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwODYxMjUwNDMyOCwic3ViamVjdCI6ImFydGVtaWUuZmxpb3N0b3JAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDg1MTI1MDQzMjgsInR5cGUiOiJSRVNUT1JFIiwiaWF0IjoxNzA4NTEyNTA0LCJleHAiOjE3MDg2MTI1MDR9.VwTLnfgph4x70TOw7CtLW0Mwt1RcvDgTZoA4MZgUwvCUfQatK6OiToCG_r2lkjduyGXSR3ux__7dG3--kB0KHQ\",\r\n    \"password\":\"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/reset",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "reset"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Restore",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\":\"artemie.fliostor@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/restore",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "restore"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\":\"artemie.fliostor@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "USER",
+      "item": [
+        {
+          "name": "Get all",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/users?page=0&size=30&sortBy=id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "30"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "id"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get one",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "id",
+                "value": "65ad27683a81021f4b1d1e03",
+                "type": "default"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/users/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "users",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n            \"id\": \"1\",\r\n            \"fullname\": \"qwerty\",\r\n            \"username\": \"qwerty@gmail.com\"\r\n        }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/users/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "users",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "COURSE",
+      "item": [
+        {
+          "name": "Get one",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "id",
+                "value": "1",
+                "type": "default",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/courses/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "courses",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get by user id",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/courses/user/:userId",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "courses",
+                "user",
+                ":userId"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcnRlbWllLmZsaW9zdG9yQGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwODYxODQ5Mzg0NCwic3ViamVjdCI6ImFydGVtaWUuZmxpb3N0b3JAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDg1MTg0OTM4NDQsInR5cGUiOiJBQ0NFU1MiLCJpYXQiOjE3MDg1MTg0OTMsImV4cCI6MTcwODYxODQ5M30.SD8BsZtTK66sVTa6Px3M3WGrL8cLDnqp-IhwAkOZcxWWI4O4iBrVAA8G1S0bNaghZQJprTU96C0sKWi5BT7u8g",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Another course\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/courses",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "courses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmFzdGFzaWEuZmxpb3N0b3JAZ21haWwuY29tIiwiZXhwaXJlZEF0IjoxNzA4NjEzOTkwNzY1LCJzdWJqZWN0IjoiYW5hc3Rhc2lhLmZsaW9zdG9yQGdtYWlsLmNvbSIsImlzc3VlZEF0IjoxNzA4NTEzOTkwNzY1LCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzA4NTEzOTkwLCJleHAiOjE3MDg2MTM5OTB9.cAGDCOxykKlED-zXqxLjEZf6oi3s9DgX6PQqCJ0Vq80rl0G5HVUQvYHeTjKMAJPXWijM0biY1bFvcNNW4HS90w",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "USER_ID",
+                "value": "1",
+                "type": "default",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\":2,\r\n    \"name\":\"Course after update\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/courses",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "courses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcnRlbWllLmZsaW9zdG9yQGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwODYxNDI1MjAxMCwic3ViamVjdCI6ImFydGVtaWUuZmxpb3N0b3JAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDg1MTQyNTIwMTAsInR5cGUiOiJBQ0NFU1MiLCJpYXQiOjE3MDg1MTQyNTIsImV4cCI6MTcwODYxNDI1Mn0.8Rnpgurwscv-_Km6ewP6pnEJd0Vhj6vV4Qwygk3wUOD11nIJm2NAioCgN40d5uw8xMRoPPS5bJJ1bjxUWgZiCw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/courses/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "courses",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Assign to user",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "USER_ID",
+                "value": "1",
+                "type": "default"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/courses/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "courses",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
 }

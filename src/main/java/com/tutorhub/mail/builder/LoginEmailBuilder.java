@@ -3,11 +3,12 @@ package com.tutorhub.mail.builder;
 import com.tutorhub.mail.model.MailBody;
 import com.tutorhub.mail.model.MailInfo;
 import com.tutorhub.mail.model.MailInfoLogin;
-import java.util.HashMap;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class LoginEmailBuilder implements EmailBuilder {
 
   @Override
   @SneakyThrows
-  public MailBody build(MailInfo mailInfo) {
+  public MailBody build(final MailInfo mailInfo) {
     MailInfoLogin mailInfoLogin = (MailInfoLogin) mailInfo;
     Map<String, String> dataModel = new HashMap<>();
     dataModel.put("recipientName", mailInfoLogin.getRecipientName());

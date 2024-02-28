@@ -1,3 +1,4 @@
 package com.tutorhub.web.dto;
 
-public interface OnUpdate {}
+public interface OnUpdate {
+}

@@ -1,31 +1,30 @@
 package com.tutorhub.service.impl;
 
+import com.tutorhub.exception.ResourceAlreadyExistsException;
+import com.tutorhub.exception.ResourceNotFoundException;
 import com.tutorhub.mail.MailService;
 import com.tutorhub.mail.model.MailInfoActivation;
 import com.tutorhub.mail.model.MailInfoLogin;
 import com.tutorhub.mail.model.MailInfoRestore;
 import com.tutorhub.model.user.Role;
 import com.tutorhub.model.user.User;
-import com.tutorhub.exception.ResourceAlreadyExistsException;
-// import com.tutorhub.model.exception.ResourceNotFoundException;
-import com.tutorhub.exception.ResourceNotFoundException;
-import com.tutorhub.security.jwt.*;
-import com.tutorhub.service.AuthService;
-import com.tutorhub.service.UserService;
-// import com.tutorhub.web.security.jwt.AuthRequest;
-// import com.tutorhub.web.security.jwt.AuthResponse;
-// import com.tutorhub.web.security.jwt.ResetRequest;
-// import com.tutorhub.web.security.jwt.RestoreRequest;
-// import com.tutorhub.web.security.jwt.exception.InvalidTokenException;
+import com.tutorhub.security.jwt.AuthRequest;
+import com.tutorhub.security.jwt.AuthResponse;
+import com.tutorhub.security.jwt.ResetRequest;
+import com.tutorhub.security.jwt.RestoreRequest;
+import com.tutorhub.security.jwt.TokenType;
 import com.tutorhub.security.jwt.exception.InvalidTokenException;
 import com.tutorhub.security.jwt.service.JwtService;
-import java.util.Map;
+import com.tutorhub.service.AuthService;
+import com.tutorhub.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -49,27 +48,35 @@ public class AuthServiceImpl implements AuthService {
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     userService.create(user);
 
-    String activationToken = jwtService.generate(user.getUsername(), TokenType.ACTIVATION);
+    String activationToken =
+        jwtService.generate(user.getUsername(), TokenType.ACTIVATION);
 
     mailService.send(
-        new MailInfoActivation(user.getFullname(), user.getUsername(), activationToken));
+        new MailInfoActivation(
+            user.getFullname(),
+            user.getUsername(),
+            activationToken));
   }
 
   @Override
   public AuthResponse login(final AuthRequest request) {
     authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+        new UsernamePasswordAuthenticationToken(
+            request.getUsername(), request.getPassword()));
     User userOnDb = userService.getByUsername(request.getUsername());
 
-    String accessToken = jwtService.generate(request.getUsername(), TokenType.ACCESS);
-    String restoreToken = jwtService.generate(request.getUsername(), TokenType.RESTORE);
+    String accessToken =
+        jwtService.generate(request.getUsername(), TokenType.ACCESS);
+    String restoreToken =
+        jwtService.generate(request.getUsername(), TokenType.RESTORE);
 
     AuthResponse response = new AuthResponse();
     response.setAccess(accessToken);
     response.setRefresh(restoreToken);
     response.setUserId(userOnDb.getId());
 
-    mailService.send(new MailInfoLogin(userOnDb.getFullname(), userOnDb.getUsername()));
+    mailService.send(
+        new MailInfoLogin(userOnDb.getFullname(), userOnDb.getUsername()));
 
     return response;
   }
@@ -81,9 +88,12 @@ public class AuthServiceImpl implements AuthService {
       throw new ResourceNotFoundException();
     }
 
-    String restoreToken = jwtService.generate(user.getUsername(), TokenType.RESTORE);
+    String restoreToken =
+        jwtService.generate(user.getUsername(), TokenType.RESTORE);
 
-    mailService.send(new MailInfoRestore(user.getFullname(), request.getUsername(), restoreToken));
+    mailService.send(
+        new MailInfoRestore(
+            user.getFullname(), request.getUsername(), restoreToken));
   }
 
   @Override

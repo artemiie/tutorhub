@@ -19,7 +19,7 @@ public class ModuleServiceImpl implements ModuleService {
   private final CourseService courseService;
 
   @Override
-  public Module find(Long courseId, Long moduleId) {
+  public Module find(final Long courseId, final Long moduleId) {
     return moduleRepository
         .findByCourseIdAndId(courseId, moduleId)
         .orElseThrow(
@@ -30,19 +30,19 @@ public class ModuleServiceImpl implements ModuleService {
   }
 
   @Override
-  public Page<Module> findAllPaged(Long courseId, Pageable page) {
+  public Page<Module> findAllPaged(final Long courseId, final Pageable page) {
     return moduleRepository.findAllByCourseId(courseId, page);
   }
 
   @Override
-  public Module create(Long courseId, final Module entity) {
+  public Module create(final Long courseId, final Module entity) {
     Course course = courseService.getById(courseId);
     entity.setCourse(course);
     return moduleRepository.save(entity);
   }
 
   @Override
-  public Module update(Long courseId, final Module entity) {
+  public Module update(final Long courseId, final Module entity) {
     Module existingModule = find(courseId, entity.getId());
     existingModule.setName(entity.getName());
     return moduleRepository.save(existingModule);
@@ -50,7 +50,7 @@ public class ModuleServiceImpl implements ModuleService {
 
   @Override
   @Transactional
-  public void delete(Long courseId, Long moduleId) {
+  public void delete(final Long courseId, final Long moduleId) {
     moduleRepository.deleteByCourseIdAndModuleId(courseId, moduleId);
   }
 }

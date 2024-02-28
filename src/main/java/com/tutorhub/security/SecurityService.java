@@ -13,7 +13,8 @@ public class SecurityService {
   private final UserService userService;
 
   public User getCurrentLoggedUser() {
-    Authentication currentLoggedUser = SecurityContextHolder.getContext().getAuthentication();
+    Authentication currentLoggedUser =
+        SecurityContextHolder.getContext().getAuthentication();
     return userService.getByUsername(currentLoggedUser.getName());
   }
 }

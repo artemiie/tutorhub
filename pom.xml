@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
@@ -108,20 +108,20 @@
             <version>${jakarta-validation.version}</version>
         </dependency>
 
-       <dependency>
+        <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
             <version>${jjwt.version}</version>
         </dependency>
 
-     <dependency>
+        <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
             <version>${jjwt.version}</version>
             <scope>runtime</scope>
         </dependency>
 
-     <dependency>
+        <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
             <version>${jjwt.version}</version>
@@ -167,56 +167,36 @@
                 </configuration>
             </plugin>
 
-            <!--            <plugin>-->
-            <!--                <groupId>org.apache.maven.plugins</groupId>-->
-            <!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
-            <!--                <version>${checkstyle.version}</version>-->
-            <!--                <configuration>-->
-            <!--                    <configLocation>${checkstyle.path}custom_sun_checks.xml-->
-            <!--                    </configLocation>-->
-            <!--                    <consoleOutput>true</consoleOutput>-->
-            <!--                    <failsOnError>true</failsOnError>-->
-            <!--                    <linkXRef>false</linkXRef>-->
-            <!--                </configuration>-->
-            <!--                <executions>-->
-            <!--                    <execution>-->
-            <!--                        <id>validate</id>-->
-            <!--                        <phase>validate</phase>-->
-            <!--                        <goals>-->
-            <!--                            <goal>check</goal>-->
-            <!--                        </goals>-->
-            <!--                        <configuration>-->
-            <!--                            <suppressionsFileExpression>-->
-            <!--                                checkstyle.suppressions.file-->
-            <!--                            </suppressionsFileExpression>-->
-            <!--                            <suppressionsLocation>-->
-            <!--                                ${checkstyle.path}checkstyle-suppressions.xml-->
-            <!--                            </suppressionsLocation>-->
-            <!--                        </configuration>-->
-            <!--                    </execution>-->
-            <!--                </executions>-->
-            <!--            </plugin>-->
-
             <plugin>
-                <groupId>com.coveo</groupId>
-                <artifactId>fmt-maven-plugin</artifactId>
-                <version>2.9</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstyle.version}</version>
                 <configuration>
-                    <sourceDirectory>src/main/java</sourceDirectory>
-                    <verbose>false</verbose>
-                    <filesNamePattern>.*\.java</filesNamePattern>
-                    <skip>false</skip>
-                    <skipSortingImports>false</skipSortingImports>
-                    <style>google</style>
+                    <configLocation>${checkstyle.path}custom_sun_checks.xml
+                    </configLocation>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <linkXRef>false</linkXRef>
                 </configuration>
                 <executions>
                     <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
                         <goals>
-                            <goal>format</goal>
+                            <goal>check</goal>
                         </goals>
+                        <configuration>
+                            <suppressionsFileExpression>
+                                checkstyle.suppressions.file
+                            </suppressionsFileExpression>
+                            <suppressionsLocation>
+                                ${checkstyle.path}checkstyle-suppressions.xml
+                            </suppressionsLocation>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
+
 
         </plugins>
     </build>

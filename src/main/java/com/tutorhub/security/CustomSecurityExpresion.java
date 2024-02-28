@@ -12,7 +12,8 @@ public class CustomSecurityExpresion {
   private final UserService userService;
 
   public boolean canAccessCourse(final String courseId) {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    Authentication authentication =
+        SecurityContextHolder.getContext().getAuthentication();
     SecurityUser user = (SecurityUser) authentication.getPrincipal();
     Long userId = user.getId();
     return userService.isCourseOwner(userId, Long.valueOf(courseId));

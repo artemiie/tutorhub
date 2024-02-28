@@ -1,16 +1,24 @@
 package com.tutorhub.s3.client.service;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.*;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
+import com.amazonaws.services.s3.model.CompleteMultipartUploadRequest;
+import com.amazonaws.services.s3.model.InitiateMultipartUploadRequest;
+import com.amazonaws.services.s3.model.InitiateMultipartUploadResult;
+import com.amazonaws.services.s3.model.PartETag;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.UploadPartRequest;
+import com.amazonaws.services.s3.model.UploadPartResult;
 import com.amazonaws.util.IOUtils;
 import com.tutorhub.exception.ResourceNotFoundException;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.springframework.stereotype.Service;
+
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
@@ -19,13 +27,15 @@ public class AwsS3Service {
   private final AmazonS3 s3;
 
   @SneakyThrows
-  public Object find(String fileName) {
+  public Object find(final String fileName) {
     S3Object s3Object;
 
     try {
       s3Object = s3.getObject(bucket, fileName);
     } catch (AmazonS3Exception s3Exception) {
-      throw new ResourceNotFoundException("File %s not found".formatted(fileName));
+      throw
+          new ResourceNotFoundException(
+              "File %s not found".formatted(fileName));
     }
 
     InputStream content = s3Object.getObjectContent();
@@ -33,11 +43,11 @@ public class AwsS3Service {
     return IOUtils.toByteArray(content);
   }
 
-  public boolean exists(String filename) {
+  public boolean exists(final String filename) {
     return s3.doesObjectExist(bucket, filename);
   }
 
-  public void upload(String fileName, File file) {
+  public void upload(final String fileName, final File file) {
 
     long maxPartSize = 5 * 1024 * 1024; // 5 MB
     long fileLength = file.length();
@@ -49,14 +59,16 @@ public class AwsS3Service {
       InitiateMultipartUploadRequest initRequest =
           new InitiateMultipartUploadRequest(bucket, fileName);
 
-      InitiateMultipartUploadResult initResponse = s3.initiateMultipartUpload(initRequest);
+      InitiateMultipartUploadResult initResponse =
+          s3.initiateMultipartUpload(initRequest);
 
       long uploadedPartsLength = 0;
       List<PartETag> partETags = new ArrayList<>();
 
       for (int partNumber = 1; uploadedPartsLength < fileLength; partNumber++) {
 
-        long partSize = Math.min(maxPartSize, (fileLength - uploadedPartsLength));
+        long partSize =
+            Math.min(maxPartSize, (fileLength - uploadedPartsLength));
 
         UploadPartRequest uploadRequest =
             new UploadPartRequest()

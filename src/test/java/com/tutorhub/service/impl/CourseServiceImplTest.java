@@ -1,10 +1,5 @@
 package com.tutorhub.service.impl;
 
-import static com.tutorhub.testfactory.CourseTestFactory.getCourseTest;
-import static com.tutorhub.testfactory.UserTestFactory.getUserTest;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 import com.tutorhub.exception.ResourceNotFoundException;
 import com.tutorhub.model.course.Course;
 import com.tutorhub.model.course.CourseInfo;
@@ -12,8 +7,6 @@ import com.tutorhub.repository.CourseRepository;
 import com.tutorhub.service.CourseInfoService;
 import com.tutorhub.service.ProgressService;
 import com.tutorhub.service.UserService;
-import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,14 +16,27 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import java.util.List;
+import java.util.Optional;
+
+import static com.tutorhub.testfactory.CourseTestFactory.getCourseTest;
+import static com.tutorhub.testfactory.UserTestFactory.getUserTest;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
 class CourseServiceImplTest {
   private static final Long COURSE_ID = 1L;
-  @Mock private CourseRepository courseRepository;
-  @Mock private UserService userService;
-  @Mock private CourseInfoService courseInfoService;
-  @Mock private ProgressService progressService;
-  @InjectMocks private CourseServiceImpl courseService;
+  @Mock
+  private CourseRepository courseRepository;
+  @Mock
+  private UserService userService;
+  @Mock
+  private CourseInfoService courseInfoService;
+  @Mock
+  private ProgressService progressService;
+  @InjectMocks
+  private CourseServiceImpl courseService;
 
   @Test
   void getById() {
@@ -77,11 +83,11 @@ class CourseServiceImplTest {
     var expectedResult = getCourseTest(null);
 
     doAnswer(
-            invocationOnMock -> {
-              Course course = invocationOnMock.getArgument(0);
-              course.setId(COURSE_ID);
-              return course;
-            })
+        invocationOnMock -> {
+          Course course = invocationOnMock.getArgument(0);
+          course.setId(COURSE_ID);
+          return course;
+        })
         .when(courseRepository)
         .save(expectedResult);
 

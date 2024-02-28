@@ -8,7 +8,9 @@ import lombok.Setter;
 public class MailInfoActivation extends MailInfo {
   private String activationToken;
 
-  public MailInfoActivation(String recipientName, String recipientEmail, String activationToken) {
+  public MailInfoActivation(final String recipientName,
+                            final String recipientEmail,
+                            final String activationToken) {
     this.mailType = MailType.ACTIVATION;
 
     this.recipientName = recipientName;

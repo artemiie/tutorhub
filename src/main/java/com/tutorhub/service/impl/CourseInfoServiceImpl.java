@@ -14,30 +14,31 @@ public class CourseInfoServiceImpl implements CourseInfoService {
   private final CourseInfoRepository courseInfoRepository;
 
   @Override
-  public CourseInfo getById(Long id) {
+  public CourseInfo getById(final Long id) {
     return null;
   }
 
   @Override
-  public Page<CourseInfo> getAll(Pageable page) {
+  public Page<CourseInfo> getAll(final Pageable page) {
     return null;
   }
 
   @Override
-  public CourseInfo create(CourseInfo entity) {
+  public CourseInfo create(final CourseInfo entity) {
     return courseInfoRepository.save(entity);
   }
 
   @Override
-  public CourseInfo update(CourseInfo entity) {
+  public CourseInfo update(final CourseInfo entity) {
     return null;
   }
 
   @Override
-  public boolean existsById(Long id) {
+  public boolean existsById(final Long id) {
     return false;
   }
 
   @Override
-  public void delete(Long id) {}
+  public void delete(final Long id) {
+  }
 }

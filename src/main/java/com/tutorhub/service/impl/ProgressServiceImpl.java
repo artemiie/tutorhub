@@ -14,30 +14,31 @@ public class ProgressServiceImpl implements ProgressService {
   public final ProgressRepository progressRepository;
 
   @Override
-  public Progress getById(Long id) {
+  public Progress getById(final Long id) {
     return null;
   }
 
   @Override
-  public Page<Progress> getAll(Pageable page) {
+  public Page<Progress> getAll(final Pageable page) {
     return null;
   }
 
   @Override
-  public Progress create(Progress entity) {
+  public Progress create(final Progress entity) {
     return progressRepository.save(entity);
   }
 
   @Override
-  public Progress update(Progress entity) {
+  public Progress update(final Progress entity) {
     return null;
   }
 
   @Override
-  public boolean existsById(Long id) {
+  public boolean existsById(final Long id) {
     return false;
   }
 
   @Override
-  public void delete(Long id) {}
+  public void delete(final Long id) {
+  }
 }

@@ -9,7 +9,7 @@ public enum ContentType {
   VIDEO(List.of("video/mp4", "video/quicktime"));
   public final List<String> extensions;
 
-  ContentType(List<String> extensions) {
+  ContentType(final List<String> extensions) {
     this.extensions = extensions;
   }
 

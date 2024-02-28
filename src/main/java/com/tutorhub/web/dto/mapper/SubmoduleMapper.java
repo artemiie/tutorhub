@@ -5,4 +5,5 @@ import com.tutorhub.web.dto.SubmoduleDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface SubmoduleMapper extends Mappable<Submodule, SubmoduleDTO> {}
+public interface SubmoduleMapper extends Mappable<Submodule, SubmoduleDTO> {
+}

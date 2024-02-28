@@ -1,6 +1,7 @@
 package com.tutorhub.security.jwt.service;
 
 import com.tutorhub.security.jwt.TokenType;
+
 import java.util.HashMap;
 
 public interface JwtService {
