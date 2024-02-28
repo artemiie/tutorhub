@@ -1,5 +1,6 @@
 package com.tutorhub.service.impl;
 
+import com.tutorhub.exception.ResourceNotFoundException;
 import com.tutorhub.model.course.Module;
 import com.tutorhub.model.course.Submodule;
 import com.tutorhub.repository.SubmoduleRepository;
@@ -13,6 +14,18 @@ import org.springframework.stereotype.Service;
 public class SubmoduleServiceImpl implements SubmoduleService {
   private final SubmoduleRepository submoduleRepository;
   private final ModuleService moduleService;
+
+  @Override
+  public Submodule find(Long courseId, Long moduleId, Long submoduleId) {
+    return submoduleRepository
+        .findByCourseIdAndModuleIdAndSubmoduleId(courseId, moduleId, submoduleId)
+        .orElseThrow(
+            () ->
+                new ResourceNotFoundException(
+                    ("Submodule with id = %s not found on Module with id = %s and"
+                        + " on Course with id %s")
+                        .formatted(submoduleId, moduleId, courseId)));
+  }
 
   @Override
   public Submodule create(Long courseId, Long moduleId, Submodule submodule) {
