@@ -11,4 +11,6 @@ public interface SubmoduleService {
   Submodule create(Long courseId, Long moduleId, Submodule submodule);
 
   Page<Submodule> findAllPaged(Long courseId, Long moduleId, Pageable page);
+
+  Submodule update(Long courseId, Long moduleId, Submodule updatedModule);
 }

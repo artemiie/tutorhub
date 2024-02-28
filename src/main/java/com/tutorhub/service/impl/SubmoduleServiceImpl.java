@@ -48,4 +48,13 @@ public class SubmoduleServiceImpl implements SubmoduleService {
     submodule.setModule(module);
     return submoduleRepository.save(submodule);
   }
+
+  @Override
+  public Submodule update(final Long courseId,
+                          final Long moduleId,
+                          final Submodule entity) {
+    Submodule existingModule = find(courseId, moduleId, entity.getId());
+    existingModule.setName(entity.getName());
+    return submoduleRepository.save(existingModule);
+  }
 }
