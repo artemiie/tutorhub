@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -73,5 +74,13 @@ public class SubmoduleController {
     Submodule savedSubmodule = submoduleService.update(
         courseId, moduleId, updatedSubmodule);
     return submoduleMapper.toDto(savedSubmodule);
+  }
+
+  @DeleteMapping("/{submoduleId}")
+  @PreAuthorize("@customSecurityExpresion.canAccessCourse(#courseId)")
+  public void delete(@PathVariable final Long courseId,
+                     @PathVariable final Long moduleId,
+                     @PathVariable final Long submoduleId) {
+    submoduleService.delete(courseId, moduleId, submoduleId);
   }
 }

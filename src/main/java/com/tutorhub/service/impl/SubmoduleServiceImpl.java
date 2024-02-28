@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -56,5 +57,15 @@ public class SubmoduleServiceImpl implements SubmoduleService {
     Submodule existingModule = find(courseId, moduleId, entity.getId());
     existingModule.setName(entity.getName());
     return submoduleRepository.save(existingModule);
+  }
+
+  @Override
+  @Transactional
+  public void delete(final Long courseId,
+                     final Long moduleId,
+                     final Long submoduleId) {
+    submoduleRepository.
+        deleteByModule_Course_IdAndModule_IdAndId(
+            courseId, moduleId, submoduleId);
   }
 }

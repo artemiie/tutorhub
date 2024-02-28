@@ -13,4 +13,6 @@ public interface SubmoduleService {
   Page<Submodule> findAllPaged(Long courseId, Long moduleId, Pageable page);
 
   Submodule update(Long courseId, Long moduleId, Submodule updatedModule);
+
+  void delete(Long courseId, Long moduleId, Long submoduleId);
 }

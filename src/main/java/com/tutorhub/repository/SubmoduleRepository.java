@@ -14,4 +14,8 @@ public interface SubmoduleRepository extends JpaRepository<Submodule, Long> {
 
   Page<Submodule> findByModule_Course_IdAndModule_Id(
       Long courseId, Long moduleId, Pageable page);
+
+  void deleteByModule_Course_IdAndModule_IdAndId(Long courseId,
+                                                 Long moduleId,
+                                                 Long submoduleId);
 }
