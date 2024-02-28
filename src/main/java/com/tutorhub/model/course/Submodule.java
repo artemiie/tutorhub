@@ -19,4 +19,8 @@ public class Submodule {
   @ManyToOne
   @JoinColumn(name = "module_id")
   private Module module;
+
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "content_id")
+  private Content content;
 }
