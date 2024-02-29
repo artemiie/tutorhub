@@ -8,6 +8,9 @@ import jakarta.validation.constraints.Null;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 public class CourseDTO {
@@ -23,6 +26,6 @@ public class CourseDTO {
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private UserDTO courseOwner;
 
-  /*@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  private List<ModuleDTO> modules;*/
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private List<ModuleDTO> modules = new ArrayList<>();
 }
