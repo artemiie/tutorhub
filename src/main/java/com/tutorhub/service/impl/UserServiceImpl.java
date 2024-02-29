@@ -69,9 +69,8 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void enable(final String username) {
-    User user = getByUsername(username);
-    user.setEnabled(true);
-    update(user);
+    findByUsername(username);
+    userRepository.enable(username);
   }
 
   @Override

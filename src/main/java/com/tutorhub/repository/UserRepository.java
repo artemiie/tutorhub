@@ -4,6 +4,7 @@ import com.tutorhub.model.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -31,4 +32,15 @@ public interface UserRepository extends JpaRepository<User, Long> {
               """,
       nativeQuery = true)
   boolean isCourseOwner(Long userId, Long courseId);
+
+  @Query(
+      value =
+          """
+              UPDATE users
+              SET enabled = true
+              WHERE username = :username
+              """,
+      nativeQuery = true)
+  @Modifying
+  void enable(String username);
 }
