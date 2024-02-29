@@ -63,15 +63,12 @@ public class CourseServiceImpl implements CourseService {
 
   @Override
   public void assignUser(final Long userId, final Long courseId) {
-
     Course course = find(courseId);
     User user = userService.find(userId);
-    // Progress progress = progressService.create(new Progress());
 
     CourseInfo courseInfo = new CourseInfo();
     courseInfo.setCourse(course);
     courseInfo.setUser(user);
-    // courseInfo.setProgress(progress);
 
     courseInfoService.create(courseInfo);
   }

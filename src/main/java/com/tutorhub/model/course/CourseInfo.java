@@ -31,8 +31,4 @@ public class CourseInfo {
   @OneToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "course_id")
   private Course course;
-
-  @OneToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "progress_id")
-  private Progress progress;
 }
