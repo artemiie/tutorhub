@@ -15,7 +15,7 @@ public class SecurityUserService implements UserDetailsService {
 
   @Override
   public SecurityUser loadUserByUsername(final String username) {
-    User user = userService.getByUsername(username);
+    User user = userService.findByUsername(username);
     return new SecurityUser(user);
   }
 }

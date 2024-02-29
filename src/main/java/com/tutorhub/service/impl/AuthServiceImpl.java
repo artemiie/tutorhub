@@ -63,7 +63,7 @@ public class AuthServiceImpl implements AuthService {
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
             request.getUsername(), request.getPassword()));
-    User userOnDb = userService.getByUsername(request.getUsername());
+    User userOnDb = userService.findByUsername(request.getUsername());
 
     String accessToken =
         jwtService.generate(request.getUsername(), TokenType.ACCESS);
@@ -83,7 +83,7 @@ public class AuthServiceImpl implements AuthService {
 
   @Override
   public void restore(final RestoreRequest request) {
-    User user = userService.getByUsername(request.getUsername());
+    User user = userService.findByUsername(request.getUsername());
     if (user == null) {
       throw new ResourceNotFoundException();
     }
@@ -102,7 +102,7 @@ public class AuthServiceImpl implements AuthService {
       throw new InvalidTokenException();
     }
     Map<String, Object> fields = jwtService.fields(request.getToken());
-    User user = userService.getByUsername((String) fields.get("subject"));
+    User user = userService.findByUsername((String) fields.get("subject"));
     user.setPassword(passwordEncoder.encode(request.getPassword()));
     // userService.update(user);
   }

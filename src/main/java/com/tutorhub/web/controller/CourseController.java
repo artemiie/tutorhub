@@ -37,7 +37,7 @@ public class CourseController {
 
   @GetMapping("/{id}")
   public CourseDTO find(@PathVariable final Long id) {
-    Course courseEntity = courseService.getById(id);
+    Course courseEntity = courseService.find(id);
     return courseMapper.toDto(courseEntity);
   }
 
@@ -47,9 +47,18 @@ public class CourseController {
       @RequestParam(name = "size") final int pageSize,
       @RequestParam final String sortBy) {
     Page<Course> courses =
-        courseService.getAll(
+        courseService.findAll(
             PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)));
     return courses.map(courseMapper::toDto);
+  }
+
+  @GetMapping()
+  public List<CourseDTO> findByUser(@RequestParam final Long userId) {
+    List<Course> courseList = courseService.findByUserId(userId);
+    return courseList
+        .stream()
+        .map(courseMapper::toDto)
+        .collect(Collectors.toList());
   }
 
   @PostMapping
@@ -66,7 +75,7 @@ public class CourseController {
   }
 
   @PutMapping
-  @PreAuthorize("@customSecurityExpresion.canAccessCourse(#courseDTO.id)")
+  @PreAuthorize("@customSecurityExpresion.isCourseOwner(#courseDTO.id)")
   public CourseDTO update(@Validated @RequestBody final CourseDTO courseDTO) {
     Course entity = courseMapper.fromDto(courseDTO);
     Course updated = courseService.update(entity);
@@ -74,7 +83,7 @@ public class CourseController {
   }
 
   @DeleteMapping("/{id}")
-  @PreAuthorize("@customSecurityExpresion.canAccessCourse(#id)")
+  @PreAuthorize("@customSecurityExpresion.isCourseOwner(#id)")
   public void delete(@PathVariable final Long id) {
     courseService.delete(id);
   }
@@ -83,14 +92,5 @@ public class CourseController {
   public void assignUser(@RequestHeader("USER_ID") final Long userId,
                          @PathVariable final Long id) {
     courseService.assignUser(userId, id);
-  }
-
-  @GetMapping("/user/{userId}")
-  public List<CourseDTO> findAllPaged(@PathVariable final Long userId) {
-    List<Course> courseList = courseService.findByUserId(userId);
-    return courseList
-        .stream()
-        .map(courseMapper::toDto)
-        .collect(Collectors.toList());
   }
 }

@@ -28,7 +28,7 @@ public class UserController {
 
   @GetMapping("/{id}")
   public UserDTO getById(@PathVariable final Long id) {
-    User studentEntity = userService.getById(id);
+    User studentEntity = userService.find(id);
     return userMapper.toDto(studentEntity);
   }
 
@@ -38,7 +38,7 @@ public class UserController {
       @RequestParam(name = "size") final int pageSize,
       @RequestParam final String sortBy) {
     Page<User> usersPage =
-        userService.getAll(
+        userService.findAll(
             PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)));
     return usersPage.map(userMapper::toDto);
   }

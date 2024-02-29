@@ -14,12 +14,12 @@ public class ProgressServiceImpl implements ProgressService {
   public final ProgressRepository progressRepository;
 
   @Override
-  public Progress getById(final Long id) {
+  public Progress find(final Long id) {
     return null;
   }
 
   @Override
-  public Page<Progress> getAll(final Pageable page) {
+  public Page<Progress> findAll(final Pageable page) {
     return null;
   }
 

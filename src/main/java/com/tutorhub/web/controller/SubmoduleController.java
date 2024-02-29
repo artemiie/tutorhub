@@ -54,7 +54,7 @@ public class SubmoduleController {
   }
 
   @PostMapping
-  @PreAuthorize("@customSecurityExpresion.canAccessCourse(#courseId)")
+  @PreAuthorize("@customSecurityExpresion.isCourseOwner(#courseId)")
   public SubmoduleDTO create(
       @PathVariable final Long courseId,
       @PathVariable final Long moduleId,
@@ -66,7 +66,7 @@ public class SubmoduleController {
   }
 
   @PutMapping()
-  @PreAuthorize("@customSecurityExpresion.canAccessCourse(#courseId)")
+  @PreAuthorize("@customSecurityExpresion.isCourseOwner(#courseId)")
   public SubmoduleDTO update(@PathVariable final Long courseId,
                              @PathVariable final Long moduleId,
                              @RequestBody final SubmoduleDTO submoduleDTO) {
@@ -77,7 +77,7 @@ public class SubmoduleController {
   }
 
   @DeleteMapping("/{submoduleId}")
-  @PreAuthorize("@customSecurityExpresion.canAccessCourse(#courseId)")
+  @PreAuthorize("@customSecurityExpresion.isCourseOwner(#courseId)")
   public void delete(@PathVariable final Long courseId,
                      @PathVariable final Long moduleId,
                      @PathVariable final Long submoduleId) {

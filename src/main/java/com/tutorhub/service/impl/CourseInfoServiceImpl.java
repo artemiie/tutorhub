@@ -14,12 +14,12 @@ public class CourseInfoServiceImpl implements CourseInfoService {
   private final CourseInfoRepository courseInfoRepository;
 
   @Override
-  public CourseInfo getById(final Long id) {
+  public CourseInfo find(final Long id) {
     return null;
   }
 
   @Override
-  public Page<CourseInfo> getAll(final Pageable page) {
+  public Page<CourseInfo> findAll(final Pageable page) {
     return null;
   }
 
@@ -31,11 +31,6 @@ public class CourseInfoServiceImpl implements CourseInfoService {
   @Override
   public CourseInfo update(final CourseInfo entity) {
     return null;
-  }
-
-  @Override
-  public boolean existsById(final Long id) {
-    return false;
   }
 
   @Override

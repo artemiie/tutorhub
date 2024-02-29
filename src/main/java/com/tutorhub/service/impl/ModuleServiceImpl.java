@@ -36,7 +36,7 @@ public class ModuleServiceImpl implements ModuleService {
 
   @Override
   public Module create(final Long courseId, final Module entity) {
-    Course course = courseService.getById(courseId);
+    Course course = courseService.find(courseId);
     entity.setCourse(course);
     return moduleRepository.save(entity);
   }

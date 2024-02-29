@@ -44,7 +44,7 @@ class CourseServiceImplTest {
 
     doReturn(Optional.of(expectedResult)).when(courseRepository).findById(COURSE_ID);
 
-    var actualResult = courseService.getById(COURSE_ID);
+    var actualResult = courseService.find(COURSE_ID);
 
     assertEquals(expectedResult, actualResult);
 
@@ -55,7 +55,7 @@ class CourseServiceImplTest {
   void getById_withNotExistingId() {
     doReturn(Optional.empty()).when(courseRepository).findById(COURSE_ID);
 
-    assertThrows(ResourceNotFoundException.class, () -> courseService.getById(COURSE_ID));
+    assertThrows(ResourceNotFoundException.class, () -> courseService.find(COURSE_ID));
 
     verify(courseRepository).findById(COURSE_ID);
   }
@@ -68,7 +68,7 @@ class CourseServiceImplTest {
 
     doReturn(expectedResult).when(courseRepository).findAll(page);
 
-    var actualResult = courseService.getAll(page);
+    var actualResult = courseService.findAll(page);
 
     assertAll(
         () -> assertEquals(1, actualResult.get().toList().size()),
@@ -152,7 +152,7 @@ class CourseServiceImplTest {
 
     long userId = 1;
     var user = getUserTest(userId);
-    doReturn(user).when(userService).getById(userId);
+    doReturn(user).when(userService).find(userId);
 
     courseService.assignUser(userId, COURSE_ID);
 

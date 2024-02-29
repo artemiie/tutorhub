@@ -48,7 +48,7 @@ public class ModuleController {
   }
 
   @PostMapping
-  @PreAuthorize("@customSecurityExpresion.canAccessCourse(#courseId)")
+  @PreAuthorize("@customSecurityExpresion.isCourseOwner(#courseId)")
   public ModuleDTO create(
       @PathVariable final Long courseId,
       @RequestBody @Validated(OnCreate.class) final ModuleDTO moduleDTO) {
@@ -58,7 +58,7 @@ public class ModuleController {
   }
 
   @PutMapping()
-  @PreAuthorize("@customSecurityExpresion.canAccessCourse(#courseId)")
+  @PreAuthorize("@customSecurityExpresion.isCourseOwner(#courseId)")
   public ModuleDTO update(@PathVariable final Long courseId,
                           @RequestBody final ModuleDTO moduleDTO) {
     Module updatedModule = moduleMapper.fromDto(moduleDTO);
@@ -67,7 +67,7 @@ public class ModuleController {
   }
 
   @DeleteMapping("/{moduleId}")
-  @PreAuthorize("@customSecurityExpresion.canAccessCourse(#courseId)")
+  @PreAuthorize("@customSecurityExpresion.isCourseOwner(#courseId)")
   public void delete(@PathVariable final Long courseId,
                      @PathVariable final Long moduleId) {
     moduleService.delete(courseId, moduleId);

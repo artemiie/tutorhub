@@ -18,19 +18,19 @@ public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
 
   @Override
-  public User getById(final Long id) {
+  public User find(final Long id) {
     return userRepository
         .findById(id)
         .orElseThrow(ResourceNotFoundException::new);
   }
 
-  public User getByUsername(final String username) {
+  public User findByUsername(final String username) {
     return userRepository
         .findByUsername(username)
         .orElseThrow(ResourceNotFoundException::new);
   }
 
-  public Page<User> getAll(final Pageable page) {
+  public Page<User> findAll(final Pageable page) {
     return userRepository.findAll(page);
   }
 

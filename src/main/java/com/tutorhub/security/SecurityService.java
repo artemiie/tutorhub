@@ -15,6 +15,6 @@ public class SecurityService {
   public User getCurrentLoggedUser() {
     Authentication currentLoggedUser =
         SecurityContextHolder.getContext().getAuthentication();
-    return userService.getByUsername(currentLoggedUser.getName());
+    return userService.findByUsername(currentLoggedUser.getName());
   }
 }

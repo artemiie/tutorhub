@@ -4,7 +4,7 @@ import com.tutorhub.model.user.User;
 
 public interface UserService extends CrudService<User> {
 
-  User getByUsername(String username);
+  User findByUsername(String username);
 
   boolean existsByUsername(String username);
 

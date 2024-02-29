@@ -5,9 +5,9 @@ import org.springframework.data.domain.Pageable;
 
 public interface CrudService<C> {
 
-  C getById(Long id);
+  C find(Long id);
 
-  Page<C> getAll(Pageable page);
+  Page<C> findAll(Pageable page);
 
   C create(C entity);
 

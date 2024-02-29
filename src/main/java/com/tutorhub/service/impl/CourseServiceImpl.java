@@ -25,7 +25,7 @@ public class CourseServiceImpl implements CourseService {
   private final ProgressService progressService;
 
   @Override
-  public Course getById(final Long id) {
+  public Course find(final Long id) {
     return courseRepository
         .findById(id)
         .orElseThrow(() ->
@@ -34,7 +34,7 @@ public class CourseServiceImpl implements CourseService {
   }
 
   @Override
-  public Page<Course> getAll(final Pageable page) {
+  public Page<Course> findAll(final Pageable page) {
     return courseRepository.findAll(page);
   }
 
@@ -45,7 +45,7 @@ public class CourseServiceImpl implements CourseService {
 
   @Override
   public Course update(final Course entity) {
-    Course courseOnDb = getById(entity.getId());
+    Course courseOnDb = find(entity.getId());
     entity.setCourseOwner(courseOnDb.getCourseOwner());
     return courseRepository.save(entity);
   }
@@ -63,8 +63,8 @@ public class CourseServiceImpl implements CourseService {
   @Override
   public void assignUser(final Long userId, final Long courseId) {
 
-    Course course = getById(courseId);
-    User user = userService.getById(userId);
+    Course course = find(courseId);
+    User user = userService.find(userId);
     // Progress progress = progressService.create(new Progress());
 
     CourseInfo courseInfo = new CourseInfo();
