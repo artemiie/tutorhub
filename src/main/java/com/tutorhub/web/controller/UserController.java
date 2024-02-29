@@ -45,9 +45,9 @@ public class UserController {
 
   @PutMapping
   public UserDTO update(@Validated @RequestBody final UserDTO userDTO) {
-    User studentEntity = userMapper.fromDto(userDTO);
-    User updatedEntity = userService.update(studentEntity);
-    return userMapper.toDto(updatedEntity);
+    User user = userMapper.fromDto(userDTO);
+    User updatedUser = userService.update(user);
+    return userMapper.toDto(updatedUser);
   }
 
   @DeleteMapping("/{id}")
