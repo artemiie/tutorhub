@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public abstract class ContentDTO {
+public class ContentDTO {
 
   @NotNull(message = "Id must be not null.", groups = OnUpdate.class)
   @Null(message = "Id must be null.", groups = OnCreate.class)
