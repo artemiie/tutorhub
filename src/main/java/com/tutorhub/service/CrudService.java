@@ -13,7 +13,5 @@ public interface CrudService<C> {
 
   C update(C entity);
 
-  boolean existsById(Long id);
-
   void delete(Long id);
 }

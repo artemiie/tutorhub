@@ -34,11 +34,6 @@ public class ProgressServiceImpl implements ProgressService {
   }
 
   @Override
-  public boolean existsById(final Long id) {
-    return false;
-  }
-
-  @Override
   public void delete(final Long id) {
   }
 }

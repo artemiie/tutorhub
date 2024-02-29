@@ -54,11 +54,6 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public boolean existsById(final Long id) {
-    return userRepository.existsById(id);
-  }
-
-  @Override
   public void enable(final String username) {
     findByUsername(username);
     userRepository.enable(username);

@@ -51,11 +51,6 @@ public class CourseServiceImpl implements CourseService {
   }
 
   @Override
-  public boolean existsById(final Long id) {
-    return false;
-  }
-
-  @Override
   public void delete(final Long id) {
     courseRepository.deleteById(id);
   }
