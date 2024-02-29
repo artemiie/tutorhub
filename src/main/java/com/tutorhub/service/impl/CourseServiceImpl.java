@@ -7,7 +7,6 @@ import com.tutorhub.model.user.User;
 import com.tutorhub.repository.CourseRepository;
 import com.tutorhub.service.CourseInfoService;
 import com.tutorhub.service.CourseService;
-import com.tutorhub.service.ProgressService;
 import com.tutorhub.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,7 +21,6 @@ public class CourseServiceImpl implements CourseService {
   private final CourseRepository courseRepository;
   private final UserService userService;
   private final CourseInfoService courseInfoService;
-  private final ProgressService progressService;
 
   @Override
   public Course find(final Long id) {
@@ -36,6 +34,14 @@ public class CourseServiceImpl implements CourseService {
   @Override
   public Page<Course> findAll(final Pageable page) {
     return courseRepository.findAll(page);
+  }
+
+  @Override
+  public Page<Course> findAllByUser(final Long userId, final Pageable page) {
+    if (userId == null) {
+      return courseRepository.findAll(page);
+    }
+    return courseRepository.findByCourseOwnerId(userId, page);
   }
 
   @Override
