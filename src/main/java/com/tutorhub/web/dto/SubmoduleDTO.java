@@ -18,5 +18,5 @@ public class SubmoduleDTO {
   private String name;
 
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  private ContentDTO contentDTO;
+  private ContentDTO content;
 }

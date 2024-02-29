@@ -1,4 +1,3 @@
-/*
 package com.tutorhub.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,7 +12,7 @@ public class CourseInfoDTO {
   private Long id;
 
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  private StudentDTO user;
+  private UserDTO user;
 
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private CourseDTO course;
@@ -21,4 +20,3 @@ public class CourseInfoDTO {
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private ProgressDTO progress;
 }
-*/
