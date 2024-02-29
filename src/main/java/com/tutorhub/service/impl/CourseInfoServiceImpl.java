@@ -1,11 +1,10 @@
 package com.tutorhub.service.impl;
 
+import com.tutorhub.exception.ResourceNotFoundException;
 import com.tutorhub.model.course.CourseInfo;
 import com.tutorhub.repository.CourseInfoRepository;
 import com.tutorhub.service.CourseInfoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,27 +12,20 @@ import org.springframework.stereotype.Service;
 public class CourseInfoServiceImpl implements CourseInfoService {
   private final CourseInfoRepository courseInfoRepository;
 
-  @Override
-  public CourseInfo find(final Long id) {
-    return null;
+  public CourseInfo update(final CourseInfo courseInfo) {
+    return courseInfoRepository.save(courseInfo);
   }
 
   @Override
-  public Page<CourseInfo> findAll(final Pageable page) {
-    return null;
+  public void create(final CourseInfo courseInfo) {
+    courseInfoRepository.save(courseInfo);
   }
 
-  @Override
-  public CourseInfo create(final CourseInfo entity) {
-    return courseInfoRepository.save(entity);
-  }
-
-  @Override
-  public CourseInfo update(final CourseInfo entity) {
-    return null;
-  }
-
-  @Override
-  public void delete(final Long id) {
+  public CourseInfo findByUserIdAndCourseId(final Long userId,
+                                            final Long courseId) {
+    return
+        courseInfoRepository
+            .findByUserIdAndCourseId(userId, courseId)
+            .orElseThrow(ResourceNotFoundException::new);
   }
 }
