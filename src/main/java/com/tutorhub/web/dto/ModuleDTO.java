@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Null;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -19,12 +20,6 @@ public class ModuleDTO {
   @NotNull(message = "Name must be not null.")
   private String name;
 
-  //  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  //  private ContentDTO content;
-
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  private List<ModuleDTO> submodules;
-
-  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  private CourseDTO course;
+  private List<SubmoduleDTO> submodules = new ArrayList<>();
 }
