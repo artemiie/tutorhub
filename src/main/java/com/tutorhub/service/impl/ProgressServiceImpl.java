@@ -1,39 +1,50 @@
 package com.tutorhub.service.impl;
 
+import com.tutorhub.model.course.CourseInfo;
+import com.tutorhub.model.course.Module;
 import com.tutorhub.model.course.Progress;
+import com.tutorhub.model.course.Submodule;
 import com.tutorhub.repository.ProgressRepository;
+import com.tutorhub.service.CourseInfoService;
+import com.tutorhub.service.ModuleService;
 import com.tutorhub.service.ProgressService;
+import com.tutorhub.service.SubmoduleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ProgressServiceImpl implements ProgressService {
-  public final ProgressRepository progressRepository;
+  private final SubmoduleService submoduleService;
+  private final ModuleService moduleService;
+  private final CourseInfoService courseInfoService;
+  private final ProgressRepository progressRepository;
 
-  @Override
-  public Progress find(final Long id) {
-    return null;
+  public void create(final Long userId,
+                     final Long courseId,
+                     final Long moduleId,
+                     final Long submoduleId) {
+
+    Module module = moduleService.find(courseId, moduleId);
+
+    Submodule submodule =
+        submoduleService.find(courseId, moduleId, submoduleId);
+
+    CourseInfo courseInfo =
+        courseInfoService.findByUserIdAndCourseId(userId, courseId);
+
+    Progress progress = new Progress();
+    progress.setCourseInfo(courseInfo);
+    progress.setSubmodule(submodule);
+    progress.setModule(module);
+
+    progressRepository.save(progress);
   }
 
   @Override
-  public Page<Progress> findAll(final Pageable page) {
-    return null;
-  }
-
-  @Override
-  public Progress create(final Progress entity) {
-    return progressRepository.save(entity);
-  }
-
-  @Override
-  public Progress update(final Progress entity) {
-    return null;
-  }
-
-  @Override
-  public void delete(final Long id) {
+  public List<Progress> findByCourseInfo(final CourseInfo courseEntity) {
+    return progressRepository.findByCourseInfo(courseEntity);
   }
 }
