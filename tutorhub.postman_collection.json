@@ -9,13 +9,44 @@
       "name": "AUTH",
       "item": [
         {
-          "name": "Register",
+          "name": "Register tutor",
           "request": {
             "method": "POST",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"fullname\":\"User\",\r\n    \"username\":\"user@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
+              "raw": "{\r\n    \"fullname\":\"Tutor\",\r\n    \"username\":\"tutor@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register student",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"fullname\":\"Student\",\r\n    \"username\":\"student@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -77,7 +108,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"username\":\"user@gmail.com\"\r\n}",
+              "raw": "{\r\n    \"username\":\"artemie.fliostor@gmail.com\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -102,13 +133,44 @@
           "response": []
         },
         {
-          "name": "Login",
+          "name": "Login tutor",
           "request": {
             "method": "POST",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"username\":\"user@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
+              "raw": "{\r\n    \"username\":\"tutor@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login student",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\":\"student@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -368,7 +430,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwOTIwOTMxOTYwNSwic3ViamVjdCI6InVzZXJAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDkxMDkzMTk2MDUsInR5cGUiOiJBQ0NFU1MiLCJpYXQiOjE3MDkxMDkzMTksImV4cCI6MTcwOTIwOTMxOX0.qNbgiweq1RzZRqYL-rIK8mORCo5h05SSlIJWecKPgkPAEcj11ybu3Goi6tphMHstkM1cPcUMP8IwzGFOMW4IGw",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0dXRvckBnbWFpbC5jb20iLCJleHBpcmVkQXQiOjE3MDkzMzU2NjI0NjksInN1YmplY3QiOiJ0dXRvckBnbWFpbC5jb20iLCJpc3N1ZWRBdCI6MTcwOTIzNTY2MjQ2OSwidHlwZSI6IkFDQ0VTUyIsImlhdCI6MTcwOTIzNTY2MiwiZXhwIjoxNzA5MzM1NjYyfQ.RJca-1T-aLa7QieflXdR4F58vcSYRVO8Dx__53_VyzTngxw2-_v_gaT10ck8xsQQ4aTDkpFPZjYoa5DPWDwpGg",
                   "type": "string"
                 }
               ]
@@ -377,7 +439,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name\":\"Another course\"\r\n}",
+              "raw": "{\r\n    \"name\":\"Course\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -493,7 +555,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmFzdGFzaWEuZmxpb3N0b3JAZ21haWwuY29tIiwiZXhwaXJlZEF0IjoxNzA4NzA4MTk5NTMzLCJzdWJqZWN0IjoiYW5hc3Rhc2lhLmZsaW9zdG9yQGdtYWlsLmNvbSIsImlzc3VlZEF0IjoxNzA4NjA4MTk5NTMzLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzA4NjA4MTk5LCJleHAiOjE3MDg3MDgxOTl9.OHYLeND45GxetYsksAei6gBq8i_lEbbIgTXcaIpPKJ5moLCiFMGOSpoucueyzetarjSDcuXtXzg4HPM1wzAx3g",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHVkZW50QGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwOTMzNTcyMzkxNCwic3ViamVjdCI6InN0dWRlbnRAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDkyMzU3MjM5MTQsInR5cGUiOiJBQ0NFU1MiLCJpYXQiOjE3MDkyMzU3MjMsImV4cCI6MTcwOTMzNTcyM30.Y3Y1ZGRi--m8AL3Q1FxiBThSWuWovhubQnRGE0obB3Xd8EGlx5dsHdXoKenBpctWI7Pabt1Vt1YKQFkI0FVGPw",
                   "type": "string"
                 }
               ]
@@ -595,7 +657,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwOTIwOTMxOTYwNSwic3ViamVjdCI6InVzZXJAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDkxMDkzMTk2MDUsInR5cGUiOiJBQ0NFU1MiLCJpYXQiOjE3MDkxMDkzMTksImV4cCI6MTcwOTIwOTMxOX0.qNbgiweq1RzZRqYL-rIK8mORCo5h05SSlIJWecKPgkPAEcj11ybu3Goi6tphMHstkM1cPcUMP8IwzGFOMW4IGw",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0dXRvckBnbWFpbC5jb20iLCJleHBpcmVkQXQiOjE3MDkzMzU2NjI0NjksInN1YmplY3QiOiJ0dXRvckBnbWFpbC5jb20iLCJpc3N1ZWRBdCI6MTcwOTIzNTY2MjQ2OSwidHlwZSI6IkFDQ0VTUyIsImlhdCI6MTcwOTIzNTY2MiwiZXhwIjoxNzA5MzM1NjYyfQ.RJca-1T-aLa7QieflXdR4F58vcSYRVO8Dx__53_VyzTngxw2-_v_gaT10ck8xsQQ4aTDkpFPZjYoa5DPWDwpGg",
                   "type": "string"
                 }
               ]
@@ -604,7 +666,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name\":\"Another module\"\r\n}",
+              "raw": "{\r\n    \"name\":\"Module\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -628,7 +690,7 @@
               "variable": [
                 {
                   "key": "courseId",
-                  "value": "2"
+                  "value": "1"
                 }
               ]
             }
@@ -874,7 +936,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwOTIwOTMxOTYwNSwic3ViamVjdCI6InVzZXJAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDkxMDkzMTk2MDUsInR5cGUiOiJBQ0NFU1MiLCJpYXQiOjE3MDkxMDkzMTksImV4cCI6MTcwOTIwOTMxOX0.qNbgiweq1RzZRqYL-rIK8mORCo5h05SSlIJWecKPgkPAEcj11ybu3Goi6tphMHstkM1cPcUMP8IwzGFOMW4IGw",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0dXRvckBnbWFpbC5jb20iLCJleHBpcmVkQXQiOjE3MDkzMzU2NjI0NjksInN1YmplY3QiOiJ0dXRvckBnbWFpbC5jb20iLCJpc3N1ZWRBdCI6MTcwOTIzNTY2MjQ2OSwidHlwZSI6IkFDQ0VTUyIsImlhdCI6MTcwOTIzNTY2MiwiZXhwIjoxNzA5MzM1NjYyfQ.RJca-1T-aLa7QieflXdR4F58vcSYRVO8Dx__53_VyzTngxw2-_v_gaT10ck8xsQQ4aTDkpFPZjYoa5DPWDwpGg",
                   "type": "string"
                 }
               ]
@@ -883,7 +945,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name\":\"Another submodule\"\r\n}",
+              "raw": "{\r\n    \"name\":\"Submodule\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1034,6 +1096,311 @@
       ]
     },
     {
+      "name": "PROGRESS",
+      "item": [
+        {
+          "name": "Get one",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "id",
+                "value": "1",
+                "type": "default",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/courses/:courseId/modules/:moduleId/submodule/:submoduleId",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "courses",
+                ":courseId",
+                "modules",
+                ":moduleId",
+                "submodule",
+                ":submoduleId"
+              ],
+              "variable": [
+                {
+                  "key": "courseId",
+                  "value": "1"
+                },
+                {
+                  "key": "moduleId",
+                  "value": "1"
+                },
+                {
+                  "key": "submoduleId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get paged",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "id",
+                "value": "1",
+                "type": "default",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/courses/:courseId/modules/:moduleId/submodule?page=0&size=10&sortBy=name",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "courses",
+                ":courseId",
+                "modules",
+                ":moduleId",
+                "submodule"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "name"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "courseId",
+                  "value": "1"
+                },
+                {
+                  "key": "moduleId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHVkZW50QGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwOTMyODgzMDA3NSwic3ViamVjdCI6InN0dWRlbnRAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDkyMjg4MzAwNzUsInR5cGUiOiJBQ0NFU1MiLCJpYXQiOjE3MDkyMjg4MzAsImV4cCI6MTcwOTMyODgzMH0._0CIBu94AFrVFU91A8b84tMCaPaEMAeHibRIWgN8tnpfL40bGH1FaqBUvkFPlPBIkslWaxwS1OjjuSeRcTF6Qg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"userId\":2,\r\n\"courseId\":1,\r\n\"moduleId\":1,\r\n\"submoduleId\":9\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/progress",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "progress"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "2",
+                  "disabled": true
+                },
+                {
+                  "key": "courseId",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "moduleId",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "submoduleId",
+                  "value": "8",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwOTIyMDAwNzU4Miwic3ViamVjdCI6InVzZXJAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDkxMjAwMDc1ODIsInR5cGUiOiJBQ0NFU1MiLCJpYXQiOjE3MDkxMjAwMDcsImV4cCI6MTcwOTIyMDAwN30.YdFpTp4z5hrjD_Hbm5NmSADvLpsHS7YCp4eb9DjTKNNW4dMUcIMpOwVBIUcDugkQ3kQYVS7xaPpYednDrgKtQw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "USER_ID",
+                "value": "1",
+                "type": "default",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\":1,\r\n    \"name\":\"SubModule after update\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/courses/:courseId/modules/:moduleId/submodule",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "courses",
+                ":courseId",
+                "modules",
+                ":moduleId",
+                "submodule"
+              ],
+              "variable": [
+                {
+                  "key": "courseId",
+                  "value": "1"
+                },
+                {
+                  "key": "moduleId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwOTIyMDAwNzU4Miwic3ViamVjdCI6InVzZXJAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDkxMjAwMDc1ODIsInR5cGUiOiJBQ0NFU1MiLCJpYXQiOjE3MDkxMjAwMDcsImV4cCI6MTcwOTIyMDAwN30.YdFpTp4z5hrjD_Hbm5NmSADvLpsHS7YCp4eb9DjTKNNW4dMUcIMpOwVBIUcDugkQ3kQYVS7xaPpYednDrgKtQw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/courses/:courseId/modules/:moduleId/submodule/:submoduleId",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "courses",
+                ":courseId",
+                "modules",
+                ":moduleId",
+                "submodule",
+                ":submoduleId"
+              ],
+              "variable": [
+                {
+                  "key": "courseId",
+                  "value": "2"
+                },
+                {
+                  "key": "moduleId",
+                  "value": "2"
+                },
+                {
+                  "key": "submoduleId",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "CONTENT",
       "item": [
         {
@@ -1050,7 +1417,7 @@
                 {
                   "key": "file",
                   "type": "file",
-                  "src": ""
+                  "src": "/C:/Users/Artemie/Desktop/IMG_3849.mp4"
                 }
               ],
               "options": {
@@ -1092,6 +1459,61 @@
                 "v1",
                 "content",
                 "file.txt"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "COURSE INFO",
+      "item": [
+        {
+          "name": "Get",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "id",
+                "value": "1",
+                "type": "default",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/course-infos?userId=2&courseId=1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "course-infos"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "2"
+                },
+                {
+                  "key": "courseId",
+                  "value": "1"
+                }
               ]
             }
           },
