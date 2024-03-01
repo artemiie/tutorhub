@@ -1,10 +1,11 @@
 package com.tutorhub.web.controller;
 
 import com.tutorhub.service.ProgressService;
+import com.tutorhub.web.dto.ProgressCreationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -15,10 +16,11 @@ public class ProgressController {
 
   @PostMapping
   public void create(
-      @RequestParam final Long userId,
-      @RequestParam final Long courseId,
-      @RequestParam final Long moduleId,
-      @RequestParam final Long submoduleId) {
-    progressService.create(userId, courseId, moduleId, submoduleId);
+      @RequestBody final ProgressCreationDto progressCreationDto) {
+    progressService.create(
+        progressCreationDto.userId(),
+        progressCreationDto.courseId(),
+        progressCreationDto.moduleId(),
+        progressCreationDto.submoduleId());
   }
 }
