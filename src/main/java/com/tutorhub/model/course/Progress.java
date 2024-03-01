@@ -1,6 +1,5 @@
 package com.tutorhub.model.course;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
@@ -18,17 +17,6 @@ import lombok.Setter;
 public class Progress {
 
   @Id
-  @Column(name = "module_id", nullable = false)
-  private Long moduleID;
-
-  @Id
-  @Column(name = "submodule_id", nullable = false)
-  private Long submoduleID;
-
-  @Id
-  @Column(name = "course_info_id", nullable = false)
-  private Long courseInfoID;
-
   @ManyToOne
   @JoinColumn(
       name = "module_id",
@@ -37,6 +25,7 @@ public class Progress {
       updatable = false)
   private Module module;
 
+  @Id
   @ManyToOne
   @JoinColumn(
       name = "submodule_id",
@@ -45,6 +34,7 @@ public class Progress {
       updatable = false)
   private Submodule submodule;
 
+  @Id
   @ManyToOne
   @JoinColumn(
       name = "course_info_id",

@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class ProgressId implements Serializable {
-  private Long moduleID;
-  private Long submoduleID;
-  private Long courseInfoID;
+  private Module module;
+  private Submodule submodule;
+  private CourseInfo courseInfo;
 }

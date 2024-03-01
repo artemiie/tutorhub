@@ -36,15 +36,9 @@ public class ProgressServiceImpl implements ProgressService {
         courseInfoService.findByUserIdAndCourseId(userId, courseId);
 
     Progress progress = new Progress();
-
     progress.setCourseInfo(courseInfo);
-    progress.setCourseInfoID(courseInfo.getId());
-
     progress.setSubmodule(submodule);
-    progress.setSubmoduleID(submodule.getId());
-
     progress.setModule(module);
-    progress.setModuleID(module.getId());
 
     progressRepository.save(progress);
   }
