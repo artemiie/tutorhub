@@ -94,7 +94,7 @@ public class ModuleServiceImplTest {
     var expectedResult = getModuleTest(null);
 
     var course = getCourseTest(1L);
-    doReturn(course).when(courseService).getById(any());
+    doReturn(course).when(courseService).getById(1L);
 
     doAnswer(
         invocationOnMock -> {
