@@ -71,7 +71,8 @@ public class ModuleServiceImplTest {
   void findAllPaged() {
     var expectedResult = new PageImpl<>(List.of(getModuleTest(MODULE_ID)));
 
-    var page = PageRequest.of(1, 10, Sort.by("name"));
+    var page =
+        PageRequest.of(1, 10, Sort.by("name"));
 
     doReturn(expectedResult)
         .when(moduleRepository)
