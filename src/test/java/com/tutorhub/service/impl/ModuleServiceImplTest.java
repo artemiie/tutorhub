@@ -3,7 +3,6 @@ package com.tutorhub.service.impl;
 import com.tutorhub.exception.ResourceNotFoundException;
 import com.tutorhub.model.course.Module;
 import com.tutorhub.repository.ModuleRepository;
-import com.tutorhub.service.CourseService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,15 +17,8 @@ import java.util.Optional;
 
 import static com.tutorhub.testfactory.CourseTestFactory.getCourseTest;
 import static com.tutorhub.testfactory.ModuleTestFactory.getModuleTest;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ModuleServiceImplTest {
@@ -93,8 +85,8 @@ public class ModuleServiceImplTest {
   void create() {
     var expectedResult = getModuleTest(null);
 
-    //var course = getCourseTest(1L);
-    //doReturn(course).when(courseService).getById(1L);
+    var course = getCourseTest(1L);
+    doReturn(course).when(courseService).find(1L);
 
     doAnswer(
         invocationOnMock -> {
@@ -109,8 +101,8 @@ public class ModuleServiceImplTest {
 
     assertAll(
         () -> assertNotNull(actualResult),
-        () -> assertEquals(MODULE_ID, actualResult.getId())
-        //() -> assertEquals(course, actualResult.getCourse())
+        () -> assertEquals(MODULE_ID, actualResult.getId()),
+        () -> assertEquals(course, actualResult.getCourse())
     );
 
     verify(moduleRepository).save(expectedResult);
