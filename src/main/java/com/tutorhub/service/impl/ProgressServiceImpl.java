@@ -17,8 +17,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProgressServiceImpl implements ProgressService {
-  private final SubmoduleService submoduleService;
   private final ModuleService moduleService;
+  private final SubmoduleService submoduleService;
   private final CourseInfoService courseInfoService;
   private final ProgressRepository progressRepository;
 
