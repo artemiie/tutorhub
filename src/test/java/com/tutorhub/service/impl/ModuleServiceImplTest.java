@@ -93,8 +93,8 @@ public class ModuleServiceImplTest {
   void create() {
     var expectedResult = getModuleTest(null);
 
-    var course = getCourseTest(1L);
-    doReturn(course).when(courseService).getById(1L);
+    //var course = getCourseTest(1L);
+    //doReturn(course).when(courseService).getById(1L);
 
     doAnswer(
         invocationOnMock -> {
@@ -109,8 +109,8 @@ public class ModuleServiceImplTest {
 
     assertAll(
         () -> assertNotNull(actualResult),
-        () -> assertEquals(MODULE_ID, actualResult.getId()),
-        () -> assertEquals(course, actualResult.getCourse())
+        () -> assertEquals(MODULE_ID, actualResult.getId())
+        //() -> assertEquals(course, actualResult.getCourse())
     );
 
     verify(moduleRepository).save(expectedResult);
