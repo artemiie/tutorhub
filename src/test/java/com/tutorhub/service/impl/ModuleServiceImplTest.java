@@ -35,7 +35,7 @@ public class ModuleServiceImplTest {
   @Mock
   private ModuleRepository moduleRepository;
   @Mock
-  private CourseService courseService;
+  private CourseServiceImpl courseService;
   @InjectMocks
   private ModuleServiceImpl moduleService;
 
