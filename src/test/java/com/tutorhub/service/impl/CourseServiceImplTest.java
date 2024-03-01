@@ -33,8 +33,6 @@ class CourseServiceImplTest {
   private UserService userService;
   @Mock
   private CourseInfoService courseInfoService;
-  @Mock
-  private ProgressService progressService;
   @InjectMocks
   private CourseServiceImpl courseService;
 
@@ -74,6 +72,60 @@ class CourseServiceImplTest {
         () -> assertEquals(1, actualResult.get().toList().size()),
         () ->
             assertEquals(expectedResult.get().toList().get(0), actualResult.get().toList().get(0)));
+
+    verify(courseRepository).findAll(page);
+  }
+
+  @Test
+  void getAllByUser() {
+    var courseOwner = getUserTest(1L);
+
+    var course = getCourseTest(COURSE_ID);
+    course.setCourseOwner(courseOwner);
+
+    var expectedResult = new PageImpl<>(List.of(course));
+
+
+    var page =
+        PageRequest.of(1, 10, Sort.by("name"));
+
+    doReturn(expectedResult)
+        .when(courseRepository)
+        .findByCourseOwnerId(1L, page);
+
+    var actualResult = courseService.findAllByUser(1L, page);
+
+    assertAll(
+        () -> assertEquals(1, actualResult.get().toList().size()),
+        () ->
+            assertEquals(
+                expectedResult.get().toList().getFirst(),
+                actualResult.get().toList().getFirst()));
+
+    verify(courseRepository).findByCourseOwnerId(1L, page);
+  }
+
+  @Test
+  void getAllByUser_whenUserIdIsNUll() {
+    var courseOwner = getUserTest(1L);
+
+    var course = getCourseTest(COURSE_ID);
+    course.setCourseOwner(courseOwner);
+
+    var expectedResult = new PageImpl<>(List.of(course));
+
+    var page =
+        PageRequest.of(1, 10, Sort.by("name"));
+
+    doReturn(expectedResult).when(courseRepository).findAll(page);
+
+    var actualResult = courseService.findAllByUser(null, page);
+
+    assertAll(
+        () -> assertEquals(1, actualResult.get().toList().size()),
+        () -> assertEquals(
+            expectedResult.get().toList().getFirst(),
+            actualResult.get().toList().getFirst()));
 
     verify(courseRepository).findAll(page);
   }
