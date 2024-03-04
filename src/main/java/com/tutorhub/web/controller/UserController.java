@@ -26,9 +26,9 @@ public class UserController {
   private final UserService userService;
   private final UserMapper userMapper;
 
-  @GetMapping("/{id}")
-  public UserDTO getById(@PathVariable final Long id) {
-    User studentEntity = userService.find(id);
+  @GetMapping("/{userId}")
+  public UserDTO getById(@PathVariable final Long userId) {
+    User studentEntity = userService.find(userId);
     return userMapper.toDto(studentEntity);
   }
 
@@ -39,8 +39,8 @@ public class UserController {
     return userMapper.toDto(updatedUser);
   }
 
-  @DeleteMapping("/{id}")
-  public void delete(@PathVariable final Long id) {
-    userService.delete(id);
+  @DeleteMapping("/{userId}")
+  public void delete(@PathVariable final Long userId) {
+    userService.delete(userId);
   }
 }

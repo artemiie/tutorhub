@@ -32,9 +32,9 @@ public class CourseController {
   private final CourseMapper courseMapper;
   private final SecurityService securityService;
 
-  @GetMapping("/{id}")
-  public CourseDTO find(@PathVariable final Long id) {
-    Course courseEntity = courseService.find(id);
+  @GetMapping("/{courseId}")
+  public CourseDTO find(@PathVariable final Long courseId) {
+    Course courseEntity = courseService.find(courseId);
     return courseMapper.toDto(courseEntity);
   }
 
@@ -72,10 +72,10 @@ public class CourseController {
     return courseMapper.toDto(updated);
   }
 
-  @DeleteMapping("/{id}")
-  @PreAuthorize("@customSecurityExpresion.isCourseOwner(#id)")
-  public void delete(@PathVariable final Long id) {
-    courseService.delete(id);
+  @DeleteMapping("/{courseId}")
+  @PreAuthorize("@customSecurityExpresion.isCourseOwner(#courseId)")
+  public void delete(@PathVariable final Long courseId) {
+    courseService.delete(courseId);
   }
 
   @PutMapping("/{courseId}")
