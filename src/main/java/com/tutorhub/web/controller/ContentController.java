@@ -1,6 +1,13 @@
 package com.tutorhub.web.controller;
 
 import com.tutorhub.service.ContentService;
+import com.tutorhub.web.controller.swagger.constants.ContentApiConstants;
+import com.tutorhub.web.controller.swagger.constants.ContentApiConstants.Find;
+import com.tutorhub.web.controller.swagger.constants.ContentApiConstants.Upload;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +19,26 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/api/v1/content")
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/content")
+@Tag(
+    name = ContentApiConstants.NAME,
+    description = ContentApiConstants.DESCRIPTION)
 public class ContentController {
   private final ContentService contentService;
 
+  @Operation(summary = Find.SUMMARY, description = Find.DESCRIPTION)
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = Find.RescponseCode200.CODE,
+          description = Find.RescponseCode200.DESCRIPTION),
+      @ApiResponse(
+          responseCode = Find.RescponseCode400.CODE,
+          description = Find.RescponseCode400.DESCRIPTION),
+      @ApiResponse(
+          responseCode = Find.RescponseCode500.CODE,
+          description = Find.RescponseCode500.DESCRIPTION)
+  })
   @GetMapping(
       path = "/{fileName}",
       produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
@@ -24,6 +46,18 @@ public class ContentController {
     return contentService.find(fileName);
   }
 
+  @Operation(summary = Upload.SUMMARY, description = Upload.DESCRIPTION)
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = Upload.RescponseCode200.CODE,
+          description = Upload.RescponseCode200.DESCRIPTION),
+      @ApiResponse(
+          responseCode = Upload.RescponseCode400.CODE,
+          description = Upload.RescponseCode400.DESCRIPTION),
+      @ApiResponse(
+          responseCode = Upload.RescponseCode500.CODE,
+          description = Upload.RescponseCode500.DESCRIPTION)
+  })
   @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public String upload(@RequestParam(name = "file") final MultipartFile file) {
     return contentService.upload(file);

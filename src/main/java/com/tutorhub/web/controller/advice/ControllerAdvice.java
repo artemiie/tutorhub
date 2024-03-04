@@ -1,5 +1,5 @@
 
-package com.tutorhub.web.controller;
+package com.tutorhub.web.controller.advice;
 
 
 import com.tutorhub.exception.ExceptionBody;

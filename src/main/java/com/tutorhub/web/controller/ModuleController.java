@@ -2,9 +2,19 @@ package com.tutorhub.web.controller;
 
 import com.tutorhub.model.course.Module;
 import com.tutorhub.service.ModuleService;
+import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants;
+import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants.Create;
+import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants.Delete;
+import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants.Find;
+import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants.FindAllPaged;
+import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants.Update;
 import com.tutorhub.web.dto.ModuleDTO;
 import com.tutorhub.web.dto.OnCreate;
 import com.tutorhub.web.dto.mapper.ModuleMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,11 +33,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(
+    name = ModuleApiConstants.NAME,
+    description = ModuleApiConstants.DESCRIPTION)
 @RequestMapping("/api/v1/courses/{courseId}/modules")
 public class ModuleController {
   private final ModuleService moduleService;
   private final ModuleMapper moduleMapper;
 
+  @Operation(summary = Find.SUMMARY, description = Find.DESCRIPTION)
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = Find.ResponseCode200.CODE,
+          description = Find.ResponseCode200.DESCRIPTION),
+      @ApiResponse(
+          responseCode = Find.ResponseCode404.CODE,
+          description = Find.ResponseCode404.DESCRIPTION),
+      @ApiResponse(
+          responseCode = Find.ResponseCode500.CODE,
+          description = Find.ResponseCode500.DESCRIPTION)
+  })
   @GetMapping("/{moduleId}")
   public ModuleDTO find(@PathVariable final Long courseId,
                         @PathVariable final Long moduleId) {
@@ -35,6 +60,20 @@ public class ModuleController {
     return moduleMapper.toDto(moduleEntity);
   }
 
+  @Operation(
+      summary = FindAllPaged.SUMMARY,
+      description = FindAllPaged.DESCRIPTION)
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = FindAllPaged.ResponseCode200.CODE,
+          description = FindAllPaged.ResponseCode200.DESCRIPTION),
+      @ApiResponse(
+          responseCode = FindAllPaged.ResponseCode404.CODE,
+          description = FindAllPaged.ResponseCode404.DESCRIPTION),
+      @ApiResponse(
+          responseCode = FindAllPaged.ResponseCode500.CODE,
+          description = FindAllPaged.ResponseCode500.DESCRIPTION)
+  })
   @GetMapping
   public Page<ModuleDTO> findAllPaged(
       @PathVariable final Long courseId,
@@ -47,6 +86,18 @@ public class ModuleController {
     return modules.map(moduleMapper::toDto);
   }
 
+  @Operation(summary = Create.SUMMARY, description = Create.DESCRIPTION)
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = Create.ResponseCode200.CODE,
+          description = Create.ResponseCode200.DESCRIPTION),
+      @ApiResponse(
+          responseCode = Create.ResponseCode400.CODE,
+          description = Create.ResponseCode400.DESCRIPTION),
+      @ApiResponse(
+          responseCode = Create.ResponseCode500.CODE,
+          description = Create.ResponseCode500.DESCRIPTION)
+  })
   @PostMapping
   @PreAuthorize("@customSecurityExpresion.isCourseOwner(#courseId)")
   public ModuleDTO create(
@@ -57,6 +108,24 @@ public class ModuleController {
     return moduleMapper.toDto(savedModule);
   }
 
+  @Operation(summary = Update.SUMMARY, description = Update.DESCRIPTION)
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = Update.ResponseCode200.CODE,
+          description = Update.ResponseCode200.DESCRIPTION),
+      @ApiResponse(
+          responseCode = Update.ResponseCode400.CODE,
+          description = Update.ResponseCode400.DESCRIPTION),
+      @ApiResponse(
+          responseCode = Update.ResponseCode403.CODE,
+          description = Update.ResponseCode403.DESCRIPTION),
+      @ApiResponse(
+          responseCode = Update.ResponseCode404.CODE,
+          description = Update.ResponseCode404.DESCRIPTION),
+      @ApiResponse(
+          responseCode = Update.ResponseCode500.CODE,
+          description = Update.ResponseCode500.DESCRIPTION)
+  })
   @PutMapping()
   @PreAuthorize("@customSecurityExpresion.isCourseOwner(#courseId)")
   public ModuleDTO update(@PathVariable final Long courseId,
@@ -66,6 +135,24 @@ public class ModuleController {
     return moduleMapper.toDto(savedModule);
   }
 
+  @Operation(summary = Delete.SUMMARY, description = Delete.DESCRIPTION)
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = Delete.ResponseCode200.CODE,
+          description = Delete.ResponseCode200.DESCRIPTION),
+      @ApiResponse(
+          responseCode = Delete.ResponseCode400.CODE,
+          description = Delete.ResponseCode400.DESCRIPTION),
+      @ApiResponse(
+          responseCode = Delete.ResponseCode403.CODE,
+          description = Delete.ResponseCode403.DESCRIPTION),
+      @ApiResponse(
+          responseCode = Delete.ResponseCode404.CODE,
+          description = Delete.ResponseCode404.DESCRIPTION),
+      @ApiResponse(
+          responseCode = Delete.ResponseCode500.CODE,
+          description = Delete.ResponseCode500.DESCRIPTION)
+  })
   @DeleteMapping("/{moduleId}")
   @PreAuthorize("@customSecurityExpresion.isCourseOwner(#courseId)")
   public void delete(@PathVariable final Long courseId,

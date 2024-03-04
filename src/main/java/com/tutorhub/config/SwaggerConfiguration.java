@@ -1,4 +1,3 @@
-/*
 package com.tutorhub.config;
 
 import io.swagger.v3.oas.models.Components;
@@ -47,7 +46,6 @@ public class SwaggerConfiguration {
                 .version(apiVersion)
                 .description(apiDescription)
                 .contact(
-                new Contact().name(apiContactName).email(apiContactEmail)));
+                    new Contact().name(apiContactName).email(apiContactEmail)));
   }
 }
-*/
