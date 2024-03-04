@@ -18,4 +18,12 @@ public class CustomSecurityExpresion {
     Long userId = user.getId();
     return userService.isCourseOwner(userId, Long.valueOf(courseId));
   }
+
+  public boolean isCurrentUser(final String userId) {
+    Authentication authentication =
+        SecurityContextHolder.getContext().getAuthentication();
+    SecurityUser user = (SecurityUser) authentication.getPrincipal();
+    String currentUserId = String.valueOf(user.getId());
+    return userId.equals(currentUserId);
+  }
 }

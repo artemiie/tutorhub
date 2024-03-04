@@ -78,9 +78,11 @@ public class CourseController {
     courseService.delete(id);
   }
 
-  @PutMapping("/{id}")
+  @PutMapping("/{courseId}")
+  @PreAuthorize("@customSecurityExpresion.isCurrentUser(#userId)"
+      + " && !@customSecurityExpresion.isCourseOwner(#courseId)")
   public void assignUser(@RequestHeader("USER_ID") final Long userId,
-                         @PathVariable final Long id) {
-    courseService.assignUser(userId, id);
+                         @PathVariable final Long courseId) {
+    courseService.assignUser(userId, courseId);
   }
 }
