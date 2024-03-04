@@ -32,17 +32,6 @@ public class UserController {
     return userMapper.toDto(studentEntity);
   }
 
-  @GetMapping()
-  public Page<UserDTO> getAllPaged(
-      @RequestParam(name = "page") final int pageNumber,
-      @RequestParam(name = "size") final int pageSize,
-      @RequestParam final String sortBy) {
-    Page<User> usersPage =
-        userService.findAll(
-            PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)));
-    return usersPage.map(userMapper::toDto);
-  }
-
   @PutMapping
   public UserDTO update(@Validated @RequestBody final UserDTO userDTO) {
     User user = userMapper.fromDto(userDTO);
