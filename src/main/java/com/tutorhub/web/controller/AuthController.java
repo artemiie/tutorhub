@@ -12,7 +12,6 @@ import com.tutorhub.web.controller.swagger.constants.AuthApiConstants.Login;
 import com.tutorhub.web.controller.swagger.constants.AuthApiConstants.Register;
 import com.tutorhub.web.controller.swagger.constants.AuthApiConstants.Reset;
 import com.tutorhub.web.controller.swagger.constants.AuthApiConstants.Restore;
-import com.tutorhub.web.dto.OnCreate;
 import com.tutorhub.web.dto.mapper.UserMapper;
 import com.tutorhub.web.dto.user.UserCreateDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,7 +48,7 @@ public class AuthController {
   })
   @PostMapping("/register")
   public void register(
-      @RequestBody @Validated(OnCreate.class) final UserCreateDto userDTO) {
+      @RequestBody @Validated final UserCreateDto userDTO) {
     User user = userMapper.fromDto(userDTO);
     authService.register(user);
   }

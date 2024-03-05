@@ -8,7 +8,6 @@ import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants.Delete;
 import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants.Find;
 import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants.FindAllPaged;
 import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants.Update;
-import com.tutorhub.web.dto.OnCreate;
 import com.tutorhub.web.dto.mapper.ModuleMapper;
 import com.tutorhub.web.dto.module.ModuleCreateDto;
 import com.tutorhub.web.dto.module.ModuleReadDto;
@@ -104,7 +103,7 @@ public class ModuleController {
   @PreAuthorize("@customSecurityExpresion.isCourseOwner(#courseId)")
   public ModuleReadDto create(
       @PathVariable final Long courseId,
-      @RequestBody @Validated(OnCreate.class) final ModuleCreateDto moduleDTO) {
+      @RequestBody @Validated final ModuleCreateDto moduleDTO) {
     Module entity = moduleMapper.fromDto(moduleDTO);
     Module savedModule = moduleService.create(courseId, entity);
     return moduleMapper.toDto(savedModule);
