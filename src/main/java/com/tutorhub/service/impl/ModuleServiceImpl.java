@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ModuleServiceImpl implements ModuleService {
   private final ModuleRepository moduleRepository;
@@ -49,7 +50,6 @@ public class ModuleServiceImpl implements ModuleService {
   }
 
   @Override
-  @Transactional
   public void delete(final Long courseId, final Long moduleId) {
     moduleRepository.deleteByCourseIdAndModuleId(courseId, moduleId);
   }

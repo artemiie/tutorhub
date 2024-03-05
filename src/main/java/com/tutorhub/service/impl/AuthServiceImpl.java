@@ -27,8 +27,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
+@RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
   private final UserService userService;

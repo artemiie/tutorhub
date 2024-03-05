@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class SubmoduleServiceImpl implements SubmoduleService {
   private final SubmoduleRepository submoduleRepository;
@@ -60,7 +61,6 @@ public class SubmoduleServiceImpl implements SubmoduleService {
   }
 
   @Override
-  @Transactional
   public void delete(final Long courseId,
                      final Long moduleId,
                      final Long submoduleId) {
