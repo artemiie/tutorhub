@@ -6,10 +6,10 @@ import com.tutorhub.service.CourseInfoService;
 import com.tutorhub.service.ProgressService;
 import com.tutorhub.web.controller.swagger.constants.CourseInfoApiConstants;
 import com.tutorhub.web.controller.swagger.constants.CourseInfoApiConstants.Find;
-import com.tutorhub.web.dto.CourseInfoDTO;
-import com.tutorhub.web.dto.ProgressDTO;
+import com.tutorhub.web.dto.courseinfo.CourseInfoReadDto;
 import com.tutorhub.web.dto.mapper.CourseInfoMapper;
 import com.tutorhub.web.dto.mapper.ProgressMapper;
+import com.tutorhub.web.dto.progress.ProgressReadDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -47,17 +47,18 @@ public class CourseInfoController {
           description = Find.ResponseCode500.DESCRIPTION)
   })
   @GetMapping
-  public CourseInfoDTO find(
+  public CourseInfoReadDto find(
       @RequestParam final Long userId,
       @RequestParam final Long courseId) {
     CourseInfo courseInfo =
         courseInfoService.findByUserIdAndCourseId(userId, courseId);
 
     List<Progress> progress = progressService.findByCourseInfo(courseInfo);
-    ProgressDTO progressDTO = progressMapper.fromListToSingleDto(progress);
+    ProgressReadDto progressDTO = progressMapper.fromListToSingleDto(progress);
 
-    CourseInfoDTO courseInfoDTO = courseInfoMapper.toDto(courseInfo);
-    courseInfoDTO.setProgress(progressDTO);
+    CourseInfoReadDto courseInfoDTO =
+        courseInfoMapper.toCourseInfoReadDto(courseInfo);
+    //courseInfoDTO.progress(progressDTO);
     return courseInfoDTO;
   }
 }

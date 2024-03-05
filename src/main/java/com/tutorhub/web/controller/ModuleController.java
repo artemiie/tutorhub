@@ -8,9 +8,11 @@ import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants.Delete;
 import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants.Find;
 import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants.FindAllPaged;
 import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants.Update;
-import com.tutorhub.web.dto.ModuleDTO;
 import com.tutorhub.web.dto.OnCreate;
 import com.tutorhub.web.dto.mapper.ModuleMapper;
+import com.tutorhub.web.dto.module.ModuleCreateDto;
+import com.tutorhub.web.dto.module.ModuleReadDto;
+import com.tutorhub.web.dto.module.ModuleUpdateDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -54,8 +56,8 @@ public class ModuleController {
           description = Find.ResponseCode500.DESCRIPTION)
   })
   @GetMapping("/{moduleId}")
-  public ModuleDTO find(@PathVariable final Long courseId,
-                        @PathVariable final Long moduleId) {
+  public ModuleReadDto find(@PathVariable final Long courseId,
+                            @PathVariable final Long moduleId) {
     Module moduleEntity = moduleService.find(courseId, moduleId);
     return moduleMapper.toDto(moduleEntity);
   }
@@ -75,7 +77,7 @@ public class ModuleController {
           description = FindAllPaged.ResponseCode500.DESCRIPTION)
   })
   @GetMapping
-  public Page<ModuleDTO> findAllPaged(
+  public Page<ModuleReadDto> findAllPaged(
       @PathVariable final Long courseId,
       @RequestParam(name = "page") final int pageNumber,
       @RequestParam(name = "size") final int pageSize,
@@ -100,9 +102,9 @@ public class ModuleController {
   })
   @PostMapping
   @PreAuthorize("@customSecurityExpresion.isCourseOwner(#courseId)")
-  public ModuleDTO create(
+  public ModuleReadDto create(
       @PathVariable final Long courseId,
-      @RequestBody @Validated(OnCreate.class) final ModuleDTO moduleDTO) {
+      @RequestBody @Validated(OnCreate.class) final ModuleCreateDto moduleDTO) {
     Module entity = moduleMapper.fromDto(moduleDTO);
     Module savedModule = moduleService.create(courseId, entity);
     return moduleMapper.toDto(savedModule);
@@ -128,8 +130,8 @@ public class ModuleController {
   })
   @PutMapping()
   @PreAuthorize("@customSecurityExpresion.isCourseOwner(#courseId)")
-  public ModuleDTO update(@PathVariable final Long courseId,
-                          @RequestBody final ModuleDTO moduleDTO) {
+  public ModuleReadDto update(@PathVariable final Long courseId,
+                              @RequestBody final ModuleUpdateDto moduleDTO) {
     Module updatedModule = moduleMapper.fromDto(moduleDTO);
     Module savedModule = moduleService.update(courseId, updatedModule);
     return moduleMapper.toDto(savedModule);

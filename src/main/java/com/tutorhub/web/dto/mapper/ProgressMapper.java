@@ -4,10 +4,10 @@ import com.tutorhub.model.course.Content;
 import com.tutorhub.model.course.Module;
 import com.tutorhub.model.course.Progress;
 import com.tutorhub.model.course.Submodule;
-import com.tutorhub.web.dto.ContentDTO;
-import com.tutorhub.web.dto.ModuleDTO;
-import com.tutorhub.web.dto.ProgressDTO;
-import com.tutorhub.web.dto.SubmoduleDTO;
+import com.tutorhub.web.dto.content.ContentDTO;
+import com.tutorhub.web.dto.module.ModuleReadDto;
+import com.tutorhub.web.dto.progress.ProgressReadDto;
+import com.tutorhub.web.dto.submodule.SubmoduleReadDto;
 import org.mapstruct.Mapper;
 
 import java.util.ArrayList;
@@ -16,10 +16,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
-public interface ProgressMapper extends Mappable<Progress, ProgressDTO> {
+public interface ProgressMapper {
 
-  default ProgressDTO fromListToSingleDto(List<Progress> e) {
-    ProgressDTO progressDTO = new ProgressDTO();
+  default ProgressReadDto fromListToSingleDto(List<Progress> e) {
+    ProgressReadDto progressDTO = null; //new ProgressDTO();
 
     Map<Module, List<Submodule>> progressByModuleId =
         e.stream()
@@ -31,32 +31,32 @@ public interface ProgressMapper extends Mappable<Progress, ProgressDTO> {
 
     progressByModuleId.forEach(
         (module, submodules) -> {
-          ModuleDTO moduleDTO = toDto(module);
-          List<SubmoduleDTO> submoduleDTOList = toDtoSubmodule(submodules);
-          moduleDTO.setSubmodules(submoduleDTOList);
-          progressDTO.getModuleDTOS().add(moduleDTO);
+          ModuleReadDto moduleDTO = toDto(module);
+          List<SubmoduleReadDto> submoduleDTOList = toDtoSubmodule(submodules);
+          //moduleDTO.setSubmodules(submoduleDTOList);
+          //progressDTO.getModuleDTOS().add(moduleDTO);
         }
     );
 
     return progressDTO;
   }
 
-  private ModuleDTO toDto(Module e) {
+  private ModuleReadDto toDto(Module e) {
     if (e == null) {
       return null;
     } else {
-      ModuleDTO moduleDTO = new ModuleDTO();
-      moduleDTO.setId(e.getId());
-      moduleDTO.setName(e.getName());
+      ModuleReadDto moduleDTO = null; //new ModuleDTO();
+      //moduleDTO.setId(e.getId());
+      //moduleDTO.setName(e.getName());
       return moduleDTO;
     }
   }
 
-  private List<SubmoduleDTO> toDtoSubmodule(List<Submodule> e) {
+  private List<SubmoduleReadDto> toDtoSubmodule(List<Submodule> e) {
     if (e == null) {
       return null;
     } else {
-      List<SubmoduleDTO> list = new ArrayList<>(e.size());
+      List<SubmoduleReadDto> list = new ArrayList<>(e.size());
 
       for (Submodule submodule : e) {
         list.add(this.toDto(submodule));
@@ -66,15 +66,32 @@ public interface ProgressMapper extends Mappable<Progress, ProgressDTO> {
     }
   }
 
-  private SubmoduleDTO toDto(Submodule e) {
+  private SubmoduleReadDto toDto(Submodule e) {
+
+    /*public SubmoduleDTO toDto(Submodule e) {
+      if (e == null) {
+        return null;
+      } else {
+        Long id = null;
+        String name = null;
+        id = e.getId();
+        name = e.getName();
+        String contentUrl = null;
+        SubmoduleDTO submoduleDTO = new SubmoduleDTO(id, name,
+         (String)contentUrl);
+        return submoduleDTO;
+      }
+    }*/
+
+
     if (e == null) {
       return null;
     } else {
-      SubmoduleDTO submoduleDTO = new SubmoduleDTO();
-      submoduleDTO.setId(e.getId());
-      submoduleDTO.setName(e.getName());
-      submoduleDTO.setContent(this.contentToContentDTO(e.getContent()));
-      return submoduleDTO;
+      //SubmoduleDTO submoduleDTO = new SubmoduleDTO();
+      //submoduleDTO.setId(e.getId());
+      //submoduleDTO.setName(e.getName());
+      //submoduleDTO.setContent(this.contentToContentDTO(e.getContent()));
+      return null; //submoduleDTO;
     }
   }
 
@@ -82,8 +99,8 @@ public interface ProgressMapper extends Mappable<Progress, ProgressDTO> {
     if (content == null) {
       return null;
     } else {
-      ContentDTO contentDTO = new ContentDTO();
-      contentDTO.setId(content.getId());
+      ContentDTO contentDTO = null; // new ContentDTO();
+      //contentDTO.setId(content.getId());
       return contentDTO;
     }
   }

@@ -6,8 +6,9 @@ import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants.Delete;
 import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants.Find;
 import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants.Update;
 import com.tutorhub.web.controller.swagger.constants.UserApiConstants;
-import com.tutorhub.web.dto.UserDTO;
 import com.tutorhub.web.dto.mapper.UserMapper;
+import com.tutorhub.web.dto.user.UserReadDto;
+import com.tutorhub.web.dto.user.UserUpdateDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -44,9 +45,9 @@ public class UserController {
           description = Find.ResponseCode500.DESCRIPTION)
   })
   @GetMapping("/{userId}")
-  public UserDTO find(@PathVariable final Long userId) {
+  public UserReadDto find(@PathVariable final Long userId) {
     User studentEntity = userService.find(userId);
-    return userMapper.toDto(studentEntity);
+    return userMapper.toUserReadDto(studentEntity);
   }
 
   @Operation(summary = Update.SUMMARY, description = Update.DESCRIPTION)
@@ -68,10 +69,11 @@ public class UserController {
           description = Update.ResponseCode500.DESCRIPTION)
   })
   @PutMapping
-  public UserDTO update(@Validated @RequestBody final UserDTO userDTO) {
+  public UserReadDto update(
+      @Validated @RequestBody final UserUpdateDto userDTO) {
     User user = userMapper.fromDto(userDTO);
     User updatedUser = userService.update(user);
-    return userMapper.toDto(updatedUser);
+    return userMapper.toUserReadDto(updatedUser);
   }
 
   @Operation(summary = Delete.SUMMARY, description = Delete.DESCRIPTION)

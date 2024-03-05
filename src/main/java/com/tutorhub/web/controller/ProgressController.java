@@ -3,7 +3,7 @@ package com.tutorhub.web.controller;
 import com.tutorhub.service.ProgressService;
 import com.tutorhub.web.controller.swagger.constants.ProgressApiConstants;
 import com.tutorhub.web.controller.swagger.constants.ProgressApiConstants.Create;
-import com.tutorhub.web.dto.ProgressCreationDto;
+import com.tutorhub.web.dto.progress.ProgressCreationDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

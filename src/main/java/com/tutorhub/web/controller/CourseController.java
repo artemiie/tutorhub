@@ -5,8 +5,9 @@ import com.tutorhub.model.user.User;
 import com.tutorhub.security.SecurityService;
 import com.tutorhub.service.CourseService;
 import com.tutorhub.web.controller.swagger.constants.CourseApiConstants;
-import com.tutorhub.web.dto.CourseDTO;
-import com.tutorhub.web.dto.OnCreate;
+import com.tutorhub.web.dto.course.CourseCreationDto;
+import com.tutorhub.web.dto.course.CourseReadDto;
+import com.tutorhub.web.dto.course.CourseUpdateDto;
 import com.tutorhub.web.dto.mapper.CourseMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -59,9 +60,9 @@ public class CourseController {
           description = Find.ResponseCode500.DESCRIPTION)
   })
   @GetMapping("/{courseId}")
-  public CourseDTO find(@PathVariable final Long courseId) {
+  public CourseReadDto find(@PathVariable final Long courseId) {
     Course courseEntity = courseService.find(courseId);
-    return courseMapper.toDto(courseEntity);
+    return courseMapper.toCourseReadDto(courseEntity);
   }
 
   @Operation(
@@ -79,7 +80,7 @@ public class CourseController {
           description = FindAllByUserPaged.ResponseCode500.DESCRIPTION)
   })
   @GetMapping
-  public Page<CourseDTO> findAllByUserPaged(
+  public Page<CourseReadDto> findAllByUserPaged(
       @RequestParam final Long userId,
       @RequestParam(name = "page") final int pageNumber,
       @RequestParam(name = "size") final int pageSize,
@@ -88,7 +89,7 @@ public class CourseController {
         courseService.findAllByUser(
             userId,
             PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)));
-    return courses.map(courseMapper::toDto);
+    return courses.map(courseMapper::toCourseReadDto);
   }
 
   @Operation(summary = Create.SUMMARY, description = Create.DESCRIPTION)
@@ -104,8 +105,8 @@ public class CourseController {
           description = Create.ResponseCode500.DESCRIPTION)
   })
   @PostMapping
-  public CourseDTO create(
-      @RequestBody @Validated(OnCreate.class) final CourseDTO courseDTO) {
+  public CourseReadDto create(
+      @RequestBody @Validated final CourseCreationDto courseDTO) {
     User currentLoggedInUser = securityService.getCurrentLoggedUser();
 
     Course entity = courseMapper.fromDto(courseDTO);
@@ -113,7 +114,7 @@ public class CourseController {
 
     Course createdEntity = courseService.create(entity);
 
-    return courseMapper.toDto(createdEntity);
+    return courseMapper.toCourseReadDto(createdEntity);
   }
 
   @Operation(summary = Update.SUMMARY, description = Update.DESCRIPTION)
@@ -136,10 +137,11 @@ public class CourseController {
   })
   @PutMapping
   @PreAuthorize("@customSecurityExpresion.isCourseOwner(#courseDTO.id)")
-  public CourseDTO update(@Validated @RequestBody final CourseDTO courseDTO) {
+  public CourseReadDto update(
+      @Validated @RequestBody final CourseUpdateDto courseDTO) {
     Course entity = courseMapper.fromDto(courseDTO);
     Course updated = courseService.update(entity);
-    return courseMapper.toDto(updated);
+    return courseMapper.toCourseReadDto(updated);
   }
 
   @Operation(summary = Delete.SUMMARY, description = Delete.DESCRIPTION)

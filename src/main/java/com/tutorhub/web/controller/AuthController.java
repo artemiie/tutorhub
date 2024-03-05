@@ -13,8 +13,8 @@ import com.tutorhub.web.controller.swagger.constants.AuthApiConstants.Register;
 import com.tutorhub.web.controller.swagger.constants.AuthApiConstants.Reset;
 import com.tutorhub.web.controller.swagger.constants.AuthApiConstants.Restore;
 import com.tutorhub.web.dto.OnCreate;
-import com.tutorhub.web.dto.UserDTO;
 import com.tutorhub.web.dto.mapper.UserMapper;
+import com.tutorhub.web.dto.user.UserCreateDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -49,7 +49,7 @@ public class AuthController {
   })
   @PostMapping("/register")
   public void register(
-      @RequestBody @Validated(OnCreate.class) final UserDTO userDTO) {
+      @RequestBody @Validated(OnCreate.class) final UserCreateDto userDTO) {
     User user = userMapper.fromDto(userDTO);
     authService.register(user);
   }
@@ -108,7 +108,7 @@ public class AuthController {
   @GetMapping("/confirm")
   public void confirm(
       @Parameter(description = "The token received to confirm the user's email")
-      @RequestParam(value = "token", required = true) final String token) {
+      @RequestParam(value = "token") final String token) {
     authService.confirmUserEmail(token);
   }
 }

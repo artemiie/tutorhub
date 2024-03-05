@@ -5,7 +5,6 @@ import com.tutorhub.model.course.Course;
 import com.tutorhub.model.course.CourseInfo;
 import com.tutorhub.repository.CourseRepository;
 import com.tutorhub.service.CourseInfoService;
-import com.tutorhub.service.ProgressService;
 import com.tutorhub.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

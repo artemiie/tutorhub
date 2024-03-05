@@ -8,9 +8,10 @@ import com.tutorhub.web.controller.swagger.constants.SubmoduleApiConstants.Delet
 import com.tutorhub.web.controller.swagger.constants.SubmoduleApiConstants.Find;
 import com.tutorhub.web.controller.swagger.constants.SubmoduleApiConstants.FindAllPaged;
 import com.tutorhub.web.controller.swagger.constants.SubmoduleApiConstants.Update;
-import com.tutorhub.web.dto.OnCreate;
-import com.tutorhub.web.dto.SubmoduleDTO;
 import com.tutorhub.web.dto.mapper.SubmoduleMapper;
+import com.tutorhub.web.dto.submodule.SubmoduleCreateDto;
+import com.tutorhub.web.dto.submodule.SubmoduleReadDto;
+import com.tutorhub.web.dto.submodule.SubmoduleUpdateDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -54,7 +55,7 @@ public class SubmoduleController {
           description = Find.ResponseCode500.DESCRIPTION)
   })
   @GetMapping("/{submoduleId}")
-  public SubmoduleDTO find(
+  public SubmoduleReadDto find(
       @PathVariable final Long courseId,
       @PathVariable final Long moduleId,
       @PathVariable final Long submoduleId) {
@@ -78,7 +79,7 @@ public class SubmoduleController {
           description = FindAllPaged.ResponseCode500.DESCRIPTION)
   })
   @GetMapping
-  public Page<SubmoduleDTO> findAllPaged(
+  public Page<SubmoduleReadDto> findAllPaged(
       @PathVariable final Long courseId,
       @PathVariable final Long moduleId,
       @RequestParam(name = "page") final int pageNumber,
@@ -106,10 +107,10 @@ public class SubmoduleController {
   })
   @PostMapping
   @PreAuthorize("@customSecurityExpresion.isCourseOwner(#courseId)")
-  public SubmoduleDTO create(
+  public SubmoduleReadDto create(
       @PathVariable final Long courseId,
       @PathVariable final Long moduleId,
-      @RequestBody @Validated(OnCreate.class) final SubmoduleDTO submoduleDTO) {
+      @RequestBody @Validated final SubmoduleCreateDto submoduleDTO) {
     Submodule submodule = submoduleMapper.fromDto(submoduleDTO);
     Submodule savedSubodule =
         submoduleService.create(courseId, moduleId, submodule);
@@ -136,9 +137,10 @@ public class SubmoduleController {
   })
   @PutMapping()
   @PreAuthorize("@customSecurityExpresion.isCourseOwner(#courseId)")
-  public SubmoduleDTO update(@PathVariable final Long courseId,
-                             @PathVariable final Long moduleId,
-                             @RequestBody final SubmoduleDTO submoduleDTO) {
+  public SubmoduleReadDto update(
+      @PathVariable final Long courseId,
+      @PathVariable final Long moduleId,
+      @RequestBody final SubmoduleUpdateDto submoduleDTO) {
     Submodule updatedSubmodule = submoduleMapper.fromDto(submoduleDTO);
     Submodule savedSubmodule = submoduleService.update(
         courseId, moduleId, updatedSubmodule);

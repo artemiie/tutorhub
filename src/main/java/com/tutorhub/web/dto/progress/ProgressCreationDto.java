@@ -1,4 +1,4 @@
-package com.tutorhub.web.dto;
+package com.tutorhub.web.dto.progress;
 
 public record ProgressCreationDto(Long userId,
                                   Long courseId,
