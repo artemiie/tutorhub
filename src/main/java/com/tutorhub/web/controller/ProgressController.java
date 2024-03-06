@@ -38,7 +38,7 @@ public class ProgressController {
   })
   @PostMapping
   @PreAuthorize(
-      "@customSecurityExpresion.isCourseOwner(#progressDto.courseId)"
+      "!@customSecurityExpresion.isCourseOwner(#progressDto.courseId)"
           + " && @customSecurityExpresion.isCurrentUser(#progressDto.userId)")
   public void create(
       @RequestBody final ProgressCreationDto progressDto) {

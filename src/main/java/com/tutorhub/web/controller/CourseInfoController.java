@@ -9,7 +9,6 @@ import com.tutorhub.web.controller.swagger.constants.CourseInfoApiConstants.Find
 import com.tutorhub.web.dto.courseinfo.CourseInfoReadDto;
 import com.tutorhub.web.dto.mapper.CourseInfoMapper;
 import com.tutorhub.web.dto.mapper.ProgressMapper;
-import com.tutorhub.web.dto.progress.ProgressReadDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -49,7 +48,7 @@ public class CourseInfoController {
   })
   @GetMapping
   @PreAuthorize(
-      "@customSecurityExpresion.isCourseOwner(#courseId)"
+      "!@customSecurityExpresion.isCourseOwner(#courseId)"
           + " && @customSecurityExpresion.isCurrentUser(#userId)")
   public CourseInfoReadDto find(
       @RequestParam final Long userId,
