@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,9 @@ public class ProgressController {
           description = Create.ResponseCode500.DESCRIPTION)
   })
   @PostMapping
+  @PreAuthorize(
+      "@customSecurityExpresion.isCourseOwner(#progressDto.courseId)"
+          + " && @customSecurityExpresion.isCurrentUser(#progressDto.userId)")
   public void create(
       @RequestBody final ProgressCreationDto progressCreationDto) {
     progressService.create(

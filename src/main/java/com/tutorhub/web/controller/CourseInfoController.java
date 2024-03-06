@@ -47,6 +47,9 @@ public class CourseInfoController {
           description = Find.ResponseCode500.DESCRIPTION)
   })
   @GetMapping
+  @PreAuthorize(
+      "@customSecurityExpresion.isCourseOwner(#courseId)"
+          + " && @customSecurityExpresion.isCurrentUser(#userId)")
   public CourseInfoReadDto find(
       @RequestParam final Long userId,
       @RequestParam final Long courseId) {

@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -69,6 +70,7 @@ public class UserController {
           description = Update.ResponseCode500.DESCRIPTION)
   })
   @PutMapping
+  @PreAuthorize("@customSecurityExpresion.isCurrentUser(#userDto.id)")
   public UserReadDto update(
       @Validated @RequestBody final UserUpdateDto userDTO) {
     User user = userMapper.fromDto(userDTO);
@@ -95,6 +97,7 @@ public class UserController {
           description = Delete.ResponseCode500.DESCRIPTION)
   })
   @DeleteMapping("/{userId}")
+  @PreAuthorize("@customSecurityExpresion.isCurrentUser(#userId)")
   public void delete(@PathVariable final Long userId) {
     userService.delete(userId);
   }

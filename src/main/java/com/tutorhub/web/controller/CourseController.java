@@ -105,6 +105,7 @@ public class CourseController {
           description = Create.ResponseCode500.DESCRIPTION)
   })
   @PostMapping
+  @PreAuthorize("@customSecurityExpresion.isCurrentUser(#courseDTO.userId)")
   public CourseReadDto create(
       @RequestBody @Validated final CourseCreationDto courseDTO) {
     User currentLoggedInUser = securityService.getCurrentLoggedUser();
