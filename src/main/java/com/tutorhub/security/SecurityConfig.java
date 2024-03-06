@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -66,11 +65,10 @@ public class SecurityConfig {
         .authorizeHttpRequests(
             configurer ->
                 configurer
-                    .requestMatchers(HttpMethod.POST, "/api/v1/courses")
-                    .authenticated()
+                    .requestMatchers("/api/v1/**").authenticated()
+                    .requestMatchers("/api/v1/auth").permitAll()
                     .requestMatchers("/swagger-ui/**").permitAll()
-                    .requestMatchers("/**")
-                    .permitAll())
+        )
         .addFilterBefore(
             new JwtTokenFilter(jwtService, userDetailsService),
             UsernamePasswordAuthenticationFilter.class);
