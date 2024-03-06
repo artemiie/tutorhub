@@ -39,7 +39,9 @@ class CourseServiceImplTest {
   void getById() {
     var expectedResult = getCourseTest(COURSE_ID);
 
-    doReturn(Optional.of(expectedResult)).when(courseRepository).findById(COURSE_ID);
+    doReturn(Optional.of(expectedResult))
+        .when(courseRepository)
+        .findById(COURSE_ID);
 
     var actualResult = courseService.find(COURSE_ID);
 
@@ -50,9 +52,12 @@ class CourseServiceImplTest {
 
   @Test
   void getById_withNotExistingId() {
-    doReturn(Optional.empty()).when(courseRepository).findById(COURSE_ID);
+    doReturn(Optional.empty())
+        .when(courseRepository)
+        .findById(COURSE_ID);
 
-    assertThrows(ResourceNotFoundException.class, () -> courseService.find(COURSE_ID));
+    assertThrows(
+        ResourceNotFoundException.class, () -> courseService.find(COURSE_ID));
 
     verify(courseRepository).findById(COURSE_ID);
   }
@@ -61,7 +66,8 @@ class CourseServiceImplTest {
   void getAll() {
     var expectedResult = new PageImpl<>(List.of(getCourseTest(COURSE_ID)));
 
-    var page = PageRequest.of(1, 10, Sort.by("name"));
+    var page =
+        PageRequest.of(1, 10, Sort.by("name"));
 
     doReturn(expectedResult).when(courseRepository).findAll(page);
 
@@ -69,8 +75,10 @@ class CourseServiceImplTest {
 
     assertAll(
         () -> assertEquals(1, actualResult.get().toList().size()),
-        () ->
-            assertEquals(expectedResult.get().toList().get(0), actualResult.get().toList().get(0)));
+        () -> assertEquals(
+            expectedResult.get().toList().getFirst(),
+            actualResult.get().toList().getFirst())
+    );
 
     verify(courseRepository).findAll(page);
   }
@@ -99,7 +107,8 @@ class CourseServiceImplTest {
         () ->
             assertEquals(
                 expectedResult.get().toList().getFirst(),
-                actualResult.get().toList().getFirst()));
+                actualResult.get().toList().getFirst())
+    );
 
     verify(courseRepository).findByCourseOwnerId(1L, page);
   }
@@ -124,7 +133,8 @@ class CourseServiceImplTest {
         () -> assertEquals(1, actualResult.get().toList().size()),
         () -> assertEquals(
             expectedResult.get().toList().getFirst(),
-            actualResult.get().toList().getFirst()));
+            actualResult.get().toList().getFirst())
+    );
 
     verify(courseRepository).findAll(page);
   }
@@ -145,7 +155,9 @@ class CourseServiceImplTest {
     var actualResult = courseService.create(expectedResult);
 
     assertAll(
-        () -> assertNotNull(actualResult), () -> assertEquals(COURSE_ID, actualResult.getId()));
+        () -> assertNotNull(actualResult),
+        () -> assertEquals(COURSE_ID, actualResult.getId())
+    );
 
     verify(courseRepository).save(expectedResult);
   }
@@ -162,7 +174,10 @@ class CourseServiceImplTest {
     var courseOnDb = getCourseTest(COURSE_ID);
     courseOnDb.setName("Course");
     courseOnDb.setCourseOwner(getUserTest(COURSE_ID));
-    doReturn(Optional.of(courseOnDb)).when(courseRepository).findById(COURSE_ID);
+
+    doReturn(Optional.of(courseOnDb))
+        .when(courseRepository)
+        .findById(COURSE_ID);
 
     when(courseRepository.save(any())).thenAnswer(i -> i.getArguments()[0]);
 
@@ -173,7 +188,9 @@ class CourseServiceImplTest {
 
     assertAll(
         () -> assertEquals("New Course", actualResult.getName()),
-        () -> assertEquals(courseOnDb.getCourseOwner(), actualResult.getCourseOwner()));
+        () -> assertEquals(
+            courseOnDb.getCourseOwner(), actualResult.getCourseOwner())
+    );
 
     verify(courseRepository).save(actualResult);
     verify(courseRepository).findById(COURSE_ID);
@@ -183,15 +200,24 @@ class CourseServiceImplTest {
   void findByUserId() {
     var expectedResult = List.of(getCourseTest(COURSE_ID));
     long userId = 1;
-    doReturn(expectedResult).when(courseRepository).findByCourseOwnerId(userId);
+    doReturn(expectedResult)
+        .when(courseRepository)
+        .findByCourseOwnerId(userId);
 
     var actualResult = courseService.findByUserId(COURSE_ID);
 
     assertAll(
         () -> assertNotNull(actualResult),
-        () -> assertEquals(expectedResult.size(), actualResult.size()),
-        () -> assertEquals(expectedResult.getFirst().getId(), actualResult.getFirst().getId()),
-        () -> assertEquals(expectedResult.getFirst().getName(), actualResult.getFirst().getName()));
+        () -> assertEquals(
+            expectedResult.size(),
+            actualResult.size()),
+        () -> assertEquals(
+            expectedResult.getFirst().getId(),
+            actualResult.getFirst().getId()),
+        () -> assertEquals(
+            expectedResult.getFirst().getName(),
+            actualResult.getFirst().getName())
+    );
 
     verify(courseRepository).findByCourseOwnerId(userId);
   }

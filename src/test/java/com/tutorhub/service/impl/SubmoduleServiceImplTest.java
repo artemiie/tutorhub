@@ -1,16 +1,10 @@
 package com.tutorhub.service.impl;
 
-import static com.tutorhub.testfactory.ModuleTestFactory.getModuleTest;
-import static com.tutorhub.testfactory.SubmoduleTestFactory.getSubmoduleTest;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 import com.tutorhub.exception.ResourceNotFoundException;
 import com.tutorhub.model.course.Submodule;
+import com.tutorhub.repository.ContentRepository;
+import com.tutorhub.repository.ModuleRepository;
 import com.tutorhub.repository.SubmoduleRepository;
-import com.tutorhub.service.ModuleService;
-import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,126 +13,190 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+import java.util.Optional;
+
+import static com.tutorhub.testfactory.ContentTestFactory.getContentTest;
+import static com.tutorhub.testfactory.ModuleTestFactory.getModuleTest;
+import static com.tutorhub.testfactory.SubmoduleTestFactory.getSubmoduleTest;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
-  public class SubmoduleServiceImplTest {
-    private static final Long COURSE_ID = 1L;
-    private static final Long MODULE_ID = 1L;
-    private static final Long SUBMODULE_ID = 1L;
+public class SubmoduleServiceImplTest {
+  private static final Long COURSE_ID = 1L;
+  private static final Long MODULE_ID = 1L;
+  private static final Long SUBMODULE_ID = 1L;
 
-    @Mock
-    private SubmoduleRepository submoduleRepository;
+  @Mock
+  private SubmoduleRepository submoduleRepository;
 
-    @Mock
-    private ModuleService moduleService;
+  @Mock
+  private ModuleRepository moduleRepository;
 
-    @InjectMocks
-    private SubmoduleServiceImpl submoduleService;
+  @Mock
+  private ContentRepository contentRepository;
 
-    @Test
-    void find() {
-      var expectedResult = getSubmoduleTest(SUBMODULE_ID);
+  @InjectMocks
+  private SubmoduleServiceImpl submoduleService;
 
-      doReturn(Optional.of(expectedResult))
-          .when(submoduleRepository)
-          .findByModule_Course_IdAndModule_IdAndId(COURSE_ID, MODULE_ID, SUBMODULE_ID);
+  @Test
+  void find() {
+    var expectedResult = getSubmoduleTest(SUBMODULE_ID);
 
-      var actualResult = submoduleService.find(COURSE_ID, MODULE_ID, SUBMODULE_ID);
+    doReturn(Optional.of(expectedResult))
+        .when(submoduleRepository)
+        .findByModule_Course_IdAndModule_IdAndId(
+            COURSE_ID, MODULE_ID, SUBMODULE_ID
+        );
 
-      assertEquals(expectedResult, actualResult);
+    var actualResult =
+        submoduleService.find(COURSE_ID, MODULE_ID, SUBMODULE_ID);
 
-      verify(submoduleRepository).findByModule_Course_IdAndModule_IdAndId(COURSE_ID, MODULE_ID, SUBMODULE_ID);
-    }
+    assertEquals(expectedResult, actualResult);
 
-    @Test
-    void find_whenNotFound() {
-      doReturn(Optional.empty())
-          .when(submoduleRepository)
-          .findByModule_Course_IdAndModule_IdAndId(COURSE_ID, MODULE_ID, SUBMODULE_ID);
+    verify(submoduleRepository)
+        .findByModule_Course_IdAndModule_IdAndId(
+            COURSE_ID, MODULE_ID, SUBMODULE_ID
+        );
+  }
 
-      assertThrows(
-          ResourceNotFoundException.class,
-          () -> submoduleService.find(COURSE_ID, MODULE_ID, SUBMODULE_ID));
+  @Test
+  void find_whenNotFound() {
+    doReturn(Optional.empty())
+        .when(submoduleRepository)
+        .findByModule_Course_IdAndModule_IdAndId(
+            COURSE_ID, MODULE_ID, SUBMODULE_ID
+        );
 
-      verify(submoduleRepository).findByModule_Course_IdAndModule_IdAndId(COURSE_ID, MODULE_ID, SUBMODULE_ID);
-    }
+    assertThrows(
+        ResourceNotFoundException.class,
+        () -> submoduleService.find(COURSE_ID, MODULE_ID, SUBMODULE_ID));
 
-    @Test
-    void findAllPaged() {
-      var expectedResult = new PageImpl<>(List.of(getSubmoduleTest(SUBMODULE_ID)));
+    verify(submoduleRepository)
+        .findByModule_Course_IdAndModule_IdAndId(
+            COURSE_ID, MODULE_ID, SUBMODULE_ID
+        );
+  }
 
-      var page = PageRequest.of(0, 10);
+  @Test
+  void findAllPaged() {
+    var expectedResult =
+        new PageImpl<>(List.of(getSubmoduleTest(SUBMODULE_ID)));
 
-      doReturn(expectedResult)
-          .when(submoduleRepository)
-          .findByModule_Course_IdAndModule_Id(COURSE_ID, MODULE_ID, page);
+    var page = PageRequest.of(0, 10);
 
-      var actualResult = submoduleService.findAllPaged(COURSE_ID, MODULE_ID, page);
+    doReturn(expectedResult)
+        .when(submoduleRepository)
+        .findByModule_Course_IdAndModule_Id(COURSE_ID, MODULE_ID, page);
 
-      assertAll(
-          () -> assertEquals(1, actualResult.get().toList().size()),
-          () -> assertEquals(expectedResult.get().toList().get(0), actualResult.get().toList().get(0))
-      );
+    var actualResult =
+        submoduleService.findAllPaged(COURSE_ID, MODULE_ID, page);
 
-      verify(submoduleRepository).findByModule_Course_IdAndModule_Id(COURSE_ID, MODULE_ID, page);
-    }
+    assertAll(
+        () -> assertEquals(1, actualResult.get().toList().size()),
+        () -> assertEquals(
+            expectedResult.get().toList().getFirst(),
+            actualResult.get().toList().getFirst())
+    );
 
-    @Test
-    void create() {
-      var expectedResult = getSubmoduleTest(null);
-      var module = getModuleTest(MODULE_ID);
+    verify(submoduleRepository)
+        .findByModule_Course_IdAndModule_Id(
+            COURSE_ID, MODULE_ID, page
+        );
+  }
 
-      doReturn(module).when(moduleService).find(COURSE_ID, MODULE_ID);
-      doAnswer(
-          invocationOnMock -> {
-            Submodule submodule = invocationOnMock.getArgument(0);
-            submodule.setId(SUBMODULE_ID);
-            return submodule;
-          })
-          .when(submoduleRepository)
-          .save(expectedResult);
+  @Test
+  void create() {
+    Long CONTENT_ID = 1L;
+    var content = getContentTest(CONTENT_ID);
 
-      var actualResult = submoduleService.create(COURSE_ID, MODULE_ID, expectedResult);
+    var expectedResult = getSubmoduleTest(null);
+    expectedResult.setContent(content);
 
-      assertAll(
-          () -> assertNotNull(actualResult),
-          () -> assertEquals(SUBMODULE_ID, actualResult.getId()),
-          () -> assertEquals(module, actualResult.getModule())
-      );
+    doReturn(true)
+        .when(moduleRepository)
+        .existsByCourseIdAndId(COURSE_ID, MODULE_ID);
 
-      verify(submoduleRepository).save(expectedResult);
-    }
+    doReturn(true)
+        .when(contentRepository)
+        .existsById(CONTENT_ID);
 
-    @Test
-    void update() {
-      var submoduleOnDb = getSubmoduleTest(SUBMODULE_ID);
-      submoduleOnDb.setName("Submodule");
-      var module = getModuleTest(MODULE_ID);
-      submoduleOnDb.setModule(module);
+    doAnswer(
+        invocationOnMock -> {
+          Submodule submodule = invocationOnMock.getArgument(0);
+          submodule.setId(SUBMODULE_ID);
+          return submodule;
+        })
+        .when(submoduleRepository)
+        .save(expectedResult);
 
-      doReturn(Optional.of(submoduleOnDb))
-          .when(submoduleRepository)
-          .findByModule_Course_IdAndModule_IdAndId(COURSE_ID, MODULE_ID, SUBMODULE_ID);
+    var actualResult =
+        submoduleService.create(COURSE_ID, MODULE_ID, expectedResult);
 
-      when(submoduleRepository.save(any())).thenAnswer(i -> i.getArguments()[0]);
+    assertAll(
+        () -> assertNotNull(actualResult),
+        () -> assertEquals(SUBMODULE_ID, actualResult.getId()),
+        () -> assertEquals(MODULE_ID, actualResult.getModule().getId())
+    );
 
-      var submodule = getSubmoduleTest(SUBMODULE_ID);
-      submodule.setName("New Submodule");
+    verify(submoduleRepository).save(expectedResult);
+  }
 
-      var actualResult = submoduleService.update(COURSE_ID, MODULE_ID, submodule);
+  @Test
+  void create_whenModuleDontExists() {
+    var expectedResult = getSubmoduleTest(null);
 
-      assertAll(
-          () -> assertEquals("New Submodule", actualResult.getName()),
-          () -> assertEquals(module, actualResult.getModule())
-      );
+    doReturn(false)
+        .when(moduleRepository)
+        .existsByCourseIdAndId(COURSE_ID, MODULE_ID);
 
-      verify(submoduleRepository).save(actualResult);
-      verify(submoduleRepository).findByModule_Course_IdAndModule_IdAndId(COURSE_ID, MODULE_ID, SUBMODULE_ID);
-    }
+    assertThrows(
+        ResourceNotFoundException.class,
+        () -> submoduleService.create(COURSE_ID, MODULE_ID, expectedResult));
 
-    @Test
-    void delete() {
-      submoduleService.delete(COURSE_ID, MODULE_ID, SUBMODULE_ID);
+    verify(moduleRepository).existsByCourseIdAndId(COURSE_ID, MODULE_ID);
+  }
 
-      verify(submoduleRepository).deleteByModule_Course_IdAndModule_IdAndId(COURSE_ID, MODULE_ID, SUBMODULE_ID);
-    }
+  @Test
+  void update() {
+    var submoduleOnDb = getSubmoduleTest(SUBMODULE_ID);
+    submoduleOnDb.setName("Submodule");
+    var module = getModuleTest(MODULE_ID);
+    submoduleOnDb.setModule(module);
+
+    doReturn(Optional.of(submoduleOnDb))
+        .when(submoduleRepository)
+        .findByModule_Course_IdAndModule_IdAndId(
+            COURSE_ID, MODULE_ID, SUBMODULE_ID
+        );
+
+    when(submoduleRepository.save(any())).thenAnswer(i -> i.getArguments()[0]);
+
+    var submodule = getSubmoduleTest(SUBMODULE_ID);
+    submodule.setName("New Submodule");
+
+    var actualResult = submoduleService.update(COURSE_ID, MODULE_ID, submodule);
+
+    assertAll(
+        () -> assertEquals("New Submodule", actualResult.getName()),
+        () -> assertEquals(module, actualResult.getModule())
+    );
+
+    verify(submoduleRepository).save(actualResult);
+    verify(submoduleRepository)
+        .findByModule_Course_IdAndModule_IdAndId(
+            COURSE_ID, MODULE_ID, SUBMODULE_ID
+        );
+  }
+
+  @Test
+  void delete() {
+    submoduleService.delete(COURSE_ID, MODULE_ID, SUBMODULE_ID);
+
+    verify(submoduleRepository)
+        .deleteByModule_Course_IdAndModule_IdAndId(
+            COURSE_ID, MODULE_ID, SUBMODULE_ID
+        );
+  }
 }

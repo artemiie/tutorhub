@@ -96,7 +96,10 @@ class AuthServiceImplTest {
   void register() {
     var user = getUserTest(userId);
 
-    doReturn(false).when(userService).existsByUsername(user.getUsername());
+    doReturn(false)
+        .when(userService)
+        .existsByUsername(user.getUsername());
+
     doReturn(encodedPassword).when(passwordEncoder).encode(any());
 
     authService.register(user);
