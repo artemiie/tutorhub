@@ -5,7 +5,7 @@ import java.util.List;
 
 public enum ContentType {
   TEXT(List.of("text/plain", "text/xml", "text/html")),
-  IMAGE(List.of("image/bmp", "image/jpeg", "application/xml")),
+  IMAGE(List.of("image/png", "image/bmp", "image/jpeg", "application/xml")),
   VIDEO(List.of("video/mp4", "video/quicktime"));
   public final List<String> extensions;
 

@@ -1,9 +1,11 @@
 package com.tutorhub.service;
 
-import org.springframework.web.multipart.MultipartFile;
+import com.tutorhub.model.course.Content;
 
 public interface ContentService {
-  Object find(String filename);
 
-  String upload(MultipartFile file);
+  Content create(Content content);
+
+  Content find(Long id);
+
 }

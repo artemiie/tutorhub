@@ -11,6 +11,8 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "content")
 @Getter
@@ -21,8 +23,8 @@ public class Content {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "url")
-  private String url;
+  @Column(name = "fileId")
+  private UUID fileId;
 
   @Column(name = "title")
   private String title;
@@ -30,7 +32,10 @@ public class Content {
   @Column(name = "description")
   private String description;
 
-  @Column(name = "content_type", nullable = false)
+  @Column(name = "original_name")
+  private String originalName;
+
+  @Column(name = "type", nullable = false)
   @Enumerated(EnumType.STRING)
-  private ContentType contentType;
+  private ContentType type;
 }

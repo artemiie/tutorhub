@@ -24,4 +24,6 @@ public interface ModuleRepository extends JpaRepository<Module, Long> {
       nativeQuery = true)
   @Modifying(clearAutomatically = true)
   void deleteByCourseIdAndModuleId(Long courseId, Long moduleId);
+
+  boolean existsByCourseIdAndId(Long courseId, Long moduleId);
 }

@@ -4,12 +4,11 @@ import com.tutorhub.model.course.ContentType;
 
 import java.util.UUID;
 
-public record ContentReadDto(
-    Long id,
+public record ContentCreateDto(
     UUID fileId,
-    String originalName,
     String title,
     String description,
+    String originalName,
     ContentType type
 ) {
 }
