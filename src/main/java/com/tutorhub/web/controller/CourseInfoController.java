@@ -58,11 +58,7 @@ public class CourseInfoController {
         courseInfoService.findByUserIdAndCourseId(userId, courseId);
 
     List<Progress> progress = progressService.findByCourseInfo(courseInfo);
-    ProgressReadDto progressDTO = progressMapper.fromListToSingleDto(progress);
 
-    CourseInfoReadDto courseInfoDTO =
-        courseInfoMapper.toCourseInfoReadDto(courseInfo);
-    //courseInfoDTO.progress(progressDTO);
-    return courseInfoDTO;
+    return courseInfoMapper.toDto(courseInfo, progress);
   }
 }
