@@ -10,6 +10,7 @@ import com.tutorhub.web.controller.swagger.constants.SubmoduleApiConstants.FindA
 import com.tutorhub.web.controller.swagger.constants.SubmoduleApiConstants.Update;
 import com.tutorhub.web.dto.mapper.SubmoduleMapper;
 import com.tutorhub.web.dto.submodule.SubmoduleCreateDto;
+import com.tutorhub.web.dto.submodule.SubmodulePagedDto;
 import com.tutorhub.web.dto.submodule.SubmoduleReadDto;
 import com.tutorhub.web.dto.submodule.SubmoduleUpdateDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,7 +30,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -82,14 +82,17 @@ public class SubmoduleController {
   public Page<SubmoduleReadDto> findAllPaged(
       @PathVariable final Long courseId,
       @PathVariable final Long moduleId,
-      @RequestParam(name = "page") final int pageNumber,
-      @RequestParam(name = "size") final int pageSize,
-      @RequestParam final String sortBy) {
+      @RequestBody final SubmodulePagedDto submodulePagedDto) {
     Page<Submodule> submodules =
         submoduleService.findAllPaged(
             courseId,
             moduleId,
-            PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)));
+            PageRequest.of(
+                submodulePagedDto.pageNumber(),
+                submodulePagedDto.pageSize(),
+                Sort.by(submodulePagedDto.sortBy())
+            )
+        );
     return submodules.map(submoduleMapper::toDto);
   }
 

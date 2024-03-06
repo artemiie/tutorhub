@@ -72,8 +72,8 @@ public class UserController {
   @PutMapping
   @PreAuthorize("@customSecurityExpresion.isCurrentUser(#userDto.id)")
   public UserReadDto update(
-      @Validated @RequestBody final UserUpdateDto userDTO) {
-    User user = userMapper.fromDto(userDTO);
+      @Validated @RequestBody final UserUpdateDto updateDto) {
+    User user = userMapper.fromDto(updateDto);
     User updatedUser = userService.update(user);
     return userMapper.toUserReadDto(updatedUser);
   }

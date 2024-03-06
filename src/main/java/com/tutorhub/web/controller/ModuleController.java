@@ -10,6 +10,7 @@ import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants.FindAllP
 import com.tutorhub.web.controller.swagger.constants.ModuleApiConstants.Update;
 import com.tutorhub.web.dto.mapper.ModuleMapper;
 import com.tutorhub.web.dto.module.ModuleCreateDto;
+import com.tutorhub.web.dto.module.ModulePagedDto;
 import com.tutorhub.web.dto.module.ModuleReadDto;
 import com.tutorhub.web.dto.module.ModuleUpdateDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,7 +30,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -78,12 +78,16 @@ public class ModuleController {
   @GetMapping
   public Page<ModuleReadDto> findAllPaged(
       @PathVariable final Long courseId,
-      @RequestParam(name = "page") final int pageNumber,
-      @RequestParam(name = "size") final int pageSize,
-      @RequestParam final String sortBy) {
+      @RequestBody final ModulePagedDto modulePagedDto) {
     Page<Module> modules =
         moduleService.findAllPaged(
-            courseId, PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)));
+            courseId,
+            PageRequest.of(
+                modulePagedDto.pageNumber(),
+                modulePagedDto.pageSize(),
+                Sort.by(modulePagedDto.sortBy())
+            )
+        );
     return modules.map(moduleMapper::toDto);
   }
 

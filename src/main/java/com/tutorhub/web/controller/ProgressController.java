@@ -41,11 +41,11 @@ public class ProgressController {
       "@customSecurityExpresion.isCourseOwner(#progressDto.courseId)"
           + " && @customSecurityExpresion.isCurrentUser(#progressDto.userId)")
   public void create(
-      @RequestBody final ProgressCreationDto progressCreationDto) {
+      @RequestBody final ProgressCreationDto progressDto) {
     progressService.create(
-        progressCreationDto.userId(),
-        progressCreationDto.courseId(),
-        progressCreationDto.moduleId(),
-        progressCreationDto.submoduleId());
+        progressDto.userId(),
+        progressDto.courseId(),
+        progressDto.moduleId(),
+        progressDto.submoduleId());
   }
 }

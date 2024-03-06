@@ -6,6 +6,7 @@ import com.tutorhub.security.SecurityService;
 import com.tutorhub.service.CourseService;
 import com.tutorhub.web.controller.swagger.constants.CourseApiConstants;
 import com.tutorhub.web.dto.course.CourseCreationDto;
+import com.tutorhub.web.dto.course.CoursePagedDto;
 import com.tutorhub.web.dto.course.CourseReadDto;
 import com.tutorhub.web.dto.course.CourseUpdateDto;
 import com.tutorhub.web.dto.mapper.CourseMapper;
@@ -27,7 +28,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.tutorhub.web.controller.swagger.constants.CourseApiConstants.Create;
@@ -81,14 +81,16 @@ public class CourseController {
   })
   @GetMapping
   public Page<CourseReadDto> findAllByUserPaged(
-      @RequestParam final Long userId,
-      @RequestParam(name = "page") final int pageNumber,
-      @RequestParam(name = "size") final int pageSize,
-      @RequestParam final String sortBy) {
+      @RequestBody final CoursePagedDto coursePagedDto) {
     Page<Course> courses =
         courseService.findAllByUser(
-            userId,
-            PageRequest.of(pageNumber, pageSize, Sort.by(sortBy)));
+            coursePagedDto.userId(),
+            PageRequest.of(
+                coursePagedDto.pageNumber(),
+                coursePagedDto.pageSize(),
+                Sort.by(coursePagedDto.sortBy())
+            )
+        );
     return courses.map(courseMapper::toCourseReadDto);
   }
 
