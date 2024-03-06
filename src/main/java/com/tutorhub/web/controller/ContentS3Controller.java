@@ -40,10 +40,10 @@ public class ContentS3Controller {
           description = Find.RescponseCode500.DESCRIPTION)
   })
   @GetMapping(
-      path = "/{fileName}",
+      path = "/{fileId}",
       produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-  public Object find(@PathVariable final String fileName) {
-    return contentS3Service.find(fileName);
+  public Object find(@PathVariable final String fileId) {
+    return contentS3Service.find(fileId);
   }
 
   @Operation(summary = Upload.SUMMARY, description = Upload.DESCRIPTION)
