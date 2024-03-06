@@ -29,7 +29,7 @@ public class Submodule {
   @JoinColumn(name = "module_id")
   private Module module;
 
-  @OneToOne(fetch = FetchType.LAZY)
+  @OneToOne
   @JoinColumn(name = "content_id")
   private Content content;
 }
