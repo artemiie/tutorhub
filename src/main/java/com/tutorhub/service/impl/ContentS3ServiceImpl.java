@@ -1,7 +1,6 @@
 package com.tutorhub.service.impl;
 
 import com.tutorhub.exception.InvalidFormatException;
-import com.tutorhub.exception.ResourceAlreadyExistsException;
 import com.tutorhub.model.course.ContentType;
 import com.tutorhub.s3.client.service.AwsS3Service;
 import com.tutorhub.service.ContentS3Service;
@@ -13,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -34,18 +34,18 @@ public class ContentS3ServiceImpl implements ContentS3Service {
       throw new InvalidFormatException("Format not suported");
     }
 
-    String fileOriginalName = multipartFile.getOriginalFilename();
+    String fileId;
 
-    if (awsS3Service.exists(fileOriginalName)) {
-      throw new ResourceAlreadyExistsException("File already exists");
-    }
+    do {
+      fileId = UUID.randomUUID().toString();
+    } while (awsS3Service.exists(fileId));
 
     File file = Files.createTempFile("temp", ".tmp").toFile();
     multipartFile.transferTo(file);
 
-    awsS3Service.upload(fileOriginalName, file);
+    awsS3Service.upload(fileId, file);
 
-    return fileOriginalName;
+    return fileId;
   }
 
 }
