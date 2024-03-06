@@ -3,8 +3,9 @@ package com.tutorhub.service.impl;
 import com.tutorhub.exception.ResourceNotFoundException;
 import com.tutorhub.model.course.Module;
 import com.tutorhub.model.course.Submodule;
+import com.tutorhub.repository.ContentRepository;
+import com.tutorhub.repository.ModuleRepository;
 import com.tutorhub.repository.SubmoduleRepository;
-import com.tutorhub.service.ModuleService;
 import com.tutorhub.service.SubmoduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,7 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class SubmoduleServiceImpl implements SubmoduleService {
   private final SubmoduleRepository submoduleRepository;
-  private final ModuleService moduleService;
+  private final ModuleRepository moduleRepository;
+  private final ContentRepository contentRepository;
 
   @Override
   public Submodule find(final Long courseId,
@@ -46,7 +48,27 @@ public class SubmoduleServiceImpl implements SubmoduleService {
   public Submodule create(final Long courseId,
                           final Long moduleId,
                           final Submodule submodule) {
-    Module module = moduleService.find(courseId, moduleId);
+    boolean exists =
+        moduleRepository.existsByCourseIdAndId(courseId, moduleId);
+    if (!exists) {
+      throw new ResourceNotFoundException(
+          ("Module with courseId[%s] and moduleId[%s] not found.").
+              formatted(courseId, moduleId)
+      );
+    }
+
+    exists =
+        contentRepository.existsById(submodule.getContent().getId());
+    if (!exists) {
+      throw new ResourceNotFoundException(
+          ("Content with id[%s] not found.").
+              formatted(submodule.getContent().getId())
+      );
+    }
+
+    Module module = new Module();
+    module.setId(moduleId);
+
     submodule.setModule(module);
     return submoduleRepository.save(submodule);
   }
