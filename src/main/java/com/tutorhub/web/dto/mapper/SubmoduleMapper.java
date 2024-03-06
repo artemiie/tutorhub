@@ -11,7 +11,7 @@ import org.mapstruct.Mapping;
 public interface SubmoduleMapper {
   SubmoduleReadDto toDto(Submodule submodule);
 
-  @Mapping(target="content.id", source="contentId")
+  @Mapping(target = "content.id", source = "contentId")
   Submodule fromDto(SubmoduleCreateDto submodule);
 
   Submodule fromDto(SubmoduleUpdateDto submodule);

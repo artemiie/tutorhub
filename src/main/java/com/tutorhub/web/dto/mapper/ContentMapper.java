@@ -8,5 +8,6 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface ContentMapper {
   Content fromDto(ContentCreateDto createDto);
+
   ContentReadDto toDto(Content content);
 }
