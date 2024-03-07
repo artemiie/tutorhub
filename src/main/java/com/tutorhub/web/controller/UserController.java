@@ -70,7 +70,7 @@ public class UserController {
           description = Update.ResponseCode500.DESCRIPTION)
   })
   @PutMapping
-  @PreAuthorize("@customSecurityExpresion.isCurrentUser(#userDto.id)")
+  @PreAuthorize("@customSecurityExpresion.isCurrentUser(#updateDto.id)")
   public UserReadDto update(
       @Validated @RequestBody final UserUpdateDto updateDto) {
     User user = userMapper.fromDto(updateDto);
