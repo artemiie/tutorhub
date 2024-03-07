@@ -137,8 +137,7 @@ class AuthServiceImplTest {
     var user = getUserTest(userId);
     doReturn(user).when(userService).findByUsername(user.getUsername());
 
-    var restoreRequest = new RestoreRequest();
-    restoreRequest.setUsername(user.getUsername());
+    var restoreRequest = new RestoreRequest(user.getUsername());
 
     authService.restore(restoreRequest);
 
@@ -150,13 +149,13 @@ class AuthServiceImplTest {
   void restore_userDontExists() {
     doReturn(null).when(userService).findByUsername(any());
 
-    var restoreRequest = new RestoreRequest();
+    var restoreRequest = new RestoreRequest(null);
 
     assertThrows(
         ResourceNotFoundException.class,
         () -> authService.restore(restoreRequest));
 
-    verify(userService).findByUsername(restoreRequest.getUsername());
+    verify(userService).findByUsername(restoreRequest.username());
   }
 
   @Test

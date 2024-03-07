@@ -83,7 +83,7 @@ public class AuthServiceImpl implements AuthService {
 
   @Override
   public void restore(final RestoreRequest request) {
-    User user = userService.findByUsername(request.getUsername());
+    User user = userService.findByUsername(request.username());
     if (user == null) {
       throw new ResourceNotFoundException();
     }
@@ -93,7 +93,7 @@ public class AuthServiceImpl implements AuthService {
 
     mailService.send(
         new MailInfoRestore(
-            user.getFullname(), request.getUsername(), restoreToken));
+            user.getFullname(), request.username(), restoreToken));
   }
 
   @Override
