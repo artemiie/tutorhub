@@ -1,5 +1,5 @@
 springdoc:
-  swagger-ui.path: /swagger-ui/swagger-ui.html
+  swagger-ui.path: /openapi/swagger-ui.html
   api-docs.path: /openapi/v3/api-docs
   packagesToScan: com.tutorhub
   pathsToMatch: /**

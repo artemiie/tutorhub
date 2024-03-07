@@ -66,7 +66,7 @@ public class SecurityConfig {
             configurer ->
                 configurer
                     .requestMatchers("/api/v1/auth/**").permitAll()
-                    .requestMatchers("/swagger-ui/**").permitAll()
+                    .requestMatchers("/openapi/**").permitAll()
                     .requestMatchers("/api/v1/**").authenticated()
         )
         .addFilterBefore(
