@@ -8,7 +8,6 @@ import com.tutorhub.web.controller.swagger.constants.CourseInfoApiConstants;
 import com.tutorhub.web.controller.swagger.constants.CourseInfoApiConstants.Find;
 import com.tutorhub.web.dto.courseinfo.CourseInfoReadDto;
 import com.tutorhub.web.dto.mapper.CourseInfoMapper;
-import com.tutorhub.web.dto.mapper.ProgressMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -32,7 +31,6 @@ public class CourseInfoController {
   private final CourseInfoService courseInfoService;
   private final CourseInfoMapper courseInfoMapper;
   private final ProgressService progressService;
-  private final ProgressMapper progressMapper;
 
   @Operation(summary = Find.SUMMARY, description = Find.DESCRIPTION)
   @ApiResponses({
