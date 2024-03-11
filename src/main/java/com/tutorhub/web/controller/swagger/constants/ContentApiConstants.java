@@ -9,18 +9,18 @@ public class ContentApiConstants {
     public static final String DESCRIPTION =
         "Returns the content for the specified file name.";
 
-    public static class RescponseCode200 {
+    public static class ResponseCode200 {
       public static final String CODE = "200";
       public static final String DESCRIPTION = "Successfully retrieved content";
     }
 
-    public static class RescponseCode400 {
+    public static class ResponseCode400 {
       public static final String CODE = "400";
       public static final String DESCRIPTION =
           "Content not found for the specified file name";
     }
 
-    public static class RescponseCode500 {
+    public static class ResponseCode500 {
       public static final String CODE = "500";
       public static final String DESCRIPTION =
           "Internal server error. Please try again later.";
@@ -32,19 +32,19 @@ public class ContentApiConstants {
     public static final String DESCRIPTION =
         "Uploads a file to the server.";
 
-    public static class RescponseCode200 {
+    public static class ResponseCode200 {
       public static final String CODE = "200";
       public static final String DESCRIPTION =
           "File uploaded successfully";
     }
 
-    public static class RescponseCode400 {
+    public static class ResponseCode400 {
       public static final String CODE = "400";
       public static final String DESCRIPTION =
           "Bad request. Please check your request.";
     }
 
-    public static class RescponseCode500 {
+    public static class ResponseCode500 {
       public static final String CODE = "500";
       public static final String DESCRIPTION =
           "Internal server error. Please try again later.";

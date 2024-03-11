@@ -10,13 +10,13 @@ public class AuthApiConstants {
     public static final String DESCRIPTION =
         "Create a new user with the provided user data.";
 
-    public static class RescponseCode201 {
+    public static class ResponseCode201 {
       public static final String CODE = "201";
       public static final String DESCRIPTION = "User registered successfully";
 
     }
 
-    public static class RescponseCode400 {
+    public static class ResponseCode400 {
       public static final String CODE = "400";
       public static final String DESCRIPTION =
           "Bad Request. Invalid user data.";
@@ -31,14 +31,14 @@ public class AuthApiConstants {
         "Authenticates a user using the provided credentials and returns an "
             + "authentication response.";
 
-    public static class RescponseCode200 {
+    public static class ResponseCode200 {
       public static final String CODE = "200";
       public static final String DESCRIPTION =
           "Successful login. Returns authentication response.";
 
     }
 
-    public static class RescponseCode401 {
+    public static class ResponseCode401 {
       public static final String CODE = "401";
       public static final String DESCRIPTION =
           "Unauthorized. Invalid credentials.";
@@ -52,13 +52,13 @@ public class AuthApiConstants {
         "Initiates the process to restore a user account password using the "
             + "provided request.";
 
-    public static class RescponseCode204 {
+    public static class ResponseCode204 {
       public static final String CODE = "204";
       public static final String DESCRIPTION =
           "Successful request. No content returned.";
     }
 
-    public static class RescponseCode404 {
+    public static class ResponseCode404 {
       public static final String CODE = "404";
       public static final String DESCRIPTION =
           "Not Found. User account not found or unable to restore.";
@@ -71,13 +71,13 @@ public class AuthApiConstants {
         "Initiates the process to reset a user account password using the "
             + "provided request.";
 
-    public static class RescponseCode204 {
+    public static class ResponseCode204 {
       public static final String CODE = "204";
       public static final String DESCRIPTION =
           "Successful request. No content returned.";
     }
 
-    public static class RescponseCode403 {
+    public static class ResponseCode403 {
       public static final String CODE = "403";
       public static final String DESCRIPTION = "Forbidden";
     }
@@ -88,13 +88,13 @@ public class AuthApiConstants {
     public static final String DESCRIPTION =
         "Confirms the user's email by verifying the provided token.";
 
-    public static class RescponseCode204 {
+    public static class ResponseCode204 {
       public static final String CODE = "204";
       public static final String DESCRIPTION =
           "Email confirmed successfully. No content returned.";
     }
 
-    public static class RescponseCode400 {
+    public static class ResponseCode400 {
       public static final String CODE = "400";
       public static final String DESCRIPTION =
           "Bad Request. Invalid or expired token.";

@@ -40,11 +40,11 @@ public class AuthController {
   @Operation(summary = Register.SUMMARY, description = Register.DESCRIPTION)
   @ApiResponses({
       @ApiResponse(
-          responseCode = Register.RescponseCode201.CODE,
-          description = Register.RescponseCode201.DESCRIPTION),
+          responseCode = Register.ResponseCode201.CODE,
+          description = Register.ResponseCode201.DESCRIPTION),
       @ApiResponse(
-          responseCode = Register.RescponseCode400.CODE,
-          description = Register.RescponseCode400.DESCRIPTION)
+          responseCode = Register.ResponseCode400.CODE,
+          description = Register.ResponseCode400.DESCRIPTION)
   })
   @PostMapping("/register")
   public void register(
@@ -56,11 +56,11 @@ public class AuthController {
   @Operation(summary = Login.SUMMARY, description = Login.DESCRIPTION)
   @ApiResponses({
       @ApiResponse(
-          responseCode = Login.RescponseCode200.CODE,
-          description = Login.RescponseCode200.DESCRIPTION),
+          responseCode = Login.ResponseCode200.CODE,
+          description = Login.ResponseCode200.DESCRIPTION),
       @ApiResponse(
-          responseCode = Login.RescponseCode401.CODE,
-          description = Login.RescponseCode401.DESCRIPTION)
+          responseCode = Login.ResponseCode401.CODE,
+          description = Login.ResponseCode401.DESCRIPTION)
   })
   @PostMapping("/login")
   public AuthResponse login(@RequestBody @Validated final AuthRequest request) {
@@ -70,11 +70,11 @@ public class AuthController {
   @Operation(summary = Restore.SUMMARY, description = Restore.DESCRIPTION)
   @ApiResponses({
       @ApiResponse(
-          responseCode = Restore.RescponseCode204.CODE,
-          description = Restore.RescponseCode204.DESCRIPTION),
+          responseCode = Restore.ResponseCode204.CODE,
+          description = Restore.ResponseCode204.DESCRIPTION),
       @ApiResponse(
-          responseCode = Restore.RescponseCode404.CODE,
-          description = Restore.RescponseCode404.DESCRIPTION)
+          responseCode = Restore.ResponseCode404.CODE,
+          description = Restore.ResponseCode404.DESCRIPTION)
   })
   @PostMapping("/restore")
   public void restore(@RequestBody final RestoreRequest request) {
@@ -84,11 +84,11 @@ public class AuthController {
   @Operation(summary = Reset.SUMMARY, description = Reset.DESCRIPTION)
   @ApiResponses({
       @ApiResponse(
-          responseCode = Reset.RescponseCode204.CODE,
-          description = Reset.RescponseCode204.DESCRIPTION),
+          responseCode = Reset.ResponseCode204.CODE,
+          description = Reset.ResponseCode204.DESCRIPTION),
       @ApiResponse(
-          responseCode = Reset.RescponseCode403.CODE,
-          description = Reset.RescponseCode403.DESCRIPTION)
+          responseCode = Reset.ResponseCode403.CODE,
+          description = Reset.ResponseCode403.DESCRIPTION)
   })
   @PostMapping("/reset")
   public void reset(@RequestBody final ResetRequest request) {
@@ -98,11 +98,11 @@ public class AuthController {
   @Operation(summary = Confirm.SUMMARY, description = Confirm.DESCRIPTION)
   @ApiResponses({
       @ApiResponse(
-          responseCode = Confirm.RescponseCode204.CODE,
-          description = Confirm.RescponseCode204.DESCRIPTION),
+          responseCode = Confirm.ResponseCode204.CODE,
+          description = Confirm.ResponseCode204.DESCRIPTION),
       @ApiResponse(
-          responseCode = Confirm.RescponseCode400.CODE,
-          description = Confirm.RescponseCode400.DESCRIPTION)
+          responseCode = Confirm.ResponseCode400.CODE,
+          description = Confirm.ResponseCode400.DESCRIPTION)
   })
   @GetMapping("/confirm")
   public void confirm(

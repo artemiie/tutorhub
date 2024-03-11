@@ -57,14 +57,14 @@ public class ContentController {
   @Operation(summary = Find.SUMMARY, description = Find.DESCRIPTION)
   @ApiResponses({
       @ApiResponse(
-          responseCode = Find.RescponseCode200.CODE,
-          description = Find.RescponseCode200.DESCRIPTION),
+          responseCode = Find.ResponseCode200.CODE,
+          description = Find.ResponseCode200.DESCRIPTION),
       @ApiResponse(
-          responseCode = Find.RescponseCode400.CODE,
-          description = Find.RescponseCode400.DESCRIPTION),
+          responseCode = Find.ResponseCode400.CODE,
+          description = Find.ResponseCode400.DESCRIPTION),
       @ApiResponse(
-          responseCode = Find.RescponseCode500.CODE,
-          description = Find.RescponseCode500.DESCRIPTION)
+          responseCode = Find.ResponseCode500.CODE,
+          description = Find.ResponseCode500.DESCRIPTION)
   })
   @GetMapping(
       path = "/{contentId}",

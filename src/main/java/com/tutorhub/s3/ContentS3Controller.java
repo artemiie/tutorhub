@@ -29,14 +29,14 @@ public class ContentS3Controller {
   @Operation(summary = Find.SUMMARY, description = Find.DESCRIPTION)
   @ApiResponses({
       @ApiResponse(
-          responseCode = Find.RescponseCode200.CODE,
-          description = Find.RescponseCode200.DESCRIPTION),
+          responseCode = Find.ResponseCode200.CODE,
+          description = Find.ResponseCode200.DESCRIPTION),
       @ApiResponse(
-          responseCode = Find.RescponseCode400.CODE,
-          description = Find.RescponseCode400.DESCRIPTION),
+          responseCode = Find.ResponseCode400.CODE,
+          description = Find.ResponseCode400.DESCRIPTION),
       @ApiResponse(
-          responseCode = Find.RescponseCode500.CODE,
-          description = Find.RescponseCode500.DESCRIPTION)
+          responseCode = Find.ResponseCode500.CODE,
+          description = Find.ResponseCode500.DESCRIPTION)
   })
   @GetMapping(
       path = "/{fileId}",
@@ -48,14 +48,14 @@ public class ContentS3Controller {
   @Operation(summary = Upload.SUMMARY, description = Upload.DESCRIPTION)
   @ApiResponses({
       @ApiResponse(
-          responseCode = Upload.RescponseCode200.CODE,
-          description = Upload.RescponseCode200.DESCRIPTION),
+          responseCode = Upload.ResponseCode200.CODE,
+          description = Upload.ResponseCode200.DESCRIPTION),
       @ApiResponse(
-          responseCode = Upload.RescponseCode400.CODE,
-          description = Upload.RescponseCode400.DESCRIPTION),
+          responseCode = Upload.ResponseCode400.CODE,
+          description = Upload.ResponseCode400.DESCRIPTION),
       @ApiResponse(
-          responseCode = Upload.RescponseCode500.CODE,
-          description = Upload.RescponseCode500.DESCRIPTION)
+          responseCode = Upload.ResponseCode500.CODE,
+          description = Upload.ResponseCode500.DESCRIPTION)
   })
   @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public String upload(@RequestParam(name = "file") final MultipartFile file) {
