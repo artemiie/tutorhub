@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
+@Component("LOGIN")
 @RequiredArgsConstructor
 public class LoginEmailBuilder implements EmailBuilder {
   public static final String LOGIN_SUBJECT = "Login";

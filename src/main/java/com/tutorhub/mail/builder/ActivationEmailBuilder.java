@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
+@Component("ACTIVATION")
 @RequiredArgsConstructor
 public class ActivationEmailBuilder implements EmailBuilder {
 
