@@ -67,12 +67,12 @@ public class AuthServiceImpl implements AuthService {
 
     String accessToken =
         jwtService.generate(request.getUsername(), TokenType.ACCESS);
-    String restoreToken =
-        jwtService.generate(request.getUsername(), TokenType.RESTORE);
+    String refreshToken =
+        jwtService.generate(request.getUsername(), TokenType.REFRESH);
 
     AuthResponse response = new AuthResponse();
     response.setAccess(accessToken);
-    response.setRefresh(restoreToken);
+    response.setRefresh(refreshToken);
     response.setUserId(userOnDb.getId());
 
     mailService.send(
