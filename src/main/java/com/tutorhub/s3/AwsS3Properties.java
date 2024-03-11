@@ -1,4 +1,4 @@
-package com.tutorhub.s3.client;
+package com.tutorhub.s3;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

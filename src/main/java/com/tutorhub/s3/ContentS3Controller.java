@@ -1,6 +1,5 @@
-package com.tutorhub.web.controller;
+package com.tutorhub.s3;
 
-import com.tutorhub.service.ContentS3Service;
 import com.tutorhub.web.controller.swagger.constants.ContentS3ApiConstants;
 import com.tutorhub.web.controller.swagger.constants.ContentS3ApiConstants.Find;
 import com.tutorhub.web.controller.swagger.constants.ContentS3ApiConstants.Upload;
@@ -25,7 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
     name = ContentS3ApiConstants.NAME,
     description = ContentS3ApiConstants.DESCRIPTION)
 public class ContentS3Controller {
-  private final ContentS3Service contentS3Service;
+  private final AwsS3Service awsS3Service;
 
   @Operation(summary = Find.SUMMARY, description = Find.DESCRIPTION)
   @ApiResponses({
@@ -43,7 +42,7 @@ public class ContentS3Controller {
       path = "/{fileId}",
       produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
   public Object find(@PathVariable final String fileId) {
-    return contentS3Service.find(fileId);
+    return awsS3Service.find(fileId);
   }
 
   @Operation(summary = Upload.SUMMARY, description = Upload.DESCRIPTION)
@@ -60,6 +59,6 @@ public class ContentS3Controller {
   })
   @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public String upload(@RequestParam(name = "file") final MultipartFile file) {
-    return contentS3Service.upload(file);
+    return awsS3Service.upload(file);
   }
 }
