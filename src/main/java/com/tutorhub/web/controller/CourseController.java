@@ -1,8 +1,6 @@
 package com.tutorhub.web.controller;
 
 import com.tutorhub.model.course.Course;
-import com.tutorhub.model.user.User;
-import com.tutorhub.security.SecurityService;
 import com.tutorhub.service.CourseService;
 import com.tutorhub.web.controller.swagger.constants.CourseApiConstants;
 import com.tutorhub.web.dto.course.CourseCreationDto;
@@ -45,7 +43,6 @@ import static com.tutorhub.web.controller.swagger.constants.CourseApiConstants.U
 public class CourseController {
   private final CourseService courseService;
   private final CourseMapper courseMapper;
-  private final SecurityService securityService;
 
   @Operation(summary = Find.SUMMARY, description = Find.DESCRIPTION)
   @ApiResponses({
@@ -110,10 +107,7 @@ public class CourseController {
   @PreAuthorize("@customSecurityExpresion.isCurrentUser(#courseDTO.userId)")
   public CourseReadDto create(
       @RequestBody @Validated final CourseCreationDto courseDTO) {
-    User currentLoggedInUser = securityService.getCurrentLoggedUser();
-
     Course entity = courseMapper.fromDto(courseDTO);
-    entity.setCourseOwner(currentLoggedInUser);
 
     Course createdEntity = courseService.create(entity);
 
