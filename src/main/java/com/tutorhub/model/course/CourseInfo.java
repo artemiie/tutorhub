@@ -2,7 +2,6 @@ package com.tutorhub.model.course;
 
 import com.tutorhub.model.user.User;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,11 +23,11 @@ public class CourseInfo {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne
   @JoinColumn(name = "user_id")
   private User user;
 
-  @OneToOne(fetch = FetchType.EAGER)
+  @OneToOne
   @JoinColumn(name = "course_id")
   private Course course;
 }
