@@ -43,4 +43,15 @@ public interface UserRepository extends JpaRepository<User, Long> {
       nativeQuery = true)
   @Modifying
   void enable(String username);
+
+  @Query(
+      value =
+          """
+              UPDATE users
+              SET password = :password
+              WHERE username = :username
+              """,
+      nativeQuery = true)
+  @Modifying
+  void resetPassword(String password, String username);
 }

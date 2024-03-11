@@ -20,8 +20,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.HashMap;
-
 import static com.tutorhub.model.user.Role.ROLE_USER;
 import static com.tutorhub.testfactory.UserTestFactory.getUserTest;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -72,7 +70,7 @@ class AuthServiceImplTest {
         .generate(username, TokenType.ACCESS);
     doReturn(refreshToken)
         .when(jwtService)
-        .generate(username, TokenType.RESTORE);
+        .generate(username, TokenType.REFRESH);
 
     var authRequest = new AuthRequest();
     authRequest.setUsername(username);
@@ -167,14 +165,10 @@ class AuthServiceImplTest {
     doReturn(true)
         .when(jwtService)
         .isValid(resetRequest.getToken(), TokenType.RESTORE);
-
-    var fields = HashMap.newHashMap(1);
-    fields.put(subject, username);
-
-    doReturn(fields).when(jwtService).fields(resetRequest.getToken());
-
-    var user = getUserTest(1L);
-    doReturn(user).when(userService).findByUsername(username);
+    doReturn(username).when(jwtService).fieldBy(resetToken, "subject");
+    doReturn(true).when(userService).existsByUsername(username);
+    doNothing().when(userService).resetPassword(password, username);
+    doReturn(password).when(passwordEncoder).encode(password);
 
     authService.reset(resetRequest);
 

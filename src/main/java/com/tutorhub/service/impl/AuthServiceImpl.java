@@ -24,8 +24,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Map;
-
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -101,10 +99,18 @@ public class AuthServiceImpl implements AuthService {
     if (!jwtService.isValid(request.getToken(), TokenType.RESTORE)) {
       throw new InvalidTokenException();
     }
-    Map<String, Object> fields = jwtService.fields(request.getToken());
-    User user = userService.findByUsername((String) fields.get("subject"));
-    user.setPassword(passwordEncoder.encode(request.getPassword()));
-    // userService.update(user);
+
+    String username =
+        (String) jwtService.fieldBy(request.getToken(), "subject");
+
+    boolean userExists = userService.existsByUsername(username);
+    if (!userExists) {
+      throw new ResourceNotFoundException(
+          "User with username [%S] already exists".formatted(username));
+    }
+    String newPassword = passwordEncoder.encode(request.getPassword());
+
+    userService.resetPassword(newPassword, username);
   }
 
   @Override

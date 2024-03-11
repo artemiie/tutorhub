@@ -70,4 +70,10 @@ public class UserServiceImpl implements UserService {
   public boolean isCourseOwner(final Long userId, final Long courseId) {
     return userRepository.isCourseOwner(userId, courseId);
   }
+
+  @Override
+  public void resetPassword(final String password, final String username) {
+    userRepository.resetPassword(password, username);
+  }
+
 }
