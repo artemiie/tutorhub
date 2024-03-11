@@ -5,6 +5,6 @@ import com.tutorhub.web.dto.module.ModuleReadDto;
 import java.util.List;
 
 public record ProgressReadDto(
-    List<ModuleReadDto> moduleDTOS
+    List<ModuleReadDto> modules
 ) {
 }
