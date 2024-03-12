@@ -1,26 +1,22 @@
 package com.tutorhub.service.impl;
 
-import static com.tutorhub.model.MailType.REGISTRATION;
-import static com.tutorhub.model.MailType.RESTORE;
-
-import com.tutorhub.model.MailType;
-import com.tutorhub.model.User;
-import com.tutorhub.model.exception.ResourceAlreadyExistsException;
-import com.tutorhub.model.exception.ResourceNotFoundException;
+import com.tutorhub.exception.ResourceAlreadyExistsException;
+import com.tutorhub.exception.ResourceNotFoundException;
+import com.tutorhub.mail.MailService;
+import com.tutorhub.mail.model.MailInfoActivation;
+import com.tutorhub.mail.model.MailInfoLogin;
+import com.tutorhub.mail.model.MailInfoRestore;
+import com.tutorhub.model.user.Role;
+import com.tutorhub.model.user.User;
+import com.tutorhub.security.jwt.AuthRequest;
+import com.tutorhub.security.jwt.AuthResponse;
+import com.tutorhub.security.jwt.ResetRequest;
+import com.tutorhub.security.jwt.RestoreRequest;
+import com.tutorhub.security.jwt.TokenType;
+import com.tutorhub.security.jwt.exception.InvalidTokenException;
+import com.tutorhub.security.jwt.service.JwtService;
 import com.tutorhub.service.AuthService;
-import com.tutorhub.service.MailService;
 import com.tutorhub.service.UserService;
-import com.tutorhub.web.security.jwt.AuthRequest;
-import com.tutorhub.web.security.jwt.AuthResponse;
-import com.tutorhub.web.security.jwt.ResetRequest;
-import com.tutorhub.web.security.jwt.RestoreRequest;
-import com.tutorhub.web.security.jwt.TokenType;
-import com.tutorhub.web.security.jwt.exception.InvalidTokenException;
-import com.tutorhub.web.security.jwt.service.JwtService;
-import com.tutorhub.web.security.jwt.service.params.JwtProperties;
-import com.tutorhub.web.security.jwt.service.params.TokenParameters;
-import java.util.Map;
-import java.util.Properties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,13 +25,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
+@RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
   private final UserService userService;
   private final JwtService jwtService;
-  private final JwtProperties jwtProperties;
   private final PasswordEncoder passwordEncoder;
   private final AuthenticationManager authenticationManager;
   private final MailService mailService;
@@ -47,76 +42,56 @@ public class AuthServiceImpl implements AuthService {
           "User with username [" + user.getUsername() + "] already exists.");
     }
 
+    user.getRole().add(Role.ROLE_USER);
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     userService.create(user);
 
-    String token =
-        jwtService.generate(
-            TokenParameters.builder(user.getUsername(), jwtProperties.getActivation())
-                .type(TokenType.ACTIVATION)
-                .build());
+    String activationToken =
+        jwtService.generate(user.getUsername(), TokenType.ACTIVATION);
 
-    mailService.sendEmail(
-        REGISTRATION,
-        new Properties() {
-          {
-            put("token", token);
-            put("username", user.getUsername());
-            put("fullName", user.getFullName());
-          }
-        });
+    mailService.send(
+        new MailInfoActivation(
+            user.getFullname(),
+            user.getUsername(),
+            activationToken));
   }
 
   @Override
   public AuthResponse login(final AuthRequest request) {
     authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-    User userOnDb = userService.getByUsername(request.getUsername());
+        new UsernamePasswordAuthenticationToken(
+            request.getUsername(), request.getPassword()));
+    User userOnDb = userService.findByUsername(request.getUsername());
+
+    String accessToken =
+        jwtService.generate(request.getUsername(), TokenType.ACCESS);
+    String refreshToken =
+        jwtService.generate(request.getUsername(), TokenType.REFRESH);
 
     AuthResponse response = new AuthResponse();
-
-    response.setAccess(
-        jwtService.generate(
-            TokenParameters.builder(request.getUsername(), jwtProperties.getAccess())
-                .type(TokenType.ACCESS)
-                .build()));
-    response.setRefresh(
-        jwtService.generate(
-            TokenParameters.builder(request.getUsername(), jwtProperties.getRefresh())
-                .type(TokenType.REFRESH)
-                .build()));
+    response.setAccess(accessToken);
+    response.setRefresh(refreshToken);
     response.setUserId(userOnDb.getId());
 
-    mailService.sendEmail(
-         MailType.LOGIN,
-            new Properties() {
-              {
-                put("username", userOnDb.getUsername());
-                put("fullName", userOnDb.getFullName());
-              }
-            });
+    mailService.send(
+        new MailInfoLogin(userOnDb.getFullname(), userOnDb.getUsername()));
 
     return response;
   }
 
   @Override
   public void restore(final RestoreRequest request) {
-    User user = userService.getByUsername(request.getUsername());
+    User user = userService.findByUsername(request.username());
     if (user == null) {
       throw new ResourceNotFoundException();
     }
 
-    String token =
-        jwtService.generate(
-            TokenParameters.builder(user.getUsername(), jwtProperties.getRestore())
-                .type(TokenType.RESTORE)
-                .build());
+    String restoreToken =
+        jwtService.generate(user.getUsername(), TokenType.RESTORE);
 
-    Properties properties = new Properties();
-    properties.setProperty("token", token);
-    properties.setProperty("username", request.getUsername());
-
-    mailService.sendEmail(RESTORE, properties);
+    mailService.send(
+        new MailInfoRestore(
+            user.getFullname(), request.username(), restoreToken));
   }
 
   @Override
@@ -124,25 +99,24 @@ public class AuthServiceImpl implements AuthService {
     if (!jwtService.isValid(request.getToken(), TokenType.RESTORE)) {
       throw new InvalidTokenException();
     }
-    Map<String, Object> fields = jwtService.fields(request.getToken());
-    User user = userService.getByUsername((String) fields.get("subject"));
-    user.setPassword(passwordEncoder.encode(request.getPassword()));
-    userService.update(user);
-  }
 
-  @Override
-  public boolean checkToken(final String token) {
-    if (!jwtService.isValid(token, TokenType.ACTIVATION)) {
-      throw new InvalidTokenException();
+    String username =
+        (String) jwtService.fieldBy(request.getToken(), "subject");
+
+    boolean userExists = userService.existsByUsername(username);
+    if (!userExists) {
+      throw new ResourceNotFoundException(
+          "User with username [%S] already exists".formatted(username));
     }
-    return true;
+    String newPassword = passwordEncoder.encode(request.getPassword());
+
+    userService.resetPassword(newPassword, username);
   }
 
   @Override
   public void confirmUserEmail(final String token) {
-    if (checkToken(token)) {
-      Map<String, Object> fields = jwtService.fields(token);
-      userService.enable((String) fields.get("subject"));
-    }
+    jwtService.check(token, TokenType.ACTIVATION);
+    String username = (String) jwtService.fieldBy(token, "subject");
+    userService.enable(username);
   }
 }

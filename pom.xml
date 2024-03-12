@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
@@ -22,13 +22,17 @@
         <checkstyle.path>config/checkstyle/</checkstyle.path>
 
         <java.version>21</java.version>
-        <checkstyle.version>3.2.2</checkstyle.version>
-        <lombok.version>1.18.30</lombok.version>
-        <mapstruct.version>1.5.5.Final</mapstruct.version>
-        <jakarta-validation.version>3.0.2</jakarta-validation.version>
+        <s3.version>2.20.52</s3.version>
         <jjwt.version>0.12.2</jjwt.version>
-
+        <lombok.version>1.18.30</lombok.version>
+        <aws-s3.version>1.12.665</aws-s3.version>
+        <liquibase.version>4.25.1</liquibase.version>
+        <checkstyle.version>3.2.2</checkstyle.version>
+        <postgresql.version>42.5.1</postgresql.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <preliquibase.version>1.5.0</preliquibase.version>
         <springdoc-openapi.version>2.3.0</springdoc-openapi.version>
+        <jakarta-validation.version>3.0.2</jakarta-validation.version>
     </properties>
 
     <dependencies>
@@ -39,7 +43,7 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
         <dependency>
@@ -48,9 +52,33 @@
         </dependency>
 
         <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.lbruun.springboot</groupId>
+            <artifactId>preliquibase-spring-boot-starter</artifactId>
+            <version>${preliquibase.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
@@ -114,10 +142,17 @@
             <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <version>${aws-s3.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -157,27 +192,6 @@
                                 ${checkstyle.path}checkstyle-suppressions.xml
                             </suppressionsLocation>
                         </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>com.coveo</groupId>
-                <artifactId>fmt-maven-plugin</artifactId>
-                <version>2.9</version>
-                <configuration>
-                    <sourceDirectory>src/main/java</sourceDirectory>
-                    <verbose>false</verbose>
-                    <filesNamePattern>.*\.java</filesNamePattern>
-                    <skip>false</skip>
-                    <skipSortingImports>false</skipSortingImports>
-                    <style>google</style>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>format</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>

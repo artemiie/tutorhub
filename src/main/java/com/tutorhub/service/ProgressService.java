@@ -1,5 +1,16 @@
 package com.tutorhub.service;
 
-import com.tutorhub.model.Progress;
+import com.tutorhub.model.course.CourseInfo;
+import com.tutorhub.model.course.Progress;
 
-public interface ProgressService extends CrudService<Progress> {}
+import java.util.List;
+
+public interface ProgressService {
+
+  void create(Long userId,
+              Long courseId,
+              Long moduleId,
+              Long submoduleId);
+
+  List<Progress> findByCourseInfo(CourseInfo courseEntity);
+}

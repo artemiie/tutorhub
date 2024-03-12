@@ -45,6 +45,7 @@ public class SwaggerConfiguration {
                 .title(apiTitle)
                 .version(apiVersion)
                 .description(apiDescription)
-                .contact(new Contact().name(apiContactName).email(apiContactEmail)));
+                .contact(
+                    new Contact().name(apiContactName).email(apiContactEmail)));
   }
 }

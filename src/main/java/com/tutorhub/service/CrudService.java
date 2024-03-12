@@ -1,20 +1,17 @@
 package com.tutorhub.service;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface CrudService<C> {
 
-  C getById(ObjectId id);
+  C find(Long id);
 
-  Page<C> getAll(Pageable page);
+  Page<C> findAll(Pageable page);
 
   C create(C entity);
 
   C update(C entity);
 
-  boolean existsById(ObjectId id);
-
-  void delete(ObjectId id);
+  void delete(Long id);
 }
