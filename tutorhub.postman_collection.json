@@ -139,7 +139,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"token\":\"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcnRlbWllLmZsaW9zdG9yQGdtYWlsLmNvbSIsImV4cGlyZWRBdCI6MTcwOTg5NjE0NzUyOCwic3ViamVjdCI6ImFydGVtaWUuZmxpb3N0b3JAZ21haWwuY29tIiwiaXNzdWVkQXQiOjE3MDk3OTYxNDc1MjgsInR5cGUiOiJSRVNUT1JFIiwiaWF0IjoxNzA5Nzk2MTQ3LCJleHAiOjE3MDk4OTYxNDd9.q3cwJKUyAchnDJvkZHoKMg2hm_VJ-_907RiMs6bWhuoSWx4V2aoHHzPkOfY1WJJ9O3cvqRZsaPg-ntkpW2HhNg\",\r\n    \"password\":\"qwerty\"\r\n}",
+							"raw": "{\r\n    \"token\":\"\",\r\n    \"password\":\"qwerty\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
